@@ -1,0 +1,3 @@
+pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+Drug metabolism,7,Gsta3;Aldh3a1;Gstm7;Fmo1;Fmo2;Fmo3;Fmo4,5.142857142857143,7,14.627151211718695,3.1196887325459786,15.0
+Circadian rhythm,9,Nr1d1;Per3;Per2;Bhlhe40;Per1;Bhlhe41;Clock;Npas2;Arntl,4.0,5,10.74637991999079,5.940430577086231,11.0

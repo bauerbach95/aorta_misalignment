@@ -1,0 +1,13 @@
+pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+Calcium signaling pathway,7,Adcy7;Sphk1;Htr2a;Camk1d;P2rx5;Camk2b;Mylk4,5.142857142857143,8,16.681773094460162,5.990625369959321,17.0
+Hippo signaling pathway,8,Tgfb2;Wnt5a;Ccn2;Fzd4;Wnt16;Limd1;Tead1;Wtip,4.5,6,18.190913652045012,4.754526044969392,13.0
+Circadian rhythm,9,Nr1d1;Per3;Per2;Bhlhe40;Per1;Bhlhe41;Clock;Npas2;Arntl,4.0,0,9.994380794393349,5.9598333795600045,1.0
+Ras signaling pathway,6,Rgl1;Pdgfb;Vegfd;Rapgef5;Fgfr2;Angpt2,4.0,3,14.252159373246382,6.037556541394346,7.0
+Wnt signaling pathway,6,Wnt5a;Fzd4;Wnt16;Camk2b;Rspo3;Sost,4.0,6,8.24464361427221,7.954185778469401,13.0
+Cytokine-cytokine receptor interaction,7,Il16;Il33;Tgfb2;Fas;Inhbb;Tnfrsf21;Bmp3,3.4285714285714284,5,16.3983693622949,5.011357595165084,11.0
+Drug metabolism,7,Upb1;Gstt1;Gsto1;Fmo1;Fmo2;Fmo3;Upp2,3.4285714285714284,7,16.341280222500096,4.383240309492534,15.0
+Oxytocin signaling pathway,7,Adcy7;Cacnb2;Camk1d;Cdkn1a;Camk2b;Mylk4;Ptgs2,3.4285714285714284,0,18.32228262773477,6.554405795804058,1.0
+PI3K-Akt signaling pathway,7,Pdgfb;Vegfd;Tlr2;Cdkn1a;Hsp90b1;Fgfr2;Angpt2,3.4285714285714284,0,3.588770029487366,7.206278235248467,1.0
+Rap1 signaling pathway,7,Pfn1;Adcy7;Pdgfb;Vegfd;Rapgef5;Fgfr2;Angpt2,3.4285714285714284,3,11.778526080354712,5.5113469915409565,7.0
+MAPK signaling pathway,10,Pdgfb;Vegfd;Mecom;Tgfb2;Cdc25b;Fas;Cacnb2;Fgfr2;Angpt2;Mknk2,2.4000000000000004,3,19.199101315292857,7.654549199807875,7.0
+Cell cycle,6,Tgfb2;Cdc25b;Cdc14a;Cdkn2b;Wee1;Cdkn1a,2.0,0,12.991220174637942,8.377832223067976,1.0
