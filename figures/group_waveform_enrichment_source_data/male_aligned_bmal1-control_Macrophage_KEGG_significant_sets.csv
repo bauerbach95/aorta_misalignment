@@ -1,0 +1,4 @@
+gene_set,num_genes,member_genes,max_amplitude,mean_ZT0,ci_lo_ZT0,ci_hi_ZT0,mean_ZT6,ci_lo_ZT6,ci_hi_ZT6,mean_ZT12,ci_lo_ZT12,ci_hi_ZT12,mean_ZT18,ci_lo_ZT18,ci_hi_ZT18
+Cytokine-cytokine receptor interaction,6,Ccr2;Il10;Il1b;Gdf15;Cxcl10;Cx3cr1,1.367958,0.466182,0.139568,0.86859,-0.048337,-0.383678,0.382687,-0.892902,-1.164167,-0.601422,0.475056,0.087321,0.82192
+TNF signaling pathway,5,Cxcl10;Ifi47;Mmp9;Il1b;Socs3,1.135709,0.23503,-0.137837,0.653659,-0.012926,-0.459509,0.464054,-0.678907,-0.959695,-0.305444,0.456802,0.036269,0.853283
+C-type lectin receptor signaling pathway,7,Clec4n;Il10;Il1b;Cd209d;Cd209g;Cd209a;Lsp1,1.003433,-0.248748,-0.590579,0.120516,0.255985,-0.038975,0.544669,-0.505335,-0.765943,-0.244778,0.498098,0.201927,0.812528

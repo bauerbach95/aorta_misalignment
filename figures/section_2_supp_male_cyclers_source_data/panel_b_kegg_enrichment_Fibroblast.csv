@@ -1,0 +1,22 @@
+pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+Chemokine signaling pathway,6,Prex1;Ccl11;Cxcl5;Grk5;Ccl7;Ccl2,6.0,4,7.745133249928157,3.4970412330060787,9.0
+Cytokine-cytokine receptor interaction,6,Cntfr;Ccl11;Lepr;Cxcl5;Ccl7;Ccl2,6.0,4,9.254834998756586,3.2219279650594803,9.0
+Wnt signaling pathway,6,Wif1;Fzd1;Wnt10b;Wnt2;Wnt4;Sost,6.0,3,8.136263984544193,3.775364527245684,7.0
+Drug metabolism,11,Gsta3;Aldh3a1;Mgst1;Adh1;Aldh3b1;Gstm7;Aox1;Fmo1;Fmo2;Fmo3;Fmo4,4.363636363636364,7,13.522020747726465,2.86949085382135,15.0
+Protein processing in endoplasmic reticulum,11,Ern1;Selenos;Dnajb11;Erp29;Tusc3;Pdia6;Hyou1;Hspa4l;Hspa5;Hspa8;Rpn1,4.363636363636364,10,21.02406128713545,3.770718376825122,21.0
+AMPK signaling pathway,6,Creb3l1;Rheb;Lepr;Cpt1a;Camkk2;Scd2,4.0,6,9.629094536991127,6.335310942521882,13.0
+Chemical carcinogenesis,9,Gsta3;Gstm7;Cyp2b10;Cyp1b1;Aldh3a1;Mgst1;Ptgs2;Adh1;Aldh3b1,4.0,6,13.070118997917879,3.903209010623817,13.0
+cAMP signaling pathway,6,Creb3l1;Npy1r;Atp1b1;Gria4;Pld1;Pde4b,4.0,5,21.191800589105384,8.997744748569374,11.0
+mTOR signaling pathway,6,Fzd1;Wnt10b;Rheb;Wnt2;Wnt4;Deptor,4.0,3,10.540943806275436,2.6817134544376966,7.0
+Hippo signaling pathway,6,Serpine1;Ccn2;Fzd1;Wnt10b;Wnt2;Wnt4,4.0,3,10.090346855896158,3.2838304144412733,7.0
+Circadian rhythm,9,Nr1d1;Per3;Per2;Bhlhe40;Per1;Bhlhe41;Clock;Npas2;Arntl,4.0,0,10.37870186296488,5.97403664256663,1.0
+MAPK signaling pathway,10,Tek;Map4k4;Cdc25b;Map3k6;Pgf;Cacnb4;Angpt2;Hspa8;Hspb1;Mknk2,3.6,6,12.920559570706633,6.449291418097426,13.0
+Metabolism of xenobiotics by cytochrome P450,7,Gsta3;Gstm7;Cyp1b1;Aldh3a1;Mgst1;Adh1;Aldh3b1,3.4285714285714284,5,12.80934773569393,4.626611845039788,11.0
+IL-17 signaling pathway,7,Mmp3;Cxcl5;Ccl11;Ptgs2;Ccl7;Ccl2;Mapk6,3.4285714285714284,3,7.274716249648502,4.059128383380062,7.0
+"Parathyroid hormone synthesis, secretion and action",7,Creb3l1;Mmp14;Pld1;Pde4b;Hbegf;Cdkn1a;Sost,3.4285714285714284,0,2.611146389594061,3.5093757457562584,1.0
+Thyroid hormone signaling pathway,7,Dio2;Atp1b1;Rcan2;Rheb;Slc2a1;Kat2b;Wnt4,3.4285714285714284,3,12.71885352520974,6.9058007711011244,7.0
+PPAR signaling pathway,8,Hmgcs2;Dbi;Cpt1a;Sorbs1;Fabp3;Lpl;Scp2;Scd2,3.0,1,7.698804923124282,4.36961601727679,3.0
+Neuroactive ligand-receptor interaction,8,Ptgfr;Gabra3;Nmb;Agtr1a;Adm;Npy1r;Lepr;Gria4,3.0,7,21.028960893731,6.00390469048947,15.0
+PI3K-Akt signaling pathway,9,Tek;Creb3l1;Col4a3;Cdkn1a;Spp1;Pgf;Rheb;Angpt2;Thbs1,2.6666666666666665,0,7.920249380178918,5.6466333400006645,1.0
+Protein digestion and absorption,6,Atp1b1;Col5a3;Eln;Dpp4;Col27a1;Col4a3,2.0,0,9.359262892022079,5.7794209693826755,1.0
+Rap1 signaling pathway,6,Tek;Prkd1;Sipa1l1;Pgf;Angpt2;Thbs1,2.0,2,11.944421317762238,5.685331300793951,5.0

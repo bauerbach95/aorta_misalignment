@@ -1,0 +1,11 @@
+pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+Drug metabolism,9,Upb1;Gsta3;Aldh3a1;Gstt1;Gstm7;Fmo1;Fmo2;Fmo3;Fmo4,5.333333333333333,7,14.264909154865084,4.205269691149079,15.0
+MAPK signaling pathway,6,Pla2g4a;Tgfb3;Cdc25b;Map3k6;Pgf;Hspa8,4.0,6,9.520745249519305,6.1470291999001585,13.0
+Cellular senescence,7,Tgfb3;Serpine1;Foxo3;E2f1;Nfatc2;Ccne2;Cdkn1a,3.4285714285714284,0,14.447048337794346,6.52839239814136,1.0
+Metabolism of xenobiotics by cytochrome P450,7,Dhdh;Gsta3;Gstm7;Hsd11b1;Ephx1;Aldh3a1;Gstt1,3.4285714285714284,8,14.529800297677541,4.104568095623997,17.0
+Circadian rhythm,11,Nr1d1;Per3;Per2;Bhlhe40;Per1;Bhlhe41;Cry2;Cry1;Clock;Npas2;Arntl,3.2727272727272725,5,13.115424793171416,5.71745342359875,11.0
+Chemical carcinogenesis,8,Gsta3;Gstm7;Hsd11b1;Ephx1;Aldh3a1;Gstt1;Ptgs2;Sult1a1,3.0,7,14.65227779856308,3.9290085871040903,15.0
+Cell cycle,9,Tgfb3;Cdc25b;E2f1;Tfdp2;Mcm6;Wee1;Dbf4;Ccne2;Cdkn1a,2.6666666666666665,0,13.055077641628554,6.163476383704673,1.0
+Cytokine-cytokine receptor interaction,9,Il17ra;Gdf6;Il20rb;Tnfrsf12a;Il33;Il34;Tgfb3;Il4ra;Il15ra,2.6666666666666665,0,2.7062358626696907,8.034192319544053,1.0
+Neuroactive ligand-receptor interaction,9,Lpar4;Nmb;Agtr1a;Adm;Penk;Gabre;S1pr3;Gria4;P2ry6,2.6666666666666665,1,10.56666389036913,4.245646289083168,3.0
+PI3K-Akt signaling pathway,9,Lpar4;Ccne2;Cdkn1a;Foxo3;Pgf;Il4ra;Col6a6;Pik3r6;Lama4,2.6666666666666665,0,6.897474265496628,6.530885985670606,1.0

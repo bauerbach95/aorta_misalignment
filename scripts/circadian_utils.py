@@ -8,6 +8,7 @@ import os
 import re
 import numpy as np
 import pandas as pd
+import torch
 import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
@@ -122,6 +123,125 @@ def filter_cyclers(metric_df):
         & (metric_df["waveform_over_circadian_component_subtracted_log10_bf"] >= WAVEFORM_BF_MIN)
     )
     return set(metric_df.index[mask])
+
+
+# ── Waveform sampling ────────────────────────────────────────────────────────
+
+ZT_LABELS = ["ZT0", "ZT6", "ZT12", "ZT18"]
+
+
+def load_waveform_params(cluster, condition):
+    """Load alpha, beta, min/max parameter DataFrames for a group."""
+    base = os.path.join(NONPARAM_REG_DIR, cluster, condition)
+    alpha_df = pd.read_table(os.path.join(base, "gene_log_alpha.tsv"), sep="\t", index_col="gene")
+    beta_df = pd.read_table(os.path.join(base, "gene_log_beta.tsv"), sep="\t", index_col="gene")
+    minmax_df = pd.read_table(os.path.join(base, "log_min_max.tsv"), sep="\t", index_col="gene")
+    return alpha_df, beta_df, minmax_df
+
+
+def get_non_flat_genes(metrics_df, bf_threshold=2.0, frac_min=0.01):
+    """Return set of genes whose waveform is sufficiently non-flat and well-detected.
+
+    bf_threshold: log10 Bayes factor (waveform vs flat). 2.0 = 100x better.
+    """
+    log10_bf = (
+        (metrics_df["waveform_log_evidence"] - metrics_df["flat_waveform_log_evidence"])
+        / np.log(10)
+    )
+    mask = (log10_bf >= bf_threshold) & (metrics_df["frac_cell_detected"] >= frac_min)
+    return set(metrics_df.index[mask])
+
+
+def sample_waveforms(alpha_df, beta_df, minmax_df, gene_list, num_samples=100):
+    """Sample posterior waveforms for a list of genes.
+
+    Returns:
+        samples: np.ndarray [num_genes, num_samples, 4] in log-rate space
+        genes: list of gene names in the same order as axis 0
+    """
+    genes = [g for g in gene_list if g in alpha_df.index]
+    if not genes:
+        return np.empty((0, num_samples, 4)), []
+
+    alpha = np.exp(alpha_df.loc[genes].values)   # [num_genes, 4]
+    beta = np.exp(beta_df.loc[genes].values)     # [num_genes, 4]
+    log_min = minmax_df.loc[genes, "log_min"].values  # [num_genes]
+    log_max = minmax_df.loc[genes, "log_max"].values  # [num_genes]
+
+    dist = torch.distributions.Beta(
+        torch.tensor(alpha.T, dtype=torch.float32),  # [4, num_genes]
+        torch.tensor(beta.T, dtype=torch.float32),
+    )
+    raw = dist.sample((num_samples,)).numpy()  # [num_samples, 4, num_genes] in [0,1]
+
+    # Rescale to log-rate space
+    log_min_bc = log_min[np.newaxis, np.newaxis, :]  # [1, 1, num_genes]
+    log_max_bc = log_max[np.newaxis, np.newaxis, :]
+    raw = raw * (log_max_bc - log_min_bc) + log_min_bc  # [num_samples, 4, num_genes]
+
+    # Transpose to [num_genes, num_samples, 4]
+    samples = raw.transpose(2, 0, 1)
+    return samples, genes
+
+
+def compute_gene_set_waveform(all_samples, gene_index, gene_set_genes, mode="mesor_subtract"):
+    """Compute a gene-set-level posterior waveform from pre-sampled gene waveforms.
+
+    Args:
+        all_samples: np.ndarray [num_all_genes, num_samples, 4]
+        gene_index: dict mapping gene name -> index into axis 0 of all_samples
+        gene_set_genes: list of gene names in this set
+        mode: "mesor_subtract" (single group) or "average" (pre-computed diffs)
+
+    Returns:
+        gene_set_waveform: np.ndarray [num_samples, 4] or None if too few genes
+    """
+    idxs = [gene_index[g] for g in gene_set_genes if g in gene_index]
+    if not idxs:
+        return None
+    sub = all_samples[idxs]  # [n_genes, num_samples, 4]
+
+    if mode == "mesor_subtract":
+        mesor = sub.mean(axis=2, keepdims=True)  # [n_genes, num_samples, 1]
+        sub = sub - mesor
+
+    return sub.mean(axis=0)  # [num_samples, 4]
+
+
+def test_time_varying(gene_set_waveform, credible_level=0.95):
+    """Test if a gene-set waveform varies significantly over 4 time points.
+
+    Uses pairwise comparisons with Bonferroni correction (6 pairs).
+
+    Returns:
+        is_significant: bool
+        pairwise_results: list of dicts
+    """
+    n_pairs = 6
+    alpha_corrected = (1 - credible_level) / n_pairs
+    lo_q = alpha_corrected / 2
+    hi_q = 1 - alpha_corrected / 2
+
+    pairs = [(0, 1), (0, 2), (0, 3), (1, 2), (1, 3), (2, 3)]
+    is_significant = False
+    pairwise_results = []
+
+    for i, j in pairs:
+        diff = gene_set_waveform[:, i] - gene_set_waveform[:, j]
+        ci_lo = np.quantile(diff, lo_q)
+        ci_hi = np.quantile(diff, hi_q)
+        excludes_zero = (ci_lo > 0) or (ci_hi < 0)
+        if excludes_zero:
+            is_significant = True
+        pairwise_results.append({
+            "pair": f"{ZT_LABELS[i]} - {ZT_LABELS[j]}",
+            "mean_diff": float(np.mean(diff)),
+            "ci_lo": float(ci_lo),
+            "ci_hi": float(ci_hi),
+            "excludes_zero": excludes_zero,
+        })
+
+    return is_significant, pairwise_results
 
 
 # ── Circular math ────────────────────────────────────────────────────────────

@@ -1,0 +1,20 @@
+pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+Chemical carcinogenesis,8,Gstm1;Cbr1;Ephx1;Aldh3a1;Mgst3;Mgst1;Ptgs2;Sult1a1,6.0,5,8.431481347229457,3.1642302928392256,11.0
+Metabolism of xenobiotics by cytochrome P450,6,Gstm1;Cbr1;Ephx1;Aldh3a1;Mgst3;Mgst1,6.0,5,8.186784034070335,3.3180054762774107,11.0
+Oxidative phosphorylation,11,Sdhb;Ppa2;Ndufb10;Uqcr10;Uqcrb;Ndufc2;Ndufs5;Atp5j;Ndufa4;Atp5g3;Atp5g1,5.454545454545455,1,4.388716455389286,1.483951097386514,3.0
+Cytokine-cytokine receptor interaction,7,Il20rb;Crlf2;Cd40;Tgfb2;Il3ra;Cxcl1;Ackr3,5.142857142857143,2,4.4293792367122835,4.754980690916951,5.0
+Ribosome,7,Rps7;Rpl10;Mrpl17;Mrpl20;Mrpl27;Mrps16;Mrpl34,5.142857142857143,1,3.584303631190535,2.3938204116439055,3.0
+Non-alcoholic fatty liver disease (NAFLD),8,Sdhb;Ndufb10;Uqcr10;Uqcrb;Ndufc2;Ndufs5;Adipor2;Ndufa4,4.5,1,4.940967256555872,1.8116376943234602,3.0
+Retrograde endocannabinoid signaling,8,Mapk13;Ndufb10;Adcy4;Ndufc2;Ndufs5;Ndufa4;Plcb1;Ptgs2,4.5,1,4.150284559776239,4.656826996545762,3.0
+Thermogenesis,14,Smarca2;Mapk13;Uqcr10;Adcy4;Ndufaf3;Sdhb;Ndufb10;Uqcrb;Ndufc2;Ndufs5;Atp5j;Ndufa4;Atp5g3;Atp5g1,4.2857142857142865,1,4.590467416026435,3.4594447764602663,3.0
+cAMP signaling pathway,6,Adcy4;Edn1;Fos;Atp1b1;Atp2b4;Atp2b2,4.0,7,15.248765180444416,4.312649634191794,15.0
+Salivary secretion,6,Atp1b1;Adcy4;Atp2b4;Atp2b2;Plcb1;Gucy1b1,4.0,7,14.910722328357247,3.7590002552251462,15.0
+Adrenergic signaling in cardiomyocytes,6,Atp1b1;Mapk13;Adcy4;Atp2b4;Atp2b2;Plcb1,4.0,7,13.601103312603609,5.615093678379863,15.0
+Aldosterone synthesis and secretion,6,Atp1b1;Adcy4;Nr4a2;Atp2b4;Atp2b2;Plcb1,4.0,7,14.898791553376512,3.749401363551211,15.0
+MAPK signaling pathway,6,Mapk13;Stmn1;Fos;Tgfb2;Flna;Flnb,4.0,1,19.931968736903322,5.799898489465171,3.0
+Circadian entrainment,6,Adcy4;Gucy1b1;Fos;Per3;Per1;Plcb1,4.0,4,14.207632309240331,3.6359160954029823,9.0
+Spliceosome,7,Snrpc;Sf3b6;Lsm8;Tcerg1;Prpf40b;Prpf40a;Snrpb2,3.4285714285714284,1,7.282536399760116,4.357242471693217,3.0
+Drug metabolism,7,Aldh3a1;Mgst3;Mgst1;Gstm1;Nme1;Fmo1;Fmo2,3.4285714285714284,5,9.655978171701566,4.310612259568835,11.0
+cGMP-PKG signaling pathway,7,Atp1b1;Adcy4;Adra2a;Gucy1b1;Atp2b4;Atp2b2;Plcb1,3.4285714285714284,7,13.872250524262467,4.330535934172088,15.0
+Fluid shear stress and atherosclerosis,10,Vcam1;Mapk13;Txn2;Mgst3;Mgst1;Edn1;Gstm1;Sdc4;Fos;Thbd,2.4000000000000004,1,4.752168428703465,6.397447423950817,3.0
+TNF signaling pathway,6,Vcam1;Mapk13;Edn1;Cxcl1;Fos;Ptgs2,2.0,1,6.428627705610648,5.704382837767319,3.0

@@ -1,0 +1,2 @@
+pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+PI3K-Akt signaling pathway,7,Pdgfc;Sgk1;Hsp90b1;Ccnd2;Ccnd1;Bcl2l1;Ddit4,3.4285714285714284,6,16.174219362117462,3.3218358692809167,13.0
