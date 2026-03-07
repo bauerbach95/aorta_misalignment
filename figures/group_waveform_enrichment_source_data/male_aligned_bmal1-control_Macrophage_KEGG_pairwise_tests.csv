@@ -1,19 +1,25 @@
 gene_set,pair,mean_diff,ci_lo,ci_hi,excludes_zero
-Cytokine-cytokine receptor interaction,ZT0 - ZT6,0.514519,-0.343703,1.248676,False
-Cytokine-cytokine receptor interaction,ZT0 - ZT12,1.359084,0.649137,2.002976,True
-Cytokine-cytokine receptor interaction,ZT0 - ZT18,-0.008873,-0.746765,0.719494,False
-Cytokine-cytokine receptor interaction,ZT6 - ZT12,0.844565,0.344104,1.518226,True
-Cytokine-cytokine receptor interaction,ZT6 - ZT18,-0.523393,-1.268051,0.30073,False
-Cytokine-cytokine receptor interaction,ZT12 - ZT18,-1.367958,-2.061566,-0.810442,True
-TNF signaling pathway,ZT0 - ZT6,0.247955,-0.561846,1.125803,False
-TNF signaling pathway,ZT0 - ZT12,0.913936,0.033194,1.576131,True
-TNF signaling pathway,ZT0 - ZT18,-0.221772,-1.10489,0.5257,False
-TNF signaling pathway,ZT6 - ZT12,0.665981,0.030871,1.445078,True
-TNF signaling pathway,ZT6 - ZT18,-0.469728,-1.37907,0.757196,False
-TNF signaling pathway,ZT12 - ZT18,-1.135709,-1.838583,-0.263691,True
-C-type lectin receptor signaling pathway,ZT0 - ZT6,-0.504734,-1.092477,0.306131,False
-C-type lectin receptor signaling pathway,ZT0 - ZT12,0.256587,-0.331313,0.91578,False
-C-type lectin receptor signaling pathway,ZT0 - ZT18,-0.746846,-1.347054,-0.038753,True
-C-type lectin receptor signaling pathway,ZT6 - ZT12,0.76132,0.145533,1.277764,True
-C-type lectin receptor signaling pathway,ZT6 - ZT18,-0.242113,-0.816097,0.491811,False
-C-type lectin receptor signaling pathway,ZT12 - ZT18,-1.003433,-1.595972,-0.445002,True
+Cytokine-cytokine receptor interaction,ZT0 - ZT6,0.43372,-0.442349,1.171509,False
+Cytokine-cytokine receptor interaction,ZT0 - ZT12,1.269635,0.527383,1.780573,True
+Cytokine-cytokine receptor interaction,ZT0 - ZT18,-0.101665,-0.83828,0.541642,False
+Cytokine-cytokine receptor interaction,ZT6 - ZT12,0.835915,0.148666,1.707677,True
+Cytokine-cytokine receptor interaction,ZT6 - ZT18,-0.535385,-1.114462,0.513262,False
+Cytokine-cytokine receptor interaction,ZT12 - ZT18,-1.3713,-2.002204,-0.626142,True
+TNF signaling pathway,ZT0 - ZT6,0.210503,-0.579092,0.98738,False
+TNF signaling pathway,ZT0 - ZT12,0.817907,-0.001472,1.472235,False
+TNF signaling pathway,ZT0 - ZT18,-0.24954,-0.960017,0.546461,False
+TNF signaling pathway,ZT6 - ZT12,0.607404,-0.154776,1.479496,False
+TNF signaling pathway,ZT6 - ZT18,-0.460043,-1.424641,0.366625,False
+TNF signaling pathway,ZT12 - ZT18,-1.067447,-1.958851,-0.058814,True
+C-type lectin receptor signaling pathway,ZT0 - ZT6,-0.552174,-1.13623,0.107812,False
+C-type lectin receptor signaling pathway,ZT0 - ZT12,0.176266,-0.501339,0.910967,False
+C-type lectin receptor signaling pathway,ZT0 - ZT18,-0.862067,-1.427214,-0.002825,True
+C-type lectin receptor signaling pathway,ZT6 - ZT12,0.728439,-0.040745,1.392758,False
+C-type lectin receptor signaling pathway,ZT6 - ZT18,-0.309893,-0.944083,0.324926,False
+C-type lectin receptor signaling pathway,ZT12 - ZT18,-1.038332,-1.578902,-0.312601,True
+PI3K-Akt signaling pathway,ZT0 - ZT6,-0.295432,-0.881799,0.586191,False
+PI3K-Akt signaling pathway,ZT0 - ZT12,-0.652017,-1.464132,0.139107,False
+PI3K-Akt signaling pathway,ZT0 - ZT18,-0.934564,-1.602319,-0.076445,True
+PI3K-Akt signaling pathway,ZT6 - ZT12,-0.356585,-1.030133,0.260959,False
+PI3K-Akt signaling pathway,ZT6 - ZT18,-0.639132,-1.295823,0.131759,False
+PI3K-Akt signaling pathway,ZT12 - ZT18,-0.282547,-0.961362,0.497609,False

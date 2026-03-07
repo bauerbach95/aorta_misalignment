@@ -1,187 +1,193 @@
 gene_set,pair,mean_diff,ci_lo,ci_hi,excludes_zero
-African trypanosomiasis,ZT0 - ZT6,-0.964607,-1.242738,-0.634929,True
-African trypanosomiasis,ZT0 - ZT12,0.125612,-0.090354,0.364809,False
-African trypanosomiasis,ZT0 - ZT18,-1.506976,-1.735432,-1.201806,True
-African trypanosomiasis,ZT6 - ZT12,1.090219,0.798523,1.426152,True
-African trypanosomiasis,ZT6 - ZT18,-0.542368,-0.91488,-0.201432,True
-African trypanosomiasis,ZT12 - ZT18,-1.632588,-1.944564,-1.270223,True
-Glutathione metabolism,ZT0 - ZT6,0.310815,-0.265488,0.850069,False
-Glutathione metabolism,ZT0 - ZT12,-0.214644,-0.745265,0.222454,False
-Glutathione metabolism,ZT0 - ZT18,-0.486734,-0.884614,-0.117641,True
-Glutathione metabolism,ZT6 - ZT12,-0.525459,-1.024361,0.174218,False
-Glutathione metabolism,ZT6 - ZT18,-0.797549,-1.16939,-0.191462,True
-Glutathione metabolism,ZT12 - ZT18,-0.27209,-0.675688,0.069646,False
-Chemical carcinogenesis,ZT0 - ZT6,0.243889,-0.17072,0.697482,False
-Chemical carcinogenesis,ZT0 - ZT12,-0.416869,-0.719464,-0.013978,True
-Chemical carcinogenesis,ZT0 - ZT18,-0.463657,-0.796509,-0.105018,True
-Chemical carcinogenesis,ZT6 - ZT12,-0.660757,-0.979242,-0.338748,True
-Chemical carcinogenesis,ZT6 - ZT18,-0.707545,-1.043236,-0.328226,True
-Chemical carcinogenesis,ZT12 - ZT18,-0.046788,-0.396991,0.268127,False
-ErbB signaling pathway,ZT0 - ZT6,0.16545,-0.178823,0.566877,False
-ErbB signaling pathway,ZT0 - ZT12,0.683921,0.306035,1.097032,True
-ErbB signaling pathway,ZT0 - ZT18,0.492263,0.048859,0.903927,True
-ErbB signaling pathway,ZT6 - ZT12,0.518471,0.130508,1.016041,True
-ErbB signaling pathway,ZT6 - ZT18,0.326813,-0.013561,0.695138,False
-ErbB signaling pathway,ZT12 - ZT18,-0.191658,-0.696352,0.239862,False
-Glutamatergic synapse,ZT0 - ZT6,-0.26417,-0.803336,0.157979,False
-Glutamatergic synapse,ZT0 - ZT12,-0.650134,-0.922585,-0.270708,True
-Glutamatergic synapse,ZT0 - ZT18,-0.49076,-0.866617,-0.121072,True
-Glutamatergic synapse,ZT6 - ZT12,-0.385965,-0.699641,-0.006306,True
-Glutamatergic synapse,ZT6 - ZT18,-0.22659,-0.577652,0.076111,False
-Glutamatergic synapse,ZT12 - ZT18,0.159374,-0.12908,0.480837,False
-Terpenoid backbone biosynthesis,ZT0 - ZT6,0.381568,-0.013434,0.778686,False
-Terpenoid backbone biosynthesis,ZT0 - ZT12,0.257931,-0.048907,0.625273,False
-Terpenoid backbone biosynthesis,ZT0 - ZT18,-0.237409,-0.510257,0.057628,False
-Terpenoid backbone biosynthesis,ZT6 - ZT12,-0.123636,-0.565037,0.338738,False
-Terpenoid backbone biosynthesis,ZT6 - ZT18,-0.618977,-1.003652,-0.224557,True
-Terpenoid backbone biosynthesis,ZT12 - ZT18,-0.495341,-0.834294,-0.205799,True
-Circadian entrainment,ZT0 - ZT6,-0.25686,-0.609842,0.093348,False
-Circadian entrainment,ZT0 - ZT12,-0.599686,-0.872371,-0.283886,True
-Circadian entrainment,ZT0 - ZT18,-0.253406,-0.602119,0.137072,False
-Circadian entrainment,ZT6 - ZT12,-0.342826,-0.594103,-0.073157,True
-Circadian entrainment,ZT6 - ZT18,0.003454,-0.336218,0.328444,False
-Circadian entrainment,ZT12 - ZT18,0.346279,0.078455,0.613571,True
-Mineral absorption,ZT0 - ZT6,-0.589663,-0.990165,-0.225628,True
-Mineral absorption,ZT0 - ZT12,-0.595979,-0.99617,-0.168399,True
-Mineral absorption,ZT0 - ZT18,-0.276412,-0.682631,0.113384,False
-Mineral absorption,ZT6 - ZT12,-0.006316,-0.326898,0.351421,False
-Mineral absorption,ZT6 - ZT18,0.313252,-0.076507,0.672122,False
-Mineral absorption,ZT12 - ZT18,0.319567,-0.046279,0.707556,False
-Drug metabolism,ZT0 - ZT6,0.153601,-0.153572,0.542679,False
-Drug metabolism,ZT0 - ZT12,-0.424412,-0.687696,-0.111167,True
-Drug metabolism,ZT0 - ZT18,-0.341534,-0.587938,-0.023535,True
-Drug metabolism,ZT6 - ZT12,-0.578013,-0.953081,-0.171823,True
-Drug metabolism,ZT6 - ZT18,-0.495135,-0.812659,-0.114639,True
-Drug metabolism,ZT12 - ZT18,0.082878,-0.215904,0.325703,False
-GABAergic synapse,ZT0 - ZT6,-0.280697,-0.709739,0.189987,False
-GABAergic synapse,ZT0 - ZT12,-0.570738,-1.028679,-0.072669,True
-GABAergic synapse,ZT0 - ZT18,-0.426169,-0.852733,0.019516,False
-GABAergic synapse,ZT6 - ZT12,-0.290042,-0.588359,0.053872,False
-GABAergic synapse,ZT6 - ZT18,-0.145472,-0.568292,0.20834,False
-GABAergic synapse,ZT12 - ZT18,0.14457,-0.207496,0.517539,False
-Circadian rhythm,ZT0 - ZT6,-0.051897,-0.423744,0.285644,False
-Circadian rhythm,ZT0 - ZT12,-0.329261,-0.612301,0.02769,False
-Circadian rhythm,ZT0 - ZT18,0.139801,-0.169329,0.540722,False
-Circadian rhythm,ZT6 - ZT12,-0.277364,-0.528001,0.055669,False
-Circadian rhythm,ZT6 - ZT18,0.191698,-0.142079,0.569588,False
-Circadian rhythm,ZT12 - ZT18,0.469062,0.16304,0.724853,True
-Endocytosis,ZT0 - ZT6,0.15521,-0.093574,0.361166,False
-Endocytosis,ZT0 - ZT12,0.408658,0.157106,0.712826,True
-Endocytosis,ZT0 - ZT18,-0.010516,-0.266883,0.187559,False
-Endocytosis,ZT6 - ZT12,0.253449,-0.0777,0.537749,False
-Endocytosis,ZT6 - ZT18,-0.165725,-0.433034,0.055277,False
-Endocytosis,ZT12 - ZT18,-0.419174,-0.651696,-0.128081,True
-Viral carcinogenesis,ZT0 - ZT6,-0.152794,-0.483342,0.148292,False
-Viral carcinogenesis,ZT0 - ZT12,0.244269,-0.089611,0.595232,False
-Viral carcinogenesis,ZT0 - ZT18,-0.104758,-0.360488,0.193473,False
-Viral carcinogenesis,ZT6 - ZT12,0.397063,0.103439,0.769134,True
-Viral carcinogenesis,ZT6 - ZT18,0.048036,-0.15514,0.268131,False
-Viral carcinogenesis,ZT12 - ZT18,-0.349027,-0.640108,-0.090422,True
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT6,0.215424,-0.010168,0.443692,False
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT12,0.340337,0.083006,0.634803,True
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT18,0.374773,0.082787,0.580821,True
-"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT12,0.124914,-0.141732,0.357536,False
-"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT18,0.15935,-0.150089,0.447971,False
-"Parathyroid hormone synthesis, secretion and action",ZT12 - ZT18,0.034436,-0.288023,0.271223,False
-Olfactory transduction,ZT0 - ZT6,-0.10335,-0.445884,0.223917,False
-Olfactory transduction,ZT0 - ZT12,-0.146094,-0.42038,0.112767,False
-Olfactory transduction,ZT0 - ZT18,0.214181,-0.125287,0.553902,False
-Olfactory transduction,ZT6 - ZT12,-0.042744,-0.304168,0.252153,False
-Olfactory transduction,ZT6 - ZT18,0.317531,0.004026,0.649931,True
-Olfactory transduction,ZT12 - ZT18,0.360274,0.040579,0.655831,True
-Aldosterone synthesis and secretion,ZT0 - ZT6,-0.000982,-0.252335,0.214931,False
-Aldosterone synthesis and secretion,ZT0 - ZT12,0.179775,-0.060292,0.512125,False
-Aldosterone synthesis and secretion,ZT0 - ZT18,0.356022,0.107213,0.651413,True
-Aldosterone synthesis and secretion,ZT6 - ZT12,0.180757,-0.106468,0.453637,False
-Aldosterone synthesis and secretion,ZT6 - ZT18,0.357004,0.018452,0.707277,True
-Aldosterone synthesis and secretion,ZT12 - ZT18,0.176247,-0.163837,0.529948,False
-Bile secretion,ZT0 - ZT6,0.015738,-0.426753,0.294886,False
-Bile secretion,ZT0 - ZT12,-0.333025,-0.657271,0.047041,False
-Bile secretion,ZT0 - ZT18,-0.24751,-0.562547,0.182963,False
-Bile secretion,ZT6 - ZT12,-0.348763,-0.653637,-0.023418,True
-Bile secretion,ZT6 - ZT18,-0.263248,-0.672702,0.091195,False
-Bile secretion,ZT12 - ZT18,0.085515,-0.231372,0.401764,False
-cAMP signaling pathway,ZT0 - ZT6,-0.345276,-0.540718,-0.131082,True
-cAMP signaling pathway,ZT0 - ZT12,-0.313615,-0.5701,-0.07765,True
-cAMP signaling pathway,ZT0 - ZT18,-0.037022,-0.288193,0.208963,False
-cAMP signaling pathway,ZT6 - ZT12,0.031661,-0.20905,0.201581,False
-cAMP signaling pathway,ZT6 - ZT18,0.308254,0.053842,0.554478,True
-cAMP signaling pathway,ZT12 - ZT18,0.276593,0.052176,0.466128,True
-Thyroid hormone signaling pathway,ZT0 - ZT6,0.07115,-0.190479,0.331665,False
-Thyroid hormone signaling pathway,ZT0 - ZT12,0.34157,0.067313,0.685696,True
-Thyroid hormone signaling pathway,ZT0 - ZT18,0.315018,-0.005457,0.661464,False
-Thyroid hormone signaling pathway,ZT6 - ZT12,0.27042,0.007099,0.533803,True
-Thyroid hormone signaling pathway,ZT6 - ZT18,0.243868,-0.133145,0.504825,False
-Thyroid hormone signaling pathway,ZT12 - ZT18,-0.026552,-0.380332,0.295797,False
-Rheumatoid arthritis,ZT0 - ZT6,0.341028,0.000376,0.658127,True
-Rheumatoid arthritis,ZT0 - ZT12,0.138896,-0.153654,0.515834,False
-Rheumatoid arthritis,ZT0 - ZT18,0.136299,-0.287887,0.472153,False
-Rheumatoid arthritis,ZT6 - ZT12,-0.202132,-0.52284,0.102026,False
-Rheumatoid arthritis,ZT6 - ZT18,-0.204729,-0.553484,0.132252,False
-Rheumatoid arthritis,ZT12 - ZT18,-0.002597,-0.282344,0.390915,False
-Neurotrophin signaling pathway,ZT0 - ZT6,-0.150486,-0.503833,0.2118,False
-Neurotrophin signaling pathway,ZT0 - ZT12,0.061624,-0.296766,0.464449,False
-Neurotrophin signaling pathway,ZT0 - ZT18,0.190113,-0.096112,0.614541,False
-Neurotrophin signaling pathway,ZT6 - ZT12,0.21211,-0.072995,0.533808,False
-Neurotrophin signaling pathway,ZT6 - ZT18,0.340599,0.01357,0.684202,True
-Neurotrophin signaling pathway,ZT12 - ZT18,0.128489,-0.20401,0.445343,False
-NOD-like receptor signaling pathway,ZT0 - ZT6,-0.182647,-0.504322,0.119797,False
-NOD-like receptor signaling pathway,ZT0 - ZT12,-0.296607,-0.587146,-0.002532,True
-NOD-like receptor signaling pathway,ZT0 - ZT18,-0.336487,-0.614833,-0.015442,True
-NOD-like receptor signaling pathway,ZT6 - ZT12,-0.11396,-0.398507,0.186038,False
-NOD-like receptor signaling pathway,ZT6 - ZT18,-0.15384,-0.341122,0.132421,False
-NOD-like receptor signaling pathway,ZT12 - ZT18,-0.03988,-0.28157,0.191963,False
-Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT0 - ZT6,0.156085,-0.11482,0.440076,False
-Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT0 - ZT12,0.33084,0.013768,0.629241,True
-Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT0 - ZT18,0.190856,-0.08221,0.482627,False
-Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT6 - ZT12,0.174755,-0.247159,0.58338,False
-Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT6 - ZT18,0.034771,-0.24158,0.350785,False
-Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT12 - ZT18,-0.139984,-0.492081,0.153708,False
-Phospholipase D signaling pathway,ZT0 - ZT6,-0.264914,-0.573975,0.057996,False
-Phospholipase D signaling pathway,ZT0 - ZT12,-0.163795,-0.434809,0.155766,False
-Phospholipase D signaling pathway,ZT0 - ZT18,0.060783,-0.283224,0.347728,False
-Phospholipase D signaling pathway,ZT6 - ZT12,0.101119,-0.21824,0.341612,False
-Phospholipase D signaling pathway,ZT6 - ZT18,0.325697,0.0331,0.582651,True
-Phospholipase D signaling pathway,ZT12 - ZT18,0.224578,-0.156913,0.528501,False
-Protein processing in endoplasmic reticulum,ZT0 - ZT6,0.056079,-0.108063,0.2419,False
-Protein processing in endoplasmic reticulum,ZT0 - ZT12,0.136674,-0.063355,0.327119,False
-Protein processing in endoplasmic reticulum,ZT0 - ZT18,-0.175669,-0.31431,-0.046396,True
-Protein processing in endoplasmic reticulum,ZT6 - ZT12,0.080595,-0.135724,0.268186,False
-Protein processing in endoplasmic reticulum,ZT6 - ZT18,-0.231748,-0.384876,-0.040116,True
-Protein processing in endoplasmic reticulum,ZT12 - ZT18,-0.312343,-0.528419,-0.110491,True
-Longevity regulating pathway,ZT0 - ZT6,0.010493,-0.346566,0.296193,False
-Longevity regulating pathway,ZT0 - ZT12,0.209043,-0.097489,0.477632,False
-Longevity regulating pathway,ZT0 - ZT18,-0.082211,-0.335166,0.196585,False
-Longevity regulating pathway,ZT6 - ZT12,0.198549,-0.072171,0.459463,False
-Longevity regulating pathway,ZT6 - ZT18,-0.092705,-0.328476,0.159804,False
-Longevity regulating pathway,ZT12 - ZT18,-0.291254,-0.585939,-0.016688,True
-Dopaminergic synapse,ZT0 - ZT6,-0.106917,-0.357881,0.239175,False
-Dopaminergic synapse,ZT0 - ZT12,0.159858,-0.157675,0.482679,False
-Dopaminergic synapse,ZT0 - ZT18,0.178845,-0.209608,0.48174,False
-Dopaminergic synapse,ZT6 - ZT12,0.266775,-0.00113,0.561558,False
-Dopaminergic synapse,ZT6 - ZT18,0.285762,0.006483,0.511926,True
-Dopaminergic synapse,ZT12 - ZT18,0.018987,-0.271811,0.31677,False
-Rap1 signaling pathway,ZT0 - ZT6,-0.042336,-0.285899,0.184926,False
-Rap1 signaling pathway,ZT0 - ZT12,-0.270961,-0.491103,-0.001231,True
-Rap1 signaling pathway,ZT0 - ZT18,-0.117102,-0.365253,0.120468,False
-Rap1 signaling pathway,ZT6 - ZT12,-0.228625,-0.424161,-0.05597,True
-Rap1 signaling pathway,ZT6 - ZT18,-0.074766,-0.266585,0.097458,False
-Rap1 signaling pathway,ZT12 - ZT18,0.153859,-0.008853,0.294825,False
-Chemokine signaling pathway,ZT0 - ZT6,-0.123486,-0.507686,0.193402,False
-Chemokine signaling pathway,ZT0 - ZT12,-0.265861,-0.527252,-0.004038,True
-Chemokine signaling pathway,ZT0 - ZT18,-0.260595,-0.571398,0.023371,False
-Chemokine signaling pathway,ZT6 - ZT12,-0.142375,-0.381873,0.210983,False
-Chemokine signaling pathway,ZT6 - ZT18,-0.137109,-0.452041,0.149701,False
-Chemokine signaling pathway,ZT12 - ZT18,0.005266,-0.269682,0.279564,False
-Spliceosome,ZT0 - ZT6,-0.081307,-0.408477,0.154793,False
-Spliceosome,ZT0 - ZT12,0.044153,-0.211235,0.326371,False
-Spliceosome,ZT0 - ZT18,-0.214266,-0.426929,0.04363,False
-Spliceosome,ZT6 - ZT12,0.12546,-0.080335,0.406205,False
-Spliceosome,ZT6 - ZT18,-0.132959,-0.374548,0.168056,False
-Spliceosome,ZT12 - ZT18,-0.258419,-0.498285,-0.01143,True
-TGF-beta signaling pathway,ZT0 - ZT6,0.152838,-0.110669,0.372696,False
-TGF-beta signaling pathway,ZT0 - ZT12,0.090719,-0.243782,0.418867,False
-TGF-beta signaling pathway,ZT0 - ZT18,-0.038414,-0.223931,0.167004,False
-TGF-beta signaling pathway,ZT6 - ZT12,-0.062118,-0.361061,0.212099,False
-TGF-beta signaling pathway,ZT6 - ZT18,-0.191251,-0.430609,-0.00061,True
-TGF-beta signaling pathway,ZT12 - ZT18,-0.129133,-0.345844,0.168366,False
+African trypanosomiasis,ZT0 - ZT6,-0.957636,-1.242853,-0.661903,True
+African trypanosomiasis,ZT0 - ZT12,0.117275,-0.206846,0.368121,False
+African trypanosomiasis,ZT0 - ZT18,-1.502586,-1.732393,-1.22721,True
+African trypanosomiasis,ZT6 - ZT12,1.07491,0.73724,1.398042,True
+African trypanosomiasis,ZT6 - ZT18,-0.54495,-0.921714,-0.148698,True
+African trypanosomiasis,ZT12 - ZT18,-1.619861,-1.900477,-1.306198,True
+Glutathione metabolism,ZT0 - ZT6,0.292615,-0.401385,0.685664,False
+Glutathione metabolism,ZT0 - ZT12,-0.249636,-0.686006,0.28182,False
+Glutathione metabolism,ZT0 - ZT18,-0.447563,-0.795661,0.125002,False
+Glutathione metabolism,ZT6 - ZT12,-0.542251,-1.089403,-0.017563,True
+Glutathione metabolism,ZT6 - ZT18,-0.740178,-1.187285,-0.093823,True
+Glutathione metabolism,ZT12 - ZT18,-0.197926,-0.610524,0.156933,False
+Chemical carcinogenesis,ZT0 - ZT6,0.229755,-0.170617,0.790164,False
+Chemical carcinogenesis,ZT0 - ZT12,-0.431331,-0.822046,-0.07272,True
+Chemical carcinogenesis,ZT0 - ZT18,-0.489716,-0.835202,0.019872,False
+Chemical carcinogenesis,ZT6 - ZT12,-0.661086,-0.973537,-0.283095,True
+Chemical carcinogenesis,ZT6 - ZT18,-0.719472,-1.026938,-0.371518,True
+Chemical carcinogenesis,ZT12 - ZT18,-0.058386,-0.403532,0.312076,False
+Glutamatergic synapse,ZT0 - ZT6,-0.289864,-0.71131,0.176132,False
+Glutamatergic synapse,ZT0 - ZT12,-0.689995,-1.077579,-0.254329,True
+Glutamatergic synapse,ZT0 - ZT18,-0.519458,-0.875604,-0.130784,True
+Glutamatergic synapse,ZT6 - ZT12,-0.40013,-0.783536,0.024829,False
+Glutamatergic synapse,ZT6 - ZT18,-0.229594,-0.500143,0.242413,False
+Glutamatergic synapse,ZT12 - ZT18,0.170536,-0.180094,0.560017,False
+ErbB signaling pathway,ZT0 - ZT6,0.154769,-0.201379,0.448722,False
+ErbB signaling pathway,ZT0 - ZT12,0.646173,0.288568,1.014552,True
+ErbB signaling pathway,ZT0 - ZT18,0.494206,0.120385,0.827968,True
+ErbB signaling pathway,ZT6 - ZT12,0.491404,0.066982,0.883869,True
+ErbB signaling pathway,ZT6 - ZT18,0.339437,-0.055771,0.698944,False
+ErbB signaling pathway,ZT12 - ZT18,-0.151968,-0.619117,0.30108,False
+Mineral absorption,ZT0 - ZT6,-0.608637,-0.978831,-0.222348,True
+Mineral absorption,ZT0 - ZT12,-0.631272,-1.022388,-0.136695,True
+Mineral absorption,ZT0 - ZT18,-0.283219,-0.747596,0.12095,False
+Mineral absorption,ZT6 - ZT12,-0.022635,-0.311727,0.305963,False
+Mineral absorption,ZT6 - ZT18,0.325418,-0.033881,0.717602,False
+Mineral absorption,ZT12 - ZT18,0.348052,-0.00305,0.692675,False
+Circadian entrainment,ZT0 - ZT6,-0.275112,-0.644644,0.048544,False
+Circadian entrainment,ZT0 - ZT12,-0.62342,-0.871899,-0.29746,True
+Circadian entrainment,ZT0 - ZT18,-0.277962,-0.644849,0.085937,False
+Circadian entrainment,ZT6 - ZT12,-0.348307,-0.619803,-0.042172,True
+Circadian entrainment,ZT6 - ZT18,-0.00285,-0.216993,0.236817,False
+Circadian entrainment,ZT12 - ZT18,0.345457,0.086461,0.590232,True
+Terpenoid backbone biosynthesis,ZT0 - ZT6,0.388897,-0.011044,0.823437,False
+Terpenoid backbone biosynthesis,ZT0 - ZT12,0.265724,-0.092443,0.617718,False
+Terpenoid backbone biosynthesis,ZT0 - ZT18,-0.233023,-0.482186,0.073966,False
+Terpenoid backbone biosynthesis,ZT6 - ZT12,-0.123172,-0.671333,0.337998,False
+Terpenoid backbone biosynthesis,ZT6 - ZT18,-0.62192,-0.970474,-0.28071,True
+Terpenoid backbone biosynthesis,ZT12 - ZT18,-0.498747,-0.8328,-0.039445,True
+GABAergic synapse,ZT0 - ZT6,-0.297933,-0.775489,0.173376,False
+GABAergic synapse,ZT0 - ZT12,-0.603369,-1.064024,-0.1418,True
+GABAergic synapse,ZT0 - ZT18,-0.464182,-0.932199,0.059108,False
+GABAergic synapse,ZT6 - ZT12,-0.305436,-0.65012,0.077718,False
+GABAergic synapse,ZT6 - ZT18,-0.166248,-0.494039,0.257145,False
+GABAergic synapse,ZT12 - ZT18,0.139187,-0.115632,0.536769,False
+Drug metabolism,ZT0 - ZT6,0.164467,-0.209925,0.573585,False
+Drug metabolism,ZT0 - ZT12,-0.432558,-0.738499,0.012936,False
+Drug metabolism,ZT0 - ZT18,-0.351439,-0.678936,0.081356,False
+Drug metabolism,ZT6 - ZT12,-0.597024,-0.964731,-0.282625,True
+Drug metabolism,ZT6 - ZT18,-0.515905,-0.888794,-0.218947,True
+Drug metabolism,ZT12 - ZT18,0.081119,-0.17056,0.445683,False
+Circadian rhythm,ZT0 - ZT6,-0.035086,-0.330334,0.319618,False
+Circadian rhythm,ZT0 - ZT12,-0.324624,-0.675256,-0.028675,True
+Circadian rhythm,ZT0 - ZT18,0.150778,-0.113908,0.465478,False
+Circadian rhythm,ZT6 - ZT12,-0.289538,-0.577515,0.044082,False
+Circadian rhythm,ZT6 - ZT18,0.185864,-0.128714,0.529147,False
+Circadian rhythm,ZT12 - ZT18,0.475401,0.228747,0.738738,True
+Gap junction,ZT0 - ZT6,-0.419971,-0.815407,-0.095402,True
+Gap junction,ZT0 - ZT12,-0.38834,-0.698199,-0.028431,True
+Gap junction,ZT0 - ZT18,-0.298868,-0.7141,0.058991,False
+Gap junction,ZT6 - ZT12,0.031631,-0.295444,0.401994,False
+Gap junction,ZT6 - ZT18,0.121103,-0.249684,0.53661,False
+Gap junction,ZT12 - ZT18,0.089472,-0.267617,0.378571,False
+Endocytosis,ZT0 - ZT6,0.157801,-0.082692,0.34886,False
+Endocytosis,ZT0 - ZT12,0.401913,0.147492,0.633322,True
+Endocytosis,ZT0 - ZT18,-0.011512,-0.237849,0.213754,False
+Endocytosis,ZT6 - ZT12,0.244112,-0.096921,0.524455,False
+Endocytosis,ZT6 - ZT18,-0.169313,-0.404485,0.053292,False
+Endocytosis,ZT12 - ZT18,-0.413425,-0.675419,-0.060099,True
+Amphetamine addiction,ZT0 - ZT6,-0.391644,-0.825276,-0.015099,True
+Amphetamine addiction,ZT0 - ZT12,-0.181644,-0.674082,0.293874,False
+Amphetamine addiction,ZT0 - ZT18,0.021242,-0.392521,0.525315,False
+Amphetamine addiction,ZT6 - ZT12,0.21,-0.288568,0.635316,False
+Amphetamine addiction,ZT6 - ZT18,0.412885,0.04233,0.83252,True
+Amphetamine addiction,ZT12 - ZT18,0.202885,-0.228813,0.626432,False
+Viral carcinogenesis,ZT0 - ZT6,-0.136904,-0.352491,0.185881,False
+Viral carcinogenesis,ZT0 - ZT12,0.250053,-0.010747,0.55168,False
+Viral carcinogenesis,ZT0 - ZT18,-0.108015,-0.322686,0.179758,False
+Viral carcinogenesis,ZT6 - ZT12,0.386957,0.117825,0.686742,True
+Viral carcinogenesis,ZT6 - ZT18,0.028889,-0.219672,0.233999,False
+Viral carcinogenesis,ZT12 - ZT18,-0.358068,-0.617846,-0.099446,True
+Aldosterone synthesis and secretion,ZT0 - ZT6,-0.011186,-0.288714,0.285401,False
+Aldosterone synthesis and secretion,ZT0 - ZT12,0.169155,-0.100893,0.41044,False
+Aldosterone synthesis and secretion,ZT0 - ZT18,0.365292,0.02043,0.65876,True
+Aldosterone synthesis and secretion,ZT6 - ZT12,0.18034,-0.033895,0.403272,False
+Aldosterone synthesis and secretion,ZT6 - ZT18,0.376478,0.069483,0.616202,True
+Aldosterone synthesis and secretion,ZT12 - ZT18,0.196137,-0.083746,0.457856,False
+"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT6,0.19677,-0.068215,0.405434,False
+"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT12,0.335798,0.07176,0.6624,True
+"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT18,0.37579,0.115785,0.613877,True
+"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT12,0.139028,-0.115876,0.357512,False
+"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT18,0.17902,-0.064083,0.410269,False
+"Parathyroid hormone synthesis, secretion and action",ZT12 - ZT18,0.039992,-0.265756,0.360563,False
+Olfactory transduction,ZT0 - ZT6,-0.158853,-0.47844,0.229907,False
+Olfactory transduction,ZT0 - ZT12,-0.195921,-0.467355,0.11071,False
+Olfactory transduction,ZT0 - ZT18,0.179091,-0.199611,0.499207,False
+Olfactory transduction,ZT6 - ZT12,-0.037068,-0.358798,0.223301,False
+Olfactory transduction,ZT6 - ZT18,0.337944,0.007033,0.5528,True
+Olfactory transduction,ZT12 - ZT18,0.375012,0.052311,0.613092,True
+cAMP signaling pathway,ZT0 - ZT6,-0.347988,-0.56575,-0.118341,True
+cAMP signaling pathway,ZT0 - ZT12,-0.320909,-0.537468,-0.160533,True
+cAMP signaling pathway,ZT0 - ZT18,-0.036429,-0.281502,0.185819,False
+cAMP signaling pathway,ZT6 - ZT12,0.027079,-0.158804,0.20932,False
+cAMP signaling pathway,ZT6 - ZT18,0.311559,0.093153,0.541348,True
+cAMP signaling pathway,ZT12 - ZT18,0.28448,0.037874,0.498954,True
+Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT0 - ZT6,0.157323,-0.140639,0.396023,False
+Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT0 - ZT12,0.347953,0.096845,0.703215,True
+Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT0 - ZT18,0.20607,-0.075401,0.457015,False
+Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT6 - ZT12,0.190629,-0.152679,0.548678,False
+Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT6 - ZT18,0.048746,-0.213023,0.336795,False
+Arrhythmogenic right ventricular cardiomyopathy (ARVC),ZT12 - ZT18,-0.141883,-0.505538,0.161257,False
+Thyroid hormone signaling pathway,ZT0 - ZT6,0.057552,-0.284136,0.289963,False
+Thyroid hormone signaling pathway,ZT0 - ZT12,0.338413,0.035922,0.661552,True
+Thyroid hormone signaling pathway,ZT0 - ZT18,0.306873,-0.011385,0.587789,False
+Thyroid hormone signaling pathway,ZT6 - ZT12,0.280862,0.017524,0.615311,True
+Thyroid hormone signaling pathway,ZT6 - ZT18,0.249321,-0.008585,0.54748,False
+Thyroid hormone signaling pathway,ZT12 - ZT18,-0.031541,-0.407077,0.306822,False
+Bile secretion,ZT0 - ZT6,-0.004455,-0.383341,0.342859,False
+Bile secretion,ZT0 - ZT12,-0.33336,-0.642275,-0.017572,True
+Bile secretion,ZT0 - ZT18,-0.251242,-0.601992,0.125179,False
+Bile secretion,ZT6 - ZT12,-0.328905,-0.715116,0.143899,False
+Bile secretion,ZT6 - ZT18,-0.246787,-0.620556,0.150991,False
+Bile secretion,ZT12 - ZT18,0.082118,-0.217636,0.410833,False
+Phospholipase D signaling pathway,ZT0 - ZT6,-0.265651,-0.651697,0.026273,False
+Phospholipase D signaling pathway,ZT0 - ZT12,-0.146399,-0.44876,0.174203,False
+Phospholipase D signaling pathway,ZT0 - ZT18,0.066321,-0.268007,0.472678,False
+Phospholipase D signaling pathway,ZT6 - ZT12,0.119252,-0.140841,0.410654,False
+Phospholipase D signaling pathway,ZT6 - ZT18,0.331972,0.072923,0.688253,True
+Phospholipase D signaling pathway,ZT12 - ZT18,0.21272,-0.102457,0.502959,False
+Adrenergic signaling in cardiomyocytes,ZT0 - ZT6,-0.23033,-0.537449,0.039065,False
+Adrenergic signaling in cardiomyocytes,ZT0 - ZT12,-0.242825,-0.521668,-0.017682,True
+Adrenergic signaling in cardiomyocytes,ZT0 - ZT18,0.085385,-0.336759,0.443732,False
+Adrenergic signaling in cardiomyocytes,ZT6 - ZT12,-0.012495,-0.250411,0.223606,False
+Adrenergic signaling in cardiomyocytes,ZT6 - ZT18,0.315715,-0.007543,0.663922,False
+Adrenergic signaling in cardiomyocytes,ZT12 - ZT18,0.32821,0.028028,0.62003,True
+Protein processing in endoplasmic reticulum,ZT0 - ZT6,0.0535,-0.122742,0.269981,False
+Protein processing in endoplasmic reticulum,ZT0 - ZT12,0.142177,-0.005162,0.328847,False
+Protein processing in endoplasmic reticulum,ZT0 - ZT18,-0.170097,-0.34208,-0.009017,True
+Protein processing in endoplasmic reticulum,ZT6 - ZT12,0.088677,-0.070257,0.320308,False
+Protein processing in endoplasmic reticulum,ZT6 - ZT18,-0.223597,-0.389048,-0.032398,True
+Protein processing in endoplasmic reticulum,ZT12 - ZT18,-0.312274,-0.517691,-0.122697,True
+IL-17 signaling pathway,ZT0 - ZT6,0.209934,-0.246845,0.616073,False
+IL-17 signaling pathway,ZT0 - ZT12,-0.097734,-0.460301,0.215904,False
+IL-17 signaling pathway,ZT0 - ZT18,0.098767,-0.18481,0.572982,False
+IL-17 signaling pathway,ZT6 - ZT12,-0.307668,-0.613312,-0.004744,True
+IL-17 signaling pathway,ZT6 - ZT18,-0.111167,-0.495741,0.302397,False
+IL-17 signaling pathway,ZT12 - ZT18,0.196501,-0.115826,0.477457,False
+Dopaminergic synapse,ZT0 - ZT6,-0.131568,-0.349877,0.177663,False
+Dopaminergic synapse,ZT0 - ZT12,0.126028,-0.242723,0.413405,False
+Dopaminergic synapse,ZT0 - ZT18,0.150014,-0.073035,0.435896,False
+Dopaminergic synapse,ZT6 - ZT12,0.257596,0.011831,0.521966,True
+Dopaminergic synapse,ZT6 - ZT18,0.281582,0.012734,0.560445,True
+Dopaminergic synapse,ZT12 - ZT18,0.023986,-0.205937,0.368636,False
+Alcoholism,ZT0 - ZT6,-0.280314,-0.487654,0.043696,False
+Alcoholism,ZT0 - ZT12,-0.139233,-0.393273,0.133764,False
+Alcoholism,ZT0 - ZT18,-0.241495,-0.479039,-0.0263,True
+Alcoholism,ZT6 - ZT12,0.141082,-0.107652,0.369652,False
+Alcoholism,ZT6 - ZT18,0.03882,-0.232032,0.317697,False
+Alcoholism,ZT12 - ZT18,-0.102262,-0.276875,0.12858,False
+Apelin signaling pathway,ZT0 - ZT6,-0.274039,-0.619498,-0.015211,True
+Apelin signaling pathway,ZT0 - ZT12,-0.168268,-0.460912,0.161602,False
+Apelin signaling pathway,ZT0 - ZT18,-0.081043,-0.450417,0.145477,False
+Apelin signaling pathway,ZT6 - ZT12,0.105772,-0.128954,0.355862,False
+Apelin signaling pathway,ZT6 - ZT18,0.192996,-0.058282,0.406104,False
+Apelin signaling pathway,ZT12 - ZT18,0.087224,-0.109706,0.374965,False
+Rap1 signaling pathway,ZT0 - ZT6,-0.046269,-0.29657,0.161618,False
+Rap1 signaling pathway,ZT0 - ZT12,-0.265675,-0.482657,-0.036094,True
+Rap1 signaling pathway,ZT0 - ZT18,-0.122748,-0.320598,0.115503,False
+Rap1 signaling pathway,ZT6 - ZT12,-0.219406,-0.472824,0.015894,False
+Rap1 signaling pathway,ZT6 - ZT18,-0.076479,-0.280714,0.153172,False
+Rap1 signaling pathway,ZT12 - ZT18,0.142927,-0.01259,0.36555,False
+Signaling pathways regulating pluripotency of stem cells,ZT0 - ZT6,0.05853,-0.119479,0.319766,False
+Signaling pathways regulating pluripotency of stem cells,ZT0 - ZT12,-0.135736,-0.373956,0.084312,False
+Signaling pathways regulating pluripotency of stem cells,ZT0 - ZT18,0.074695,-0.178164,0.309297,False
+Signaling pathways regulating pluripotency of stem cells,ZT6 - ZT12,-0.194266,-0.387462,0.03818,False
+Signaling pathways regulating pluripotency of stem cells,ZT6 - ZT18,0.016166,-0.205434,0.296636,False
+Signaling pathways regulating pluripotency of stem cells,ZT12 - ZT18,0.210431,0.000898,0.458063,True
+MAPK signaling pathway,ZT0 - ZT6,-0.049976,-0.183986,0.095832,False
+MAPK signaling pathway,ZT0 - ZT12,-0.135314,-0.288226,0.01788,False
+MAPK signaling pathway,ZT0 - ZT18,-0.163932,-0.289532,-0.015573,True
+MAPK signaling pathway,ZT6 - ZT12,-0.085338,-0.290904,0.048744,False
+MAPK signaling pathway,ZT6 - ZT18,-0.113956,-0.250916,0.025535,False
+MAPK signaling pathway,ZT12 - ZT18,-0.028618,-0.183202,0.107171,False

@@ -1,91 +1,103 @@
 gene_set,pair,mean_diff,ci_lo,ci_hi,excludes_zero
-Complement and coagulation cascades,ZT0 - ZT6,0.014098,-0.630389,0.702386,False
-Complement and coagulation cascades,ZT0 - ZT12,-0.308789,-1.148225,0.496812,False
-Complement and coagulation cascades,ZT0 - ZT18,-1.573872,-2.217615,-0.798125,True
-Complement and coagulation cascades,ZT6 - ZT12,-0.322887,-1.019001,0.246642,False
-Complement and coagulation cascades,ZT6 - ZT18,-1.58797,-2.104994,-1.01392,True
-Complement and coagulation cascades,ZT12 - ZT18,-1.265083,-1.807592,-0.448799,True
-cGMP-PKG signaling pathway,ZT0 - ZT6,1.097138,-0.171277,2.121238,False
-cGMP-PKG signaling pathway,ZT0 - ZT12,0.016448,-0.787658,0.941585,False
-cGMP-PKG signaling pathway,ZT0 - ZT18,-0.360172,-1.227647,0.647813,False
-cGMP-PKG signaling pathway,ZT6 - ZT12,-1.08069,-1.808246,-0.085155,True
-cGMP-PKG signaling pathway,ZT6 - ZT18,-1.45731,-2.123627,-0.483913,True
-cGMP-PKG signaling pathway,ZT12 - ZT18,-0.376619,-1.284937,0.515983,False
-Viral carcinogenesis,ZT0 - ZT6,0.381588,-0.406232,1.272438,False
-Viral carcinogenesis,ZT0 - ZT12,0.947144,-0.320744,1.611087,False
-Viral carcinogenesis,ZT0 - ZT18,-0.269912,-0.989932,0.473923,False
-Viral carcinogenesis,ZT6 - ZT12,0.565556,-0.453749,1.304744,False
-Viral carcinogenesis,ZT6 - ZT18,-0.6515,-1.407858,-0.008129,True
-Viral carcinogenesis,ZT12 - ZT18,-1.217057,-1.900916,-0.283147,True
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT6,0.628349,-0.320035,1.283423,False
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT12,0.710681,-0.089787,1.429467,False
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT18,-0.363904,-1.007327,0.396334,False
-"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT12,0.082332,-0.94195,0.670466,False
-"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT18,-0.992253,-1.56338,-0.343911,True
-"Parathyroid hormone synthesis, secretion and action",ZT12 - ZT18,-1.074585,-1.603865,-0.356211,True
-Protein digestion and absorption,ZT0 - ZT6,0.589132,-0.195453,1.294669,False
-Protein digestion and absorption,ZT0 - ZT12,0.609143,-0.206681,1.311802,False
-Protein digestion and absorption,ZT0 - ZT18,-0.460192,-1.073606,0.119627,False
-Protein digestion and absorption,ZT6 - ZT12,0.020011,-0.735451,0.841196,False
-Protein digestion and absorption,ZT6 - ZT18,-1.049324,-1.861599,-0.281294,True
-Protein digestion and absorption,ZT12 - ZT18,-1.069335,-1.58529,-0.424003,True
-Cholesterol metabolism,ZT0 - ZT6,-0.599928,-1.54857,0.43842,False
-Cholesterol metabolism,ZT0 - ZT12,-0.416782,-1.248993,0.463335,False
-Cholesterol metabolism,ZT0 - ZT18,0.414464,-0.457326,1.138598,False
-Cholesterol metabolism,ZT6 - ZT12,0.183146,-0.490887,1.010453,False
-Cholesterol metabolism,ZT6 - ZT18,1.014392,-0.018458,1.799646,False
-Cholesterol metabolism,ZT12 - ZT18,0.831246,0.087576,1.680109,True
-Adrenergic signaling in cardiomyocytes,ZT0 - ZT6,0.436217,-0.426996,1.392902,False
-Adrenergic signaling in cardiomyocytes,ZT0 - ZT12,-0.314971,-1.271077,0.671624,False
-Adrenergic signaling in cardiomyocytes,ZT0 - ZT18,-0.547796,-1.343667,0.360178,False
-Adrenergic signaling in cardiomyocytes,ZT6 - ZT12,-0.751187,-1.439989,0.169039,False
-Adrenergic signaling in cardiomyocytes,ZT6 - ZT18,-0.984012,-1.822886,-0.144432,True
-Adrenergic signaling in cardiomyocytes,ZT12 - ZT18,-0.232825,-1.01911,0.506278,False
-Wnt signaling pathway,ZT0 - ZT6,-0.081488,-0.83002,1.172046,False
-Wnt signaling pathway,ZT0 - ZT12,0.897933,0.010364,1.881611,True
-Wnt signaling pathway,ZT0 - ZT18,0.228775,-0.616515,0.971884,False
-Wnt signaling pathway,ZT6 - ZT12,0.979421,0.176839,1.719248,True
-Wnt signaling pathway,ZT6 - ZT18,0.310262,-0.364281,1.244111,False
-Wnt signaling pathway,ZT12 - ZT18,-0.669159,-1.415723,-0.013195,True
-Relaxin signaling pathway,ZT0 - ZT6,0.211195,-0.514353,1.211462,False
-Relaxin signaling pathway,ZT0 - ZT12,-0.019874,-0.929792,0.751525,False
-Relaxin signaling pathway,ZT0 - ZT18,-0.759202,-1.304557,0.11437,False
-Relaxin signaling pathway,ZT6 - ZT12,-0.231069,-0.993909,0.538047,False
-Relaxin signaling pathway,ZT6 - ZT18,-0.970396,-1.663641,-0.333306,True
-Relaxin signaling pathway,ZT12 - ZT18,-0.739328,-1.370034,0.06398,False
-MAPK signaling pathway,ZT0 - ZT6,-0.167423,-0.813256,0.455734,False
-MAPK signaling pathway,ZT0 - ZT12,-0.77092,-1.309188,-0.245064,True
-MAPK signaling pathway,ZT0 - ZT18,0.151533,-0.315602,0.806617,False
-MAPK signaling pathway,ZT6 - ZT12,-0.603497,-1.08614,-0.050903,True
-MAPK signaling pathway,ZT6 - ZT18,0.318956,-0.329816,0.863399,False
-MAPK signaling pathway,ZT12 - ZT18,0.922452,0.185606,1.305576,True
-cAMP signaling pathway,ZT0 - ZT6,0.657828,-0.115017,1.258733,False
-cAMP signaling pathway,ZT0 - ZT12,0.030951,-0.794092,0.810719,False
-cAMP signaling pathway,ZT0 - ZT18,-0.237211,-0.85014,0.543813,False
-cAMP signaling pathway,ZT6 - ZT12,-0.626877,-1.262488,0.251111,False
-cAMP signaling pathway,ZT6 - ZT18,-0.895039,-1.611476,-0.189821,True
-cAMP signaling pathway,ZT12 - ZT18,-0.268162,-0.96997,0.352188,False
-Axon guidance,ZT0 - ZT6,-0.536382,-1.195553,0.240098,False
-Axon guidance,ZT0 - ZT12,-0.865415,-1.628977,-0.006267,True
-Axon guidance,ZT0 - ZT18,-0.162462,-0.906203,0.544652,False
-Axon guidance,ZT6 - ZT12,-0.329033,-0.944598,0.270764,False
-Axon guidance,ZT6 - ZT18,0.37392,-0.517201,1.061952,False
-Axon guidance,ZT12 - ZT18,0.702953,0.125052,1.32792,True
-Rap1 signaling pathway,ZT0 - ZT6,0.052004,-0.545822,0.751534,False
-Rap1 signaling pathway,ZT0 - ZT12,-0.097384,-0.723286,0.598376,False
-Rap1 signaling pathway,ZT0 - ZT18,0.679934,-0.048973,1.451327,False
-Rap1 signaling pathway,ZT6 - ZT12,-0.149388,-0.764211,0.403176,False
-Rap1 signaling pathway,ZT6 - ZT18,0.62793,0.033892,1.307889,True
-Rap1 signaling pathway,ZT12 - ZT18,0.777317,0.195733,1.438721,True
-Neuroactive ligand-receptor interaction,ZT0 - ZT6,0.338443,-0.084029,0.989076,False
-Neuroactive ligand-receptor interaction,ZT0 - ZT12,0.098976,-0.659567,0.628007,False
-Neuroactive ligand-receptor interaction,ZT0 - ZT18,-0.363282,-0.785392,0.215419,False
-Neuroactive ligand-receptor interaction,ZT6 - ZT12,-0.239467,-0.761918,0.222674,False
-Neuroactive ligand-receptor interaction,ZT6 - ZT18,-0.701724,-1.140308,-0.122687,True
-Neuroactive ligand-receptor interaction,ZT12 - ZT18,-0.462257,-1.004447,0.127517,False
-Vascular smooth muscle contraction,ZT0 - ZT6,0.40361,-0.31783,1.00445,False
-Vascular smooth muscle contraction,ZT0 - ZT12,0.099403,-0.485493,0.683239,False
-Vascular smooth muscle contraction,ZT0 - ZT18,-0.205792,-0.864618,0.322194,False
-Vascular smooth muscle contraction,ZT6 - ZT12,-0.304207,-0.960163,0.475877,False
-Vascular smooth muscle contraction,ZT6 - ZT18,-0.609401,-1.224712,-0.093356,True
-Vascular smooth muscle contraction,ZT12 - ZT18,-0.305194,-0.986956,0.531141,False
+Complement and coagulation cascades,ZT0 - ZT6,0.013498,-0.667811,0.870041,False
+Complement and coagulation cascades,ZT0 - ZT12,-0.294152,-1.029794,0.666586,False
+Complement and coagulation cascades,ZT0 - ZT18,-1.602535,-2.34774,-0.852098,True
+Complement and coagulation cascades,ZT6 - ZT12,-0.30765,-0.946419,0.456996,False
+Complement and coagulation cascades,ZT6 - ZT18,-1.616032,-2.241931,-0.919372,True
+Complement and coagulation cascades,ZT12 - ZT18,-1.308382,-2.124558,-0.589845,True
+cGMP-PKG signaling pathway,ZT0 - ZT6,0.989916,0.140686,1.878445,True
+cGMP-PKG signaling pathway,ZT0 - ZT12,-0.042237,-1.085524,0.8561,False
+cGMP-PKG signaling pathway,ZT0 - ZT18,-0.426171,-1.322993,0.648018,False
+cGMP-PKG signaling pathway,ZT6 - ZT12,-1.032154,-1.878634,-0.1648,True
+cGMP-PKG signaling pathway,ZT6 - ZT18,-1.416088,-2.124506,-0.763121,True
+cGMP-PKG signaling pathway,ZT12 - ZT18,-0.383934,-1.09241,0.275654,False
+Viral carcinogenesis,ZT0 - ZT6,0.314574,-0.473,1.019424,False
+Viral carcinogenesis,ZT0 - ZT12,0.913008,0.176265,1.626323,True
+Viral carcinogenesis,ZT0 - ZT18,-0.381,-1.134566,0.35112,False
+Viral carcinogenesis,ZT6 - ZT12,0.598434,-0.29749,1.464815,False
+Viral carcinogenesis,ZT6 - ZT18,-0.695574,-1.41424,0.203096,False
+Viral carcinogenesis,ZT12 - ZT18,-1.294008,-2.031096,-0.579201,True
+"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT6,0.667945,-0.128396,1.491524,False
+"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT12,0.774105,0.243266,1.342945,True
+"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT18,-0.311078,-0.896355,0.261803,False
+"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT12,0.10616,-0.561559,0.884875,False
+"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT18,-0.979023,-1.75877,-0.016853,True
+"Parathyroid hormone synthesis, secretion and action",ZT12 - ZT18,-1.085183,-1.648313,-0.544829,True
+Cholesterol metabolism,ZT0 - ZT6,-0.604516,-1.534083,0.383014,False
+Cholesterol metabolism,ZT0 - ZT12,-0.406655,-1.501311,0.430155,False
+Cholesterol metabolism,ZT0 - ZT18,0.450344,-0.31332,1.244961,False
+Cholesterol metabolism,ZT6 - ZT12,0.197861,-0.535749,0.957379,False
+Cholesterol metabolism,ZT6 - ZT18,1.054859,0.38282,1.866923,True
+Cholesterol metabolism,ZT12 - ZT18,0.856999,-0.032202,1.834783,False
+Wnt signaling pathway,ZT0 - ZT6,-0.087828,-0.765353,0.657263,False
+Wnt signaling pathway,ZT0 - ZT12,0.963307,0.110235,1.579812,True
+Wnt signaling pathway,ZT0 - ZT18,0.282555,-0.694405,1.080044,False
+Wnt signaling pathway,ZT6 - ZT12,1.051135,0.287763,1.720266,True
+Wnt signaling pathway,ZT6 - ZT18,0.370383,-0.778178,0.966379,False
+Wnt signaling pathway,ZT12 - ZT18,-0.680753,-1.614848,0.179076,False
+Protein digestion and absorption,ZT0 - ZT6,0.527292,-0.249649,1.27596,False
+Protein digestion and absorption,ZT0 - ZT12,0.523976,-0.336433,1.207271,False
+Protein digestion and absorption,ZT0 - ZT18,-0.521506,-1.16257,0.254273,False
+Protein digestion and absorption,ZT6 - ZT12,-0.003315,-1.051725,0.792665,False
+Protein digestion and absorption,ZT6 - ZT18,-1.048798,-1.843954,-0.388031,True
+Protein digestion and absorption,ZT12 - ZT18,-1.045483,-1.630285,-0.160276,True
+Adrenergic signaling in cardiomyocytes,ZT0 - ZT6,0.452671,-0.472705,1.346205,False
+Adrenergic signaling in cardiomyocytes,ZT0 - ZT12,-0.236362,-1.080318,0.514546,False
+Adrenergic signaling in cardiomyocytes,ZT0 - ZT18,-0.547094,-1.236526,0.408162,False
+Adrenergic signaling in cardiomyocytes,ZT6 - ZT12,-0.689033,-1.613142,0.222699,False
+Adrenergic signaling in cardiomyocytes,ZT6 - ZT18,-0.999764,-2.014523,-0.147378,True
+Adrenergic signaling in cardiomyocytes,ZT12 - ZT18,-0.310732,-1.20737,0.449495,False
+Relaxin signaling pathway,ZT0 - ZT6,0.192315,-0.475781,0.975482,False
+Relaxin signaling pathway,ZT0 - ZT12,-0.059341,-0.892265,0.823716,False
+Relaxin signaling pathway,ZT0 - ZT18,-0.760819,-1.387162,-0.010504,True
+Relaxin signaling pathway,ZT6 - ZT12,-0.251656,-1.02722,0.512804,False
+Relaxin signaling pathway,ZT6 - ZT18,-0.953134,-1.524203,-0.215158,True
+Relaxin signaling pathway,ZT12 - ZT18,-0.701478,-1.279924,-0.160741,True
+Axon guidance,ZT0 - ZT6,-0.555339,-1.28468,0.143048,False
+Axon guidance,ZT0 - ZT12,-0.935356,-1.716071,-0.186015,True
+Axon guidance,ZT0 - ZT18,-0.171604,-0.942663,0.445918,False
+Axon guidance,ZT6 - ZT12,-0.380017,-1.116259,0.536839,False
+Axon guidance,ZT6 - ZT18,0.383735,-0.196099,0.971907,False
+Axon guidance,ZT12 - ZT18,0.763752,-0.164209,1.283643,False
+MAPK signaling pathway,ZT0 - ZT6,-0.160324,-0.910506,0.506743,False
+MAPK signaling pathway,ZT0 - ZT12,-0.760971,-1.308025,-0.254262,True
+MAPK signaling pathway,ZT0 - ZT18,0.147624,-0.275738,0.656005,False
+MAPK signaling pathway,ZT6 - ZT12,-0.600647,-1.121646,0.030825,False
+MAPK signaling pathway,ZT6 - ZT18,0.307948,-0.122613,0.846837,False
+MAPK signaling pathway,ZT12 - ZT18,0.908594,0.508275,1.378515,True
+cAMP signaling pathway,ZT0 - ZT6,0.623579,-0.141903,1.454944,False
+cAMP signaling pathway,ZT0 - ZT12,0.046575,-0.625695,0.823797,False
+cAMP signaling pathway,ZT0 - ZT18,-0.232611,-0.823563,0.454624,False
+cAMP signaling pathway,ZT6 - ZT12,-0.577005,-1.346502,0.153067,False
+cAMP signaling pathway,ZT6 - ZT18,-0.85619,-1.523311,-0.232713,True
+cAMP signaling pathway,ZT12 - ZT18,-0.279185,-0.80293,0.407867,False
+Circadian entrainment,ZT0 - ZT6,-0.155641,-1.189846,0.528054,False
+Circadian entrainment,ZT0 - ZT12,-0.654638,-1.533004,-0.008499,True
+Circadian entrainment,ZT0 - ZT18,-0.846224,-1.676309,-0.007122,True
+Circadian entrainment,ZT6 - ZT12,-0.498997,-1.444406,0.524804,False
+Circadian entrainment,ZT6 - ZT18,-0.690583,-1.370721,0.219801,False
+Circadian entrainment,ZT12 - ZT18,-0.191586,-0.886867,0.732284,False
+Rap1 signaling pathway,ZT0 - ZT6,0.086761,-0.31998,0.714203,False
+Rap1 signaling pathway,ZT0 - ZT12,-0.050498,-0.635285,0.586382,False
+Rap1 signaling pathway,ZT0 - ZT18,0.68768,0.122063,1.193952,True
+Rap1 signaling pathway,ZT6 - ZT12,-0.13726,-0.603804,0.456391,False
+Rap1 signaling pathway,ZT6 - ZT18,0.600918,0.143145,1.222377,True
+Rap1 signaling pathway,ZT12 - ZT18,0.738178,0.084149,1.294788,True
+Neuroactive ligand-receptor interaction,ZT0 - ZT6,0.316021,-0.266069,0.915129,False
+Neuroactive ligand-receptor interaction,ZT0 - ZT12,0.065321,-0.430671,0.61887,False
+Neuroactive ligand-receptor interaction,ZT0 - ZT18,-0.348651,-0.741357,0.124295,False
+Neuroactive ligand-receptor interaction,ZT6 - ZT12,-0.2507,-0.759945,0.301421,False
+Neuroactive ligand-receptor interaction,ZT6 - ZT18,-0.664672,-1.163832,-0.215725,True
+Neuroactive ligand-receptor interaction,ZT12 - ZT18,-0.413971,-0.895822,0.059233,False
+Vascular smooth muscle contraction,ZT0 - ZT6,0.35145,-0.420766,1.073398,False
+Vascular smooth muscle contraction,ZT0 - ZT12,0.063869,-0.665347,0.877148,False
+Vascular smooth muscle contraction,ZT0 - ZT18,-0.249817,-1.025532,0.430831,False
+Vascular smooth muscle contraction,ZT6 - ZT12,-0.287581,-0.92269,0.394731,False
+Vascular smooth muscle contraction,ZT6 - ZT18,-0.601267,-1.173674,-0.111501,True
+Vascular smooth muscle contraction,ZT12 - ZT18,-0.313686,-0.932972,0.386337,False
+PI3K-Akt signaling pathway,ZT0 - ZT6,0.008007,-0.488559,0.554784,False
+PI3K-Akt signaling pathway,ZT0 - ZT12,0.162394,-0.285269,0.60715,False
+PI3K-Akt signaling pathway,ZT0 - ZT18,-0.240584,-0.77233,0.324854,False
+PI3K-Akt signaling pathway,ZT6 - ZT12,0.154387,-0.311385,0.630549,False
+PI3K-Akt signaling pathway,ZT6 - ZT18,-0.248591,-0.749163,0.262704,False
+PI3K-Akt signaling pathway,ZT12 - ZT18,-0.402977,-0.788039,-0.001727,True

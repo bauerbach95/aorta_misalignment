@@ -1,73 +1,67 @@
 gene_set,pair,mean_diff,ci_lo,ci_hi,excludes_zero
-Chemokine signaling pathway,ZT0 - ZT6,-0.287157,-0.854659,0.422061,False
-Chemokine signaling pathway,ZT0 - ZT12,-0.158439,-0.793069,0.590377,False
-Chemokine signaling pathway,ZT0 - ZT18,0.779286,-0.032086,1.594451,False
-Chemokine signaling pathway,ZT6 - ZT12,0.128718,-0.480146,0.782674,False
-Chemokine signaling pathway,ZT6 - ZT18,1.066444,0.163631,1.772673,True
-Chemokine signaling pathway,ZT12 - ZT18,0.937726,0.03452,1.519238,True
-Circadian entrainment,ZT0 - ZT6,-0.573399,-1.028501,0.017752,False
-Circadian entrainment,ZT0 - ZT12,-0.998509,-1.484822,-0.495536,True
-Circadian entrainment,ZT0 - ZT18,-0.84986,-1.397666,-0.13706,True
-Circadian entrainment,ZT6 - ZT12,-0.42511,-0.969737,0.091544,False
-Circadian entrainment,ZT6 - ZT18,-0.276461,-0.736283,0.070262,False
-Circadian entrainment,ZT12 - ZT18,0.148649,-0.278829,0.692694,False
-Cardiac muscle contraction,ZT0 - ZT6,-0.610188,-1.095228,-0.021589,True
-Cardiac muscle contraction,ZT0 - ZT12,-0.970223,-1.51527,-0.415713,True
-Cardiac muscle contraction,ZT0 - ZT18,-0.782737,-1.373063,-0.069699,True
-Cardiac muscle contraction,ZT6 - ZT12,-0.360035,-0.731473,0.069549,False
-Cardiac muscle contraction,ZT6 - ZT18,-0.172549,-0.72039,0.263819,False
-Cardiac muscle contraction,ZT12 - ZT18,0.187486,-0.385648,0.570216,False
-Protein processing in endoplasmic reticulum,ZT0 - ZT6,0.34169,-0.046792,0.822156,False
-Protein processing in endoplasmic reticulum,ZT0 - ZT12,0.642294,0.066274,1.200464,True
-Protein processing in endoplasmic reticulum,ZT0 - ZT18,-0.303408,-0.615603,0.178296,False
-Protein processing in endoplasmic reticulum,ZT6 - ZT12,0.300604,-0.427603,0.903767,False
-Protein processing in endoplasmic reticulum,ZT6 - ZT18,-0.645098,-1.088463,-0.308565,True
-Protein processing in endoplasmic reticulum,ZT12 - ZT18,-0.945702,-1.410083,-0.354683,True
-IL-17 signaling pathway,ZT0 - ZT6,-0.009962,-0.628669,0.650776,False
-IL-17 signaling pathway,ZT0 - ZT12,0.220386,-0.525665,0.947096,False
-IL-17 signaling pathway,ZT0 - ZT18,0.935643,0.160529,1.491928,True
-IL-17 signaling pathway,ZT6 - ZT12,0.230348,-0.395534,0.916323,False
-IL-17 signaling pathway,ZT6 - ZT18,0.945606,0.15337,1.549936,True
-IL-17 signaling pathway,ZT12 - ZT18,0.715258,0.116778,1.330327,True
-Drug metabolism,ZT0 - ZT6,-0.200727,-0.573913,0.282996,False
-Drug metabolism,ZT0 - ZT12,-0.852952,-1.286705,-0.384083,True
-Drug metabolism,ZT0 - ZT18,-0.487704,-0.896608,-0.042494,True
-Drug metabolism,ZT6 - ZT12,-0.652225,-0.907131,-0.293,True
-Drug metabolism,ZT6 - ZT18,-0.286977,-0.704344,-0.010322,True
-Drug metabolism,ZT12 - ZT18,0.365248,0.048286,0.641053,True
-Chemical carcinogenesis,ZT0 - ZT6,-0.29033,-0.786649,0.192293,False
-Chemical carcinogenesis,ZT0 - ZT12,-0.809487,-1.332929,-0.188272,True
-Chemical carcinogenesis,ZT0 - ZT18,-0.388708,-0.980884,0.234724,False
-Chemical carcinogenesis,ZT6 - ZT12,-0.519157,-0.938167,-0.105997,True
-Chemical carcinogenesis,ZT6 - ZT18,-0.098379,-0.500659,0.380714,False
-Chemical carcinogenesis,ZT12 - ZT18,0.420779,-0.061873,0.819132,False
-PI3K-Akt signaling pathway,ZT0 - ZT6,-0.745705,-1.206067,-0.10654,True
-PI3K-Akt signaling pathway,ZT0 - ZT12,-0.549731,-1.064582,0.088663,False
-PI3K-Akt signaling pathway,ZT0 - ZT18,-0.085799,-0.764131,0.525392,False
-PI3K-Akt signaling pathway,ZT6 - ZT12,0.195974,-0.250581,0.770388,False
-PI3K-Akt signaling pathway,ZT6 - ZT18,0.659906,0.1628,1.247344,True
-PI3K-Akt signaling pathway,ZT12 - ZT18,0.463932,-0.098041,1.019838,False
-Metabolism of xenobiotics by cytochrome P450,ZT0 - ZT6,-0.277233,-0.755253,0.282372,False
-Metabolism of xenobiotics by cytochrome P450,ZT0 - ZT12,-0.643581,-1.19057,-0.070428,True
-Metabolism of xenobiotics by cytochrome P450,ZT0 - ZT18,-0.25935,-0.829501,0.270754,False
-Metabolism of xenobiotics by cytochrome P450,ZT6 - ZT12,-0.366349,-0.821865,0.108781,False
-Metabolism of xenobiotics by cytochrome P450,ZT6 - ZT18,0.017883,-0.488836,0.478337,False
-Metabolism of xenobiotics by cytochrome P450,ZT12 - ZT18,0.384232,-0.096547,0.780415,False
-MAPK signaling pathway,ZT0 - ZT6,-0.492677,-1.078992,0.175194,False
-MAPK signaling pathway,ZT0 - ZT12,-0.631219,-1.175691,-0.027526,True
-MAPK signaling pathway,ZT0 - ZT18,-0.47884,-0.944976,0.050089,False
-MAPK signaling pathway,ZT6 - ZT12,-0.138542,-0.570496,0.327833,False
-MAPK signaling pathway,ZT6 - ZT18,0.013837,-0.526184,0.617285,False
-MAPK signaling pathway,ZT12 - ZT18,0.152379,-0.257541,0.860035,False
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT6,-0.264943,-0.786776,0.281451,False
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT12,0.293834,-0.173123,0.97923,False
-"Parathyroid hormone synthesis, secretion and action",ZT0 - ZT18,0.036378,-0.577712,0.741355,False
-"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT12,0.558777,0.058646,1.188069,True
-"Parathyroid hormone synthesis, secretion and action",ZT6 - ZT18,0.301321,-0.273401,0.755618,False
-"Parathyroid hormone synthesis, secretion and action",ZT12 - ZT18,-0.257456,-0.912222,0.28034,False
-PPAR signaling pathway,ZT0 - ZT6,-0.372764,-0.695266,-0.000337,True
-PPAR signaling pathway,ZT0 - ZT12,-0.07505,-0.411246,0.263693,False
-PPAR signaling pathway,ZT0 - ZT18,0.106057,-0.288541,0.588155,False
-PPAR signaling pathway,ZT6 - ZT12,0.297714,-0.126614,0.756498,False
-PPAR signaling pathway,ZT6 - ZT18,0.478821,0.139467,0.80879,True
-PPAR signaling pathway,ZT12 - ZT18,0.181107,-0.229776,0.627031,False
+Chemokine signaling pathway,ZT0 - ZT6,-0.3039,-1.109209,0.3722,False
+Chemokine signaling pathway,ZT0 - ZT12,-0.219617,-0.934053,0.558459,False
+Chemokine signaling pathway,ZT0 - ZT18,0.766731,0.084841,1.556095,True
+Chemokine signaling pathway,ZT6 - ZT12,0.084283,-0.628884,0.710064,False
+Chemokine signaling pathway,ZT6 - ZT18,1.070631,0.388067,1.73678,True
+Chemokine signaling pathway,ZT12 - ZT18,0.986349,0.432164,1.669179,True
+Circadian entrainment,ZT0 - ZT6,-0.571942,-1.099064,-0.093663,True
+Circadian entrainment,ZT0 - ZT12,-1.018232,-1.542826,-0.489459,True
+Circadian entrainment,ZT0 - ZT18,-0.817029,-1.45066,-0.056949,True
+Circadian entrainment,ZT6 - ZT12,-0.44629,-0.84239,0.009331,False
+Circadian entrainment,ZT6 - ZT18,-0.245087,-0.649634,0.156438,False
+Circadian entrainment,ZT12 - ZT18,0.201203,-0.397181,0.653658,False
+Protein processing in endoplasmic reticulum,ZT0 - ZT6,0.314025,-0.232488,0.739793,False
+Protein processing in endoplasmic reticulum,ZT0 - ZT12,0.679676,0.248267,1.12202,True
+Protein processing in endoplasmic reticulum,ZT0 - ZT18,-0.318202,-0.805561,0.171124,False
+Protein processing in endoplasmic reticulum,ZT6 - ZT12,0.365651,-0.18681,0.885168,False
+Protein processing in endoplasmic reticulum,ZT6 - ZT18,-0.632227,-1.07948,-0.116212,True
+Protein processing in endoplasmic reticulum,ZT12 - ZT18,-0.997878,-1.486693,-0.37607,True
+IL-17 signaling pathway,ZT0 - ZT6,-0.018465,-0.816052,0.566993,False
+IL-17 signaling pathway,ZT0 - ZT12,0.186156,-0.584752,0.729847,False
+IL-17 signaling pathway,ZT0 - ZT18,0.920208,0.186641,1.542111,True
+IL-17 signaling pathway,ZT6 - ZT12,0.204621,-0.475175,0.898173,False
+IL-17 signaling pathway,ZT6 - ZT18,0.938673,0.192593,1.60754,True
+IL-17 signaling pathway,ZT12 - ZT18,0.734052,0.060123,1.411407,True
+Cardiac muscle contraction,ZT0 - ZT6,-0.595766,-1.200126,-0.068259,True
+Cardiac muscle contraction,ZT0 - ZT12,-0.936106,-1.36207,-0.331939,True
+Cardiac muscle contraction,ZT0 - ZT18,-0.798451,-1.421482,-0.183618,True
+Cardiac muscle contraction,ZT6 - ZT12,-0.34034,-0.743356,0.136023,False
+Cardiac muscle contraction,ZT6 - ZT18,-0.202685,-0.583295,0.327514,False
+Cardiac muscle contraction,ZT12 - ZT18,0.137654,-0.45885,0.524201,False
+Drug metabolism,ZT0 - ZT6,-0.257182,-0.71334,0.184823,False
+Drug metabolism,ZT0 - ZT12,-0.889042,-1.417161,-0.527357,True
+Drug metabolism,ZT0 - ZT18,-0.514872,-0.93182,-0.092647,True
+Drug metabolism,ZT6 - ZT12,-0.63186,-0.97587,-0.258539,True
+Drug metabolism,ZT6 - ZT18,-0.25769,-0.627937,0.170144,False
+Drug metabolism,ZT12 - ZT18,0.37417,0.059055,0.703704,True
+Chemical carcinogenesis,ZT0 - ZT6,-0.344739,-0.946322,0.155873,False
+Chemical carcinogenesis,ZT0 - ZT12,-0.869907,-1.3834,-0.406404,True
+Chemical carcinogenesis,ZT0 - ZT18,-0.420806,-0.917857,0.082888,False
+Chemical carcinogenesis,ZT6 - ZT12,-0.525168,-0.973473,-0.11068,True
+Chemical carcinogenesis,ZT6 - ZT18,-0.076067,-0.565784,0.46473,False
+Chemical carcinogenesis,ZT12 - ZT18,0.449101,0.070604,0.869081,True
+PI3K-Akt signaling pathway,ZT0 - ZT6,-0.778272,-1.290513,-0.284385,True
+PI3K-Akt signaling pathway,ZT0 - ZT12,-0.561515,-0.978864,0.115574,False
+PI3K-Akt signaling pathway,ZT0 - ZT18,-0.136258,-0.762264,0.48096,False
+PI3K-Akt signaling pathway,ZT6 - ZT12,0.216758,-0.389906,0.693584,False
+PI3K-Akt signaling pathway,ZT6 - ZT18,0.642014,0.017673,1.194978,True
+PI3K-Akt signaling pathway,ZT12 - ZT18,0.425256,-0.207845,0.980727,False
+Metabolism of xenobiotics by cytochrome P450,ZT0 - ZT6,-0.34345,-0.992312,0.210961,False
+Metabolism of xenobiotics by cytochrome P450,ZT0 - ZT12,-0.690406,-1.256001,-0.156188,True
+Metabolism of xenobiotics by cytochrome P450,ZT0 - ZT18,-0.291522,-0.823852,0.263921,False
+Metabolism of xenobiotics by cytochrome P450,ZT6 - ZT12,-0.346956,-0.760785,0.056923,False
+Metabolism of xenobiotics by cytochrome P450,ZT6 - ZT18,0.051928,-0.415317,0.584757,False
+Metabolism of xenobiotics by cytochrome P450,ZT12 - ZT18,0.398884,0.033072,0.803908,True
+MAPK signaling pathway,ZT0 - ZT6,-0.559235,-1.189185,0.137002,False
+MAPK signaling pathway,ZT0 - ZT12,-0.67163,-1.114913,-0.028872,True
+MAPK signaling pathway,ZT0 - ZT18,-0.523298,-1.065988,0.065511,False
+MAPK signaling pathway,ZT6 - ZT12,-0.112395,-0.594456,0.380598,False
+MAPK signaling pathway,ZT6 - ZT18,0.035938,-0.559697,0.609806,False
+MAPK signaling pathway,ZT12 - ZT18,0.148333,-0.309215,0.755263,False
+PPAR signaling pathway,ZT0 - ZT6,-0.375309,-0.774234,0.060899,False
+PPAR signaling pathway,ZT0 - ZT12,-0.087234,-0.487701,0.407337,False
+PPAR signaling pathway,ZT0 - ZT18,0.136526,-0.321989,0.582633,False
+PPAR signaling pathway,ZT6 - ZT12,0.288075,-0.106477,0.709265,False
+PPAR signaling pathway,ZT6 - ZT18,0.511835,0.174692,1.028235,True
+PPAR signaling pathway,ZT12 - ZT18,0.22376,-0.370719,0.680548,False

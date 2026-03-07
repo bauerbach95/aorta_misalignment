@@ -68,11 +68,15 @@ TOP_N_PATHWAYS = 10
 # ── KEGG exclusion list ─────────────────────────────────────────────────────
 
 KEGG_EXCLUDE_PATTERNS = [
-    r"cancer", r"carcinoma", r"leukemia", r"melanoma", r"glioma", r"lymphoma",
+    r"cancer", r"carcinoma", r"carcinogen", r"leukemia", r"melanoma", r"glioma",
+    r"lymphoma", r"sarcoma", r"tumor",
     r"papillomavirus", r"herpes", r"hepatitis", r"influenza", r"HIV", r"HTLV",
-    r"measles", r"Epstein", r"virus", r"infection", r"Vibrio", r"Salmonella",
-    r"Shigella", r"Legionella", r"Staphylococcus", r"Tuberculosis", r"Malaria",
+    r"measles", r"Epstein", r"virus", r"infection", r"invasion",
+    r"Vibrio", r"Salmonella", r"Shigella", r"Legionella", r"Legionellosis",
+    r"Staphylococcus", r"Tuberculosis", r"Malaria", r"Pertussis",
     r"Chagas", r"Leishmaniasis", r"Toxoplasmosis", r"Amoebiasis",
+    r"trypanosomiasis",
+    r"arthritis", r"asthma", r"lupus",
     r"Parkinson", r"Alzheimer", r"Huntington", r"Prion",
     r"Cushing", r"diabetic complication",
     r"MicroRNAs in",
@@ -242,6 +246,42 @@ def test_time_varying(gene_set_waveform, credible_level=0.95):
         })
 
     return is_significant, pairwise_results
+
+
+def test_nonzero(gene_set_waveform, credible_level=0.95):
+    """Test if a waveform is significantly different from zero at any time point.
+
+    Useful for two-group difference waveforms: identifies gene sets where
+    the groups differ at specific ZTs. Bonferroni-corrected over 4 time points.
+
+    Returns:
+        is_significant: bool (True if any ZT excludes zero)
+        pointwise_results: list of dicts with per-ZT CI info
+    """
+    n_tests = 4
+    alpha_corrected = (1 - credible_level) / n_tests
+    lo_q = alpha_corrected / 2
+    hi_q = 1 - alpha_corrected / 2
+
+    is_significant = False
+    pointwise_results = []
+
+    for k in range(4):
+        vals = gene_set_waveform[:, k]
+        ci_lo = np.quantile(vals, lo_q)
+        ci_hi = np.quantile(vals, hi_q)
+        excludes_zero = (ci_lo > 0) or (ci_hi < 0)
+        if excludes_zero:
+            is_significant = True
+        pointwise_results.append({
+            "zt": ZT_LABELS[k],
+            "mean": float(np.mean(vals)),
+            "ci_lo": float(ci_lo),
+            "ci_hi": float(ci_hi),
+            "excludes_zero": excludes_zero,
+        })
+
+    return is_significant, pointwise_results
 
 
 # ── Circular math ────────────────────────────────────────────────────────────
