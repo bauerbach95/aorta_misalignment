@@ -21,6 +21,7 @@ Output:
 """
 
 import os
+import argparse
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -48,7 +49,7 @@ COMPARISONS_TO_RUN = [
         "condition_a": "male aligned bmal1-control",
         "condition_b": "male misaligned bmal1-control",
         "label": "male aligned vs misaligned WT",
-        "clusters": {"cluster_0": "SMC"},
+        "clusters": {"cluster_0": "SMC", "cluster_1" : "Fibroblast"},
     },
 ]
 
@@ -56,8 +57,8 @@ FLAT_LOG10_BF_THRESHOLD = 2.0
 FRAC_CELL_DETECTED_MIN = 0.01
 NUM_SAMPLES = 100
 CREDIBLE_LEVEL = 0.95
-MIN_GENES_IN_SET = 5
-TOP_N_WAVEFORMS = 10
+MIN_GENES_IN_SET = 3
+TOP_N_WAVEFORMS = 20
 GENE_SET_TYPES = ["KEGG", "TF"]
 
 FIGURES_SUBDIR = os.path.join(FIGURES_DIR, "group_waveform_enrichment")
@@ -174,7 +175,7 @@ def export_source_data(results, slug, cell_type, is_comparison=False):
 
 # ── Plotting ─────────────────────────────────────────────────────────────────
 
-def plot_waveform_panel(ax, top_sets, cell_type, gs_type, idx, ylabel):
+def plot_waveform_panel(ax, top_sets, cell_type, gs_type, idx, ylabel, show_ci=True):
     """Plot waveform line plots with CI ribbons for one cell type."""
     if not top_sets:
         ax.text(0.5, 0.5, "No significant\nsets", transform=ax.transAxes,
@@ -189,16 +190,21 @@ def plot_waveform_panel(ax, top_sets, cell_type, gs_type, idx, ylabel):
     n_sets = len(top_sets)
     if n_sets <= 8:
         colors = plt.cm.Set2(np.linspace(0, 1, 8))[:n_sets]
-    else:
+    elif n_sets <= 10:
         colors = plt.cm.tab10(np.linspace(0, 1, 10))[:n_sets]
+    elif n_sets <= 20:
+        colors = plt.cm.tab20(np.linspace(0, 1, 20))[:n_sets]
+    else:
+        colors = plt.cm.gist_ncar(np.linspace(0, 0.9, n_sets))
 
     is_tf = gs_type == "TF"
     for i, gs in enumerate(top_sets):
         label = format_label(gs["name"], max_len=28, is_tf=is_tf)
         ax.plot(ZT_HOURS, gs["mean_waveform"], color=colors[i],
                 linewidth=1.0, label=label, zorder=3)
-        ax.fill_between(ZT_HOURS, gs["ci_lo"], gs["ci_hi"],
-                        color=colors[i], alpha=0.15, zorder=2)
+        if show_ci:
+            ax.fill_between(ZT_HOURS, gs["ci_lo"], gs["ci_hi"],
+                            color=colors[i], alpha=0.15, zorder=2)
 
     ax.axhline(0, color="0.7", linewidth=0.4, linestyle="--", zorder=1)
     ax.set_title(cell_type, fontsize=8, color=CELL_TYPE_COLORS[cell_type],
@@ -219,7 +225,7 @@ def plot_waveform_panel(ax, top_sets, cell_type, gs_type, idx, ylabel):
         text.set_color("0.25")
 
 
-def generate_figures(all_results, slug, title_prefix, cell_types, ylabel):
+def generate_figures(all_results, slug, title_prefix, cell_types, ylabel, show_ci=True):
     """Generate and save PDF figures for a set of cell types."""
     n_ct = len(cell_types)
     for gs_type in GENE_SET_TYPES:
@@ -233,7 +239,7 @@ def generate_figures(all_results, slug, title_prefix, cell_types, ylabel):
         for idx, ct in enumerate(cell_types):
             sig_sets = all_results[ct][gs_type]
             top_sets = sig_sets[:TOP_N_WAVEFORMS]
-            plot_waveform_panel(axes[idx], top_sets, ct, gs_type, idx, ylabel)
+            plot_waveform_panel(axes[idx], top_sets, ct, gs_type, idx, ylabel, show_ci=show_ci)
 
         plt.tight_layout(rect=[0, 0.02, 1, 0.96])
         outpath = os.path.join(FIGURES_SUBDIR, f"{slug}_{gs_type}.pdf")
@@ -241,6 +247,14 @@ def generate_figures(all_results, slug, title_prefix, cell_types, ylabel):
         plt.close(fig)
         print(f"  Saved {outpath}")
 
+
+# ── Parse arguments ───────────────────────────────────────────────────────────
+
+parser = argparse.ArgumentParser(description="Gene-set waveform enrichment analysis")
+parser.add_argument("--no-ci", action="store_true",
+                    help="Omit confidence interval shading from waveform plots")
+args = parser.parse_args()
+SHOW_CI = not args.no_ci
 
 # ── Step 1: Load gene set dictionaries ───────────────────────────────────────
 
@@ -284,7 +298,7 @@ for condition in CONDITIONS_TO_RUN:
 
     cell_types = list(CLUSTER_CELL_TYPE.values())
     generate_figures(all_results, slug, condition, cell_types,
-                     ylabel="Mesor-subtracted\nlog rate")
+                     ylabel="Mesor-subtracted\nlog rate", show_ci=SHOW_CI)
 
 # ── Step 3: Two-group comparisons ────────────────────────────────────────────
 
@@ -350,6 +364,6 @@ for comp in COMPARISONS_TO_RUN:
 
     cell_types = list(clusters.values())
     generate_figures(all_results, slug, label, cell_types,
-                     ylabel="Difference in\nlog rate (A \u2212 B)")
+                     ylabel="Difference in\nlog rate (A \u2212 B)", show_ci=SHOW_CI)
 
 print("\nDone.")
