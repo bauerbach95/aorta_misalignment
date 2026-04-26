@@ -25,6 +25,7 @@ from circadian_utils import (
     load_metrics, filter_cyclers, acrophase_rad_to_hours, circular_hour_distance,
     load_kegg_dict, load_tf_dict, run_enrichment,
     make_rose_plot, export_enrichment_tables,
+    load_smc_switching_genes,
 )
 
 apply_style()
@@ -102,6 +103,51 @@ for cell_type in CLUSTER_CELL_TYPE.values():
     tf_enrichments_full[cell_type] = (full_df, lrt_df)
     tf_enrichments[cell_type] = (top_df, lrt_df)
 
+# ── Step 3b: SMC phenotypic switching acrophase analysis ─────────────────────
+
+print("\nStep 3b: SMC phenotypic switching acrophase analysis...")
+switching_genes = load_smc_switching_genes()
+
+# Use male aligned SMC cyclers (broader pool than shared M/F) for switching analysis
+male_smc_df = load_metrics("cluster_0", ALIGNED_CONDITIONS["male"])
+male_smc_cyclers = filter_cyclers(male_smc_df)
+male_smc_acro = {
+    g: male_smc_df.loc[g, "expected_acrophase"]
+    for g in male_smc_cyclers
+}
+
+switch_up_acro = {g: male_smc_acro[g] for g in switching_genes["up"] if g in male_smc_acro}
+switch_down_acro = {g: male_smc_acro[g] for g in switching_genes["down"] if g in male_smc_acro}
+print(f"  Male SMC cyclers: {len(male_smc_cyclers)}")
+print(f"  Switching UP genes among male SMC cyclers: {len(switch_up_acro)}/{len(switching_genes['up'])}")
+print(f"  Switching DOWN genes among male SMC cyclers: {len(switch_down_acro)}/{len(switching_genes['down'])}")
+
+# Permutation test: is the observed circular concentration more extreme
+# than expected from random gene sets of the same size?
+NUM_PERMUTATIONS = 5000
+all_smc_acro_vals = np.array(list(male_smc_acro.values()))
+
+
+def circular_resultant_length(angles_rad):
+    return np.abs(np.mean(np.exp(1j * np.array(angles_rad))))
+
+
+def permutation_pvalue(observed_genes_acro, all_acro, n_perm):
+    obs_R = circular_resultant_length(list(observed_genes_acro.values()))
+    n = len(observed_genes_acro)
+    count_ge = 0
+    for _ in range(n_perm):
+        perm = np.random.choice(all_acro, size=n, replace=False)
+        if circular_resultant_length(perm) >= obs_R:
+            count_ge += 1
+    return (count_ge + 1) / (n_perm + 1)
+
+
+switch_up_pval = permutation_pvalue(switch_up_acro, all_smc_acro_vals, NUM_PERMUTATIONS)
+switch_down_pval = permutation_pvalue(switch_down_acro, all_smc_acro_vals, NUM_PERMUTATIONS)
+print(f"  Permutation p-value (UP, dusk enrichment): {switch_up_pval:.4f}")
+print(f"  Permutation p-value (DOWN, dawn enrichment): {switch_down_pval:.4f}")
+
 # ── Step 4: Export source data ───────────────────────────────────────────────
 
 print("\nStep 4: Exporting source data...")
@@ -121,6 +167,22 @@ for ct in CLUSTER_CELL_TYPE.values():
 
 export_enrichment_tables(SOURCE_DATA_DIR, "panel_b_kegg", kegg_enrichments_full, "pathway")
 export_enrichment_tables(SOURCE_DATA_DIR, "panel_c_tf", tf_enrichments_full, "tf_motif")
+
+# Panel d source data
+for direction, acro_dict, pval in [
+    ("up", switch_up_acro, switch_up_pval),
+    ("down", switch_down_acro, switch_down_pval),
+]:
+    rows = [{"gene": g, "acrophase_rad": float(a),
+             "acrophase_hour": round(acrophase_rad_to_hours(a), 2)}
+            for g, a in sorted(acro_dict.items())]
+    df = pd.DataFrame(rows)
+    df.to_csv(os.path.join(SOURCE_DATA_DIR, f"panel_d_switching_{direction}.csv"), index=False)
+pd.DataFrame([{"direction": "up", "n_genes": len(switch_up_acro),
+                "permutation_pvalue": switch_up_pval},
+               {"direction": "down", "n_genes": len(switch_down_acro),
+                "permutation_pvalue": switch_down_pval}]).to_csv(
+    os.path.join(SOURCE_DATA_DIR, "panel_d_switching_permutation_test.csv"), index=False)
 print(f"  Source data written to {SOURCE_DATA_DIR}/")
 
 # ── Step 5: Generate Figure 2 ───────────────────────────────────────────────
@@ -130,13 +192,13 @@ print("\nStep 5: Generating figure...")
 all_cell_types = ["SMC", "Fibroblast", "EC", "Macrophage"]
 n_rose = len(ROSE_PLOT_CELL_TYPES)
 
-fig = plt.figure(figsize=(8.5, 11), dpi=300)
+fig = plt.figure(figsize=(8.5, 13), dpi=300)
 fig.patch.set_facecolor("white")
 
 gs = GridSpec(
-    3, n_rose, figure=fig, hspace=0.75, wspace=0.65,
-    height_ratios=[0.5, 1.2, 1.2],
-    left=0.08, right=0.92, top=0.95, bottom=0.04,
+    4, n_rose, figure=fig, hspace=0.75, wspace=0.65,
+    height_ratios=[0.5, 1.2, 1.2, 0.55],
+    left=0.08, right=0.92, top=0.96, bottom=0.03,
 )
 
 # Row a: Bar chart
@@ -187,7 +249,35 @@ for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
         ax.text(-0.25, 1.22, "c", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
-fig.text(0.02, 0.24, "TF Motifs", rotation=90, fontsize=8,
+fig.text(0.02, 0.28, "TF Motifs", rotation=90, fontsize=8,
+         fontweight="semibold", va="center", color="0.3")
+
+# Row d: SMC phenotypic switching histograms
+num_bins_hist = 12
+bin_edges_h = np.linspace(0, 24, num_bins_hist + 1)
+
+for i, (direction, acro_dict, pval, title) in enumerate([
+    ("up", switch_up_acro, switch_up_pval, "Increasing with\nphenotypic switching"),
+    ("down", switch_down_acro, switch_down_pval, "Decreasing with\nphenotypic switching"),
+]):
+    ax = fig.add_subplot(gs[3, i])
+    hours = [acrophase_rad_to_hours(a) for a in acro_dict.values()]
+    ax.hist(hours, bins=bin_edges_h, color=CELL_TYPE_COLORS["SMC"],
+            edgecolor="white", linewidth=0.5, alpha=0.85)
+    ax.set_xlim(0, 24)
+    ax.set_xticks([0, 6, 12, 18, 24])
+    ax.set_xticklabels(["ZT0", "ZT6", "ZT12", "ZT18", "ZT24"], fontsize=5.5)
+    ax.set_xlabel("Acrophase (hours)", fontsize=6.5)
+    ax.set_ylabel("Number of genes" if i == 0 else "", fontsize=6.5)
+    ax.set_title(title, fontsize=7, fontweight="medium", color="0.2")
+    ax.text(0.97, 0.95, f"n={len(acro_dict)}\np={pval:.3f}",
+            transform=ax.transAxes, fontsize=5, ha="right", va="top", color="0.35")
+    sns.despine(ax=ax)
+    if i == 0:
+        ax.text(-0.15, 1.15, "d", transform=ax.transAxes,
+                fontsize=11, fontweight="bold", va="top")
+
+fig.text(0.02, 0.09, "SMC Switching", rotation=90, fontsize=8,
          fontweight="semibold", va="center", color="0.3")
 
 # Save

@@ -25,8 +25,26 @@ NONPARAM_REG_DIR = os.path.join(
     "datasets/joint/data_annotations/hvg/prior_knowledge_guided/"
     "scvi_res/clustering/res_0.05/nonparametric_reg",
 )
+DOWNSAMPLED_DIR = os.path.join(
+    DATA_ROOT,
+    "datasets/joint/data_annotations/hvg/prior_knowledge_guided/"
+    "scvi_res/clustering/res_0.05/male_vs_female_aligned_cell_type_rhythmicity",
+)
 GENE_SETS_DIR = os.path.join(DATA_ROOT, "gene_sets")
 FIGURES_DIR = os.path.join(PROJECT_DIR, "figures")
+SMC_SWITCHING_DIR = os.path.join(
+    "/Users/mingyaolab/Dropbox/athero_data/preprocessed",
+    "RPS001-RPS002-RPS003-RPS004-RPS007-RPS008-RPS011-RPS012_"
+    "scale_True_zero-centered_True_scale-per-batch_False_"
+    "sample-min-disp_3.0_zsgreen-min_disp_3.0_all-min-disp_0.7",
+    "desc_results",
+    "subject_RPS001-RPS002-RPS003-RPS004-RPS007-RPS008-RPS011-RPS012_"
+    "dims_128_resolution_0.35_tol_0.005_run_0",
+    "pseudotime_X_velocity_results",
+    "nichenet_pseudotime-pseudotime_2_numbins-11_"
+    "binsubset-[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]_"
+    "startdebins-[0]_enddebins-[4]",
+)
 
 # ── Cell types & conditions ──────────────────────────────────────────────────
 
@@ -40,6 +58,11 @@ CLUSTER_CELL_TYPE = {
 ALIGNED_CONDITIONS = {
     "male": "male aligned bmal1-control",
     "female": "female aligned bmal1-control",
+}
+
+MISALIGNED_CONDITIONS = {
+    "male": "male misaligned bmal1-control",
+    "female": "female misaligned bmal1-control",
 }
 
 CELL_TYPE_COLORS = {
@@ -490,3 +513,92 @@ def export_enrichment_tables(source_dir, prefix, enrichments_full, label_col="pa
             out = enrich_df.reset_index().rename(columns={"gene_set": label_col})
             out.to_csv(os.path.join(source_dir, f"{prefix}_enrichment_{ct}.csv"), index=False)
             lrt_df.to_csv(os.path.join(source_dir, f"{prefix}_lrt_bins_{ct}.csv"))
+
+
+# ── Amplitude computation ──────────────────────────────────────────────────
+
+
+def compute_amplitude(samples):
+    """Compute amplitude (max - min over ZTs) per sample.
+
+    Args:
+        samples: np.ndarray [num_genes, num_samples, 4] in log-rate space
+
+    Returns:
+        np.ndarray [num_genes, num_samples]
+    """
+    return samples.max(axis=-1) - samples.min(axis=-1)
+
+
+# ── Downsampled data loading ──────────────────────────────────────────────
+
+
+def load_downsampled_metrics(cluster, condition):
+    """Load de_novo_metrics from downsampled M/F comparison data.
+
+    Note: This data lacks expected_mesor and expected_acrophase columns.
+    """
+    path = os.path.join(DOWNSAMPLED_DIR, cluster, condition, "de_novo_metrics.tsv")
+    return pd.read_table(path, sep="\t", index_col="gene")
+
+
+def load_downsampled_waveform_params(cluster, condition):
+    """Load alpha, beta, min/max from downsampled data."""
+    base = os.path.join(DOWNSAMPLED_DIR, cluster, condition)
+    alpha_df = pd.read_table(os.path.join(base, "gene_log_alpha.tsv"), sep="\t", index_col="gene")
+    beta_df = pd.read_table(os.path.join(base, "gene_log_beta.tsv"), sep="\t", index_col="gene")
+    minmax_df = pd.read_table(os.path.join(base, "log_min_max.tsv"), sep="\t", index_col="gene")
+    return alpha_df, beta_df, minmax_df
+
+
+def filter_cyclers_downsampled(metric_df, bf_threshold=WAVEFORM_BF_MIN):
+    """Filter cyclers from downsampled data (no expected_mesor/acrophase).
+
+    Applies: frac_cell_detected, num_cell_detected,
+             frac_circadian_largest_component, BF.
+    """
+    mask = (
+        (metric_df["frac_cell_detected"] > FRAC_CELL_DETECTED_MIN)
+        & (metric_df["num_cell_detected"] > NUM_CELL_DETECTED_MIN)
+        & (metric_df["frac_circadian_samples_largest_component"] >= FRAC_CIRC_LARGEST_COMP_MIN)
+        & (metric_df["waveform_over_circadian_component_subtracted_log10_bf"] >= bf_threshold)
+    )
+    return set(metric_df.index[mask])
+
+
+# ── SMC switching gene sets ───────────────────────────────────────────────
+
+
+def load_smc_switching_genes():
+    """Load original SMC phenotypic switching gene sets (139 up, 133 down).
+
+    Returns:
+        dict with keys 'up' and 'down', values are lists of gene names.
+    """
+    def _read(filename):
+        path = os.path.join(SMC_SWITCHING_DIR, filename)
+        with open(path) as f:
+            genes = [line.strip() for line in f if line.strip()]
+        return [g[0].upper() + g[1:] if g else g for g in genes]
+    return {"up": _read("up_genes.txt"), "down": _read("down_genes.txt")}
+
+
+# ── Posterior waveform plotting ───────────────────────────────────────────
+
+ZT_HOURS = [0, 6, 12, 18]
+
+
+def plot_posterior_waveform(ax, samples, color, label, ci_level=0.95):
+    """Plot posterior waveform mean +/- CI ribbon for a single gene.
+
+    Args:
+        samples: np.ndarray [num_samples, 4]
+        color: line/fill color
+        label: legend label
+        ci_level: credible interval level
+    """
+    mean = samples.mean(axis=0)
+    lo = np.quantile(samples, (1 - ci_level) / 2, axis=0)
+    hi = np.quantile(samples, 1 - (1 - ci_level) / 2, axis=0)
+    ax.plot(ZT_HOURS, mean, color=color, linewidth=1.0, label=label, zorder=3)
+    ax.fill_between(ZT_HOURS, lo, hi, color=color, alpha=0.2, zorder=2)
