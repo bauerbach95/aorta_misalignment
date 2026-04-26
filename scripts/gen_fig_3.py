@@ -288,7 +288,7 @@ for i, ct in enumerate(SWEEP_CLUSTERS.values()):
 
 # ── Row c: waveform enrichment line plots ────────────────────────────────────
 
-gs_c = GridSpecFromSubplotSpec(2, 2, subplot_spec=gs_main[2], hspace=0.55, wspace=0.35)
+gs_c = GridSpecFromSubplotSpec(2, 2, subplot_spec=gs_main[2], hspace=0.85, wspace=0.35)
 enrich_cell_types = list(ENRICH_CLUSTERS.values())
 
 for row_idx, gs_type in enumerate(GS_TYPES):
@@ -314,8 +314,6 @@ for row_idx, gs_type in enumerate(GS_TYPES):
                 label = format_label(gs["name"], max_len=28, is_tf=is_tf)
                 ax.plot(ZT_HOURS, gs["mean_waveform"], color=colors[j],
                         linewidth=1.0, label=label, zorder=3)
-                ax.fill_between(ZT_HOURS, gs["ci_lo"], gs["ci_hi"],
-                                color=colors[j], alpha=0.15, zorder=2)
             ax.axhline(0, color="0.7", linewidth=0.4, linestyle="--", zorder=1)
             leg = ax.legend(
                 fontsize=3.5, frameon=False, loc="upper center",

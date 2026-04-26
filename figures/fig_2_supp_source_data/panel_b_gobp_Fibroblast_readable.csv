@@ -1,0 +1,36 @@
+,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+Organic hydroxy compound biosynthetic process,6,Acaa2;Fdps;Hmgcs2;Scp2;Per2;Nr1d1,8.0,4,10.382732451514975,4.138802065912534,9.0
+Steroid biosynthetic process,6,Acaa2;Adm;Fdps;Hmgcs2;Scp2;Nr1d1,8.0,4,7.9513416371414305,4.5605668786155285,9.0
+Steroid hormone mediated signaling pathway,6,Fkbp4;Arntl;Per1;Lbh;Nr1d1;Clock,6.0,11,22.91408691813321,6.048581367396984,23.0
+Bone development,6,Epyc;Fbn1;Lox;Mmp14;Zbtb16;Col27a1,6.0,1,6.812404428763722,5.956804385799878,3.0
+Hormone mediated signaling pathway,7,Fkbp4;Arntl;Per1;Lbh;Nr1d1;Clock;Nr1d2,5.142857142857143,11,22.788046677462766,8.163558660777927,23.0
+Intracellular receptor signaling pathway,7,Fkbp4;Arntl;Per1;Lbh;Nr1d1;Clock;Nr1d2,5.142857142857143,11,22.788046677462766,8.163558660777927,23.0
+Circadian regulation of gene expression,10,Ciart;Arntl;Npas2;Per1;Bhlhe41;Bhlhe40;Per3;Per2;Nr1d1;Clock,4.800000000000001,5,10.740963162975211,5.396920341705423,11.0
+Circadian rhythm,13,Ciart;Dbp;Arntl;Nfil3;Npas2;Per1;Bhlhe41;Bhlhe40;Per3;Per2;Nr1d1;Clock;Nr1d2,4.615384615384616,5,10.642374706740938,5.471349846159116,11.0
+Regulation of circadian rhythm,8,Arntl;Per1;Bhlhe40;Per3;Per2;Nr1d1;Clock;Nr1d2,4.5,5,11.533541825461752,4.934229380667292,11.0
+Cellular response to xenobiotic stimulus,6,Aldh3a1;Fmo1;Fmo2;Fmo4;Gsta3;Hspa5,4.0,7,16.11906515979649,2.741882888504679,15.0
+Connective tissue development,6,Epyc;Hmgcs2;Lox;Pkd1;Zbtb16;Col27a1,4.0,5,12.178781349559529,4.726355790926574,11.0
+Monocarboxylic acid biosynthetic process,6,Lpl;Pdk4;Ptgs2;Scp2;Per2;Nr1d1,4.0,4,10.72776299593575,3.762285122915465,9.0
+Regulation of insulin secretion,6,Cpt1a;Glul;Arntl;Per2;Nr1d1;Clock,4.0,11,8.980573661706188,6.597467937970732,23.0
+Regulation of protein secretion,6,Cpt1a;Glul;Arntl;Per2;Nr1d1;Clock,4.0,11,8.980573661706188,6.597467937970732,23.0
+Regulation of peptide transport,6,Cpt1a;Glul;Arntl;Per2;Nr1d1;Clock,4.0,11,8.980573661706188,6.597467937970732,23.0
+Amide transport,6,Cpt1a;Glul;Arntl;Per2;Nr1d1;Clock,4.0,11,8.980573661706188,6.597467937970732,23.0
+Cellular response to steroid hormone stimulus,9,Fam107a;Fkbp4;Hmgcs2;Hspa8;Arntl;Per1;Lbh;Nr1d1;Clock,4.0,11,19.17176874284104,8.244612880165302,23.0
+Temperature homeostasis,6,Dio2;Arntl;G0s2;Ptgs2;Per2;Nr1d1,4.0,7,14.718792127846918,6.041907327539917,15.0
+Lipid oxidation,6,Acaa2;Eci2;Cpt1a;Ech1;Pdk4;Scp2,4.0,3,8.994445301293627,1.5536458955168233,7.0
+Insulin secretion,6,Cpt1a;Glul;Arntl;Per2;Nr1d1;Clock,4.0,11,8.980573661706188,6.597467937970732,23.0
+Response to corticosteroid,6,Fam107a;Adm;Anxa3;Hmgcs2;Fibin;Ptgs2,4.0,1,11.751277915858216,7.006687098868486,3.0
+Cell matrix adhesion,6,Fam107a;Limch1;Mmp14;Col5a3;Serpine1;Pkd1,4.0,1,6.041336517837326,6.691334771797356,3.0
+Response to temperature stimulus,6,Cirbp;Adm;Dio2;Hmgcs2;Lpl;Ptgs2,4.0,1,5.886128362737916,5.872456820129942,3.0
+Peptide transport,6,Cpt1a;Glul;Arntl;Per2;Nr1d1;Clock,4.0,11,8.980573661706188,6.597467937970732,23.0
+Organic acid catabolic process,6,Acaa2;Eci2;Cpt1a;Ech1;Glul;Scp2,4.0,3,9.164667185506865,1.7891294379046756,7.0
+Protein folding,6,Hspa4l;Fkbp4;Fkbp5;Sdf2l1;Hspa5;Hspa8,4.0,9,20.120231755126404,3.4226150124414323,19.0
+Lipid modification,6,Acaa2;Eci2;Cpt1a;Ech1;Pdk4;Scp2,4.0,3,8.994445301293627,1.5536458955168233,7.0
+Rhythmic process,16,Ciart;Dbp;Hlf;Hspa5;Arntl;Nfil3;Npas2;Per1;Tef;Bhlhe41;Bhlhe40;Per3;Per2;Nr1d1;Clock;Nr1d2,3.75,5,11.420687254153714,5.519656943801271,11.0
+Response to starvation,7,Cdkn1a;Adm;Glul;Hmgcs2;Hspa5;Hspa8;Pdk4,3.4285714285714284,5,4.70240239116813,8.531512812724143,11.0
+Regulation of hormone secretion,7,Cpt1a;Glul;Arntl;Nmb;Per2;Nr1d1;Clock,3.4285714285714284,7,11.486719302597518,6.511648983099276,15.0
+Fat cell differentiation,7,Dio2;Lpl;Arntl;Ptgs2;Zbtb16;Per2;Nr1d1,3.4285714285714284,7,12.181121673809784,8.041650517515214,15.0
+Cellular response to extracellular stimulus,7,Cdkn1a;Fam107a;Glul;Hspa5;Hspa8;Lpl;Pdk4,3.4285714285714284,5,10.296877769276623,9.703200142496154,11.0
+Hormone transport,8,Adm;Cpt1a;Glul;Arntl;Nmb;Per2;Nr1d1;Clock,3.0,7,9.016074101929876,7.53598646106397,15.0
+Cellular lipid catabolic process,8,Acaa2;Eci2;Cpt1a;Ech1;Smpdl3b;Lpl;Scp2;Prdx6,3.0,3,8.850892948890708,3.442199834694705,7.0
+Positive regulation of defense response,6,Pdcd4;Lpl;Npas2;Serpine1;Ptgs2;Clock,2.0,0,6.016256718359651,6.167327639892597,1.0

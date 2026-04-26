@@ -1,0 +1,2 @@
+go_term,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+GOBP_RHYTHMIC_PROCESS,6,Dbp;Hlf;Tef;Per3;Nr1d1;Nr1d2,8.0,4,9.485837547823781,1.017705228641849,9.0

@@ -3,7 +3,7 @@ Generate Figure 2: Cell-type-specific circadian rhythms in mouse aortic cell typ
 
 Subplots:
   a) Bar chart: number of daily cyclers per major cell type (shared M/F)
-  b) Rose plots: KEGG pathway acrophase enrichment (SMC, Fibroblast only)
+  b) Rose plots: Reactome pathway acrophase enrichment (SMC, Fibroblast only)
   c) Rose plots: TF acrophase enrichment (SMC, Fibroblast only)
 
 Output:
@@ -23,7 +23,7 @@ from circadian_utils import (
     apply_style, CLUSTER_CELL_TYPE, ALIGNED_CONDITIONS, CELL_TYPE_COLORS,
     FIGURES_DIR, ACROPHASE_HOUR_THRESH, TOP_N_PATHWAYS,
     load_metrics, filter_cyclers, acrophase_rad_to_hours, circular_hour_distance,
-    load_kegg_dict, load_tf_dict, run_enrichment,
+    load_reactome_dict, clean_reactome_name, load_tf_dict, run_enrichment,
     make_rose_plot, export_enrichment_tables,
     load_smc_switching_genes,
 )
@@ -75,19 +75,19 @@ for cluster, cell_type in CLUSTER_CELL_TYPE.items():
     cycler_details[cell_type] = pd.DataFrame(details_rows)
     print(f"  {cell_type}: {len(agreed)} daily cyclers")
 
-# ── Step 2: KEGG pathway acrophase enrichment ────────────────────────────────
+# ── Step 2: Reactome pathway acrophase enrichment ────────────────────────────
 
-print("\nStep 2: KEGG pathway acrophase enrichment...")
-kegg_dict = load_kegg_dict()
+print("\nStep 2: Reactome pathway acrophase enrichment...")
+reactome_dict = load_reactome_dict()
 
-kegg_enrichments = {}
-kegg_enrichments_full = {}
+reactome_enrichments = {}
+reactome_enrichments_full = {}
 for cell_type in CLUSTER_CELL_TYPE.values():
     full_df, top_df, lrt_df = run_enrichment(
-        daily_cycler_acrophases[cell_type], kegg_dict, cell_type
+        daily_cycler_acrophases[cell_type], reactome_dict, cell_type
     )
-    kegg_enrichments_full[cell_type] = (full_df, lrt_df)
-    kegg_enrichments[cell_type] = (top_df, lrt_df)
+    reactome_enrichments_full[cell_type] = (full_df, lrt_df)
+    reactome_enrichments[cell_type] = (top_df, lrt_df)
 
 # ── Step 3: TF acrophase enrichment ──────────────────────────────────────────
 
@@ -165,7 +165,7 @@ for ct in CLUSTER_CELL_TYPE.values():
             os.path.join(SOURCE_DATA_DIR, f"daily_cyclers_{ct}.csv"), index=False
         )
 
-export_enrichment_tables(SOURCE_DATA_DIR, "panel_b_kegg", kegg_enrichments_full, "pathway")
+export_enrichment_tables(SOURCE_DATA_DIR, "panel_b_reactome", reactome_enrichments_full, "pathway")
 export_enrichment_tables(SOURCE_DATA_DIR, "panel_c_tf", tf_enrichments_full, "tf_motif")
 
 # Panel d source data
@@ -228,16 +228,24 @@ for bar in bars:
 ax_bar.text(-0.06, 1.08, "a", transform=ax_bar.transAxes,
             fontsize=11, fontweight="bold", va="top")
 
-# Row b: KEGG rose plots
+# Row b: Reactome rose plots
 for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
     ax = fig.add_subplot(gs[1, i], projection="polar")
-    enrich_df, lrt_df = kegg_enrichments[ct]
-    make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=False)
+    enrich_df, lrt_df = reactome_enrichments[ct]
+    # Clean Reactome names for display
+    if not enrich_df.empty:
+        cleaned_df = enrich_df.copy()
+        cleaned_df.index = [clean_reactome_name(n) for n in cleaned_df.index]
+        cleaned_lrt = lrt_df.loc[enrich_df.index].copy()
+        cleaned_lrt.index = cleaned_df.index
+    else:
+        cleaned_df, cleaned_lrt = enrich_df, lrt_df
+    make_rose_plot(ax, cleaned_df, cleaned_lrt, ct, is_tf=False)
     if i == 0:
         ax.text(-0.25, 1.22, "b", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
-fig.text(0.02, 0.62, "KEGG Pathways", rotation=90, fontsize=8,
+fig.text(0.02, 0.62, "Reactome\nPathways", rotation=90, fontsize=8,
          fontweight="semibold", va="center", color="0.3")
 
 # Row c: TF rose plots

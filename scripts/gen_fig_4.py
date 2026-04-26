@@ -26,7 +26,7 @@ from circadian_utils import (
     apply_style, CLUSTER_CELL_TYPE, ALIGNED_CONDITIONS, MISALIGNED_CONDITIONS,
     CELL_TYPE_COLORS, FIGURES_DIR, ZT_LABELS,
     load_metrics, filter_cyclers, load_waveform_params, sample_waveforms,
-    compute_amplitude, acrophase_rad_to_hours, plot_posterior_waveform,
+    compute_amplitude, acrophase_rad_to_hours, plot_posterior_violins,
 )
 
 apply_style()
@@ -204,13 +204,13 @@ for ct, (acro_al, acro_mis, genes) in acro_data.items():
                        "acrophase_misaligned_h": acro_mis}).to_csv(
             os.path.join(SOURCE_DATA_DIR, f"panel_b_acrophase_{ct}.csv"), index=False)
 
-# Panel c
+# Panel c (log10 scale)
 for gene in MAC_GENES:
     for cond_label, samp in mac_waveforms.get(gene, {}).items():
-        mean = samp.mean(axis=0)
-        pd.DataFrame({"ZT": ZT_LABELS, "mean": mean,
-                       "ci_lo": np.quantile(samp, 0.025, axis=0),
-                       "ci_hi": np.quantile(samp, 0.975, axis=0)}).to_csv(
+        samp10 = samp / np.log(10)
+        pd.DataFrame({"ZT": ZT_LABELS, "mean_log10": samp10.mean(axis=0),
+                       "ci_lo_log10": np.quantile(samp10, 0.025, axis=0),
+                       "ci_hi_log10": np.quantile(samp10, 0.975, axis=0)}).to_csv(
             os.path.join(SOURCE_DATA_DIR, f"panel_c_{gene}_{cond_label}.csv"), index=False)
 
 # Panel d
@@ -219,13 +219,13 @@ for target, cond_shifts in clock_shifts.items():
         pd.DataFrame({f"{target}_Arntl_delay_hours": shifts}).to_csv(
             os.path.join(SOURCE_DATA_DIR, f"panel_d_{target}_{cond_label}.csv"), index=False)
 
-# Panel e
+# Panel e (log10 scale)
 for gene in found_proteo:
     for cond_label, samp in proteo_waveforms[gene].items():
-        mean = samp.mean(axis=0)
-        pd.DataFrame({"ZT": ZT_LABELS, "mean": mean,
-                       "ci_lo": np.quantile(samp, 0.025, axis=0),
-                       "ci_hi": np.quantile(samp, 0.975, axis=0)}).to_csv(
+        samp10 = samp / np.log(10)
+        pd.DataFrame({"ZT": ZT_LABELS, "mean_log10": samp10.mean(axis=0),
+                       "ci_lo_log10": np.quantile(samp10, 0.025, axis=0),
+                       "ci_hi_log10": np.quantile(samp10, 0.975, axis=0)}).to_csv(
             os.path.join(SOURCE_DATA_DIR, f"panel_e_{gene}_{cond_label}.csv"), index=False)
 
 print(f"  Source data written to {SOURCE_DATA_DIR}/")
@@ -294,16 +294,14 @@ for i, ct in enumerate(all_cell_types):
 
 gs_cd = GridSpecFromSubplotSpec(1, 4, subplot_spec=gs_main[2], wspace=0.45)
 
-# Panel c: CCR2/CX3CR1 waveforms
+# Panel c: CCR2/CX3CR1 waveforms as violins
 for j, gene in enumerate(MAC_GENES):
     ax = fig.add_subplot(gs_cd[0, j])
-    for cond_label, color in COND_COLORS.items():
-        if cond_label in mac_waveforms.get(gene, {}):
-            plot_posterior_waveform(ax, mac_waveforms[gene][cond_label], color, cond_label)
+    gene_samps = {cl: s for cl, s in mac_waveforms.get(gene, {}).items()}
+    if gene_samps:
+        plot_posterior_violins(ax, gene_samps, COND_COLORS)
     ax.set_title(gene, fontsize=7, fontweight="semibold", color=CELL_TYPE_COLORS["Macrophage"])
-    ax.set_xticks(ZT_HOURS)
-    ax.set_xticklabels(ZT_LABELS, fontsize=5)
-    ax.set_ylabel("Log rate" if j == 0 else "", fontsize=6)
+    ax.set_ylabel("Log10 rate" if j == 0 else "", fontsize=6)
     ax.legend(fontsize=4.5, frameon=False)
     sns.despine(ax=ax)
     if j == 0:
@@ -348,17 +346,13 @@ for idx, gene in enumerate(found_proteo):
     row_e = idx // n_cols_e
     col_e = idx % n_cols_e
     ax = fig.add_subplot(gs_e[row_e, col_e])
-    for cond_label, color in COND_COLORS.items():
-        if cond_label in proteo_waveforms[gene]:
-            plot_posterior_waveform(ax, proteo_waveforms[gene][cond_label], color, cond_label)
-    # Mark chaperone vs degradation
-    gene_category = "chaperone" if gene in CHAPERONE_GENES else "degradation"
+    gene_samps = {cl: s for cl, s in proteo_waveforms[gene].items()}
+    if gene_samps:
+        plot_posterior_violins(ax, gene_samps, COND_COLORS, width=2.0, alpha=0.5)
     ax.set_title(f"{gene}", fontsize=6.5, fontweight="semibold", color="0.2")
-    ax.set_xticks(ZT_HOURS)
-    ax.set_xticklabels(ZT_LABELS, fontsize=4.5)
     ax.tick_params(axis="y", labelsize=4.5)
     if col_e == 0:
-        ax.set_ylabel("Log rate", fontsize=5.5)
+        ax.set_ylabel("Log10 rate", fontsize=5.5)
     if idx < 2:
         ax.legend(fontsize=4, frameon=False)
     sns.despine(ax=ax)

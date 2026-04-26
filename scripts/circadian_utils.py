@@ -105,6 +105,18 @@ KEGG_EXCLUDE_PATTERNS = [
     r"MicroRNAs in",
 ]
 
+# ── Reactome exclusion list ───────────────────────────────────────────────
+
+REACTOME_EXCLUDE_PATTERNS = [
+    r"DISEASE", r"CANCER", r"CARCINOMA", r"LEUKEMIA", r"MELANOMA", r"GLIOMA",
+    r"LYMPHOMA", r"SARCOMA", r"TUMOR",
+    r"INFECTION", r"VIRUS", r"INFLUENZA", r"HIV", r"HEPATITIS",
+    r"TUBERCULOSIS", r"MALARIA",
+    r"DEFECT", r"ABNORMAL",
+    r"OLFACTORY", r"TASTE",
+    r"SARS_COV", r"CORONA",
+]
+
 # ── Matplotlib styling ───────────────────────────────────────────────────────
 
 RC_PARAMS = {
@@ -354,6 +366,27 @@ def load_tf_dict():
     return parse_gsea_set_file(os.path.join(GENE_SETS_DIR, "TRANSFAC_and_JASPAR_PWMs.txt"))
 
 
+def clean_reactome_name(name):
+    """REACTOME_SMOOTH_MUSCLE_CONTRACTION -> Smooth muscle contraction."""
+    name = name.replace("REACTOME_", "")
+    name = name.replace("_", " ")
+    return name[0].upper() + name[1:].lower() if name else name
+
+
+def filter_reactome_pathways(d, max_genes=500):
+    pattern = re.compile("|".join(REACTOME_EXCLUDE_PATTERNS), re.IGNORECASE)
+    return {k: v for k, v in d.items() if not pattern.search(k) and len(v) <= max_genes}
+
+
+def load_reactome_dict():
+    raw = parse_gsea_set_file(
+        os.path.join(GENE_SETS_DIR, "gsea_reactome_pathways_gene_sets")
+    )
+    filtered = filter_reactome_pathways(raw)
+    print(f"  {len(raw)} total Reactome pathways -> {len(filtered)} after filtering")
+    return filtered
+
+
 # ── Enrichment ───────────────────────────────────────────────────────────────
 
 
@@ -427,12 +460,16 @@ def run_enrichment(acrophases, gene_set_dict, label):
 BIN_WIDTH = 2 * np.pi / NUM_ACROPHASE_BINS
 
 
-def format_label(s, max_len=32, is_tf=False):
+def format_label(s, max_len=48, is_tf=False):
     if is_tf:
         s = clean_tf_name(s)
         s = s[0].upper() + s[1:].lower() if len(s) > 1 else s.upper()
     if len(s) <= max_len:
         return s
+    # Try to wrap at a word boundary
+    cut = s.rfind(" ", 0, max_len)
+    if cut > max_len // 2:
+        return s[:cut] + "\n" + s[cut + 1:]
     return s[: max_len - 1] + "\u2026"
 
 
@@ -602,3 +639,42 @@ def plot_posterior_waveform(ax, samples, color, label, ci_level=0.95):
     hi = np.quantile(samples, 1 - (1 - ci_level) / 2, axis=0)
     ax.plot(ZT_HOURS, mean, color=color, linewidth=1.0, label=label, zorder=3)
     ax.fill_between(ZT_HOURS, lo, hi, color=color, alpha=0.2, zorder=2)
+
+
+def plot_posterior_violins(ax, samples_dict, colors, width=2.0, alpha=0.6):
+    """Plot posterior waveform samples as violins at each ZT.
+
+    Args:
+        ax: matplotlib Axes
+        samples_dict: dict {label: np.ndarray [num_samples, 4]}
+        colors: dict {label: color}
+        width: total width budget per ZT point (split across conditions)
+        alpha: violin fill alpha
+    """
+    labels = list(samples_dict.keys())
+    n_cond = len(labels)
+    half = width / 2
+    offsets = np.linspace(-half * (n_cond - 1) / n_cond,
+                          half * (n_cond - 1) / n_cond, n_cond)
+
+    for ci, label in enumerate(labels):
+        samp = samples_dict[label] / np.log(10)  # convert ln → log10
+        color = colors[label]
+        positions = [zt + offsets[ci] for zt in ZT_HOURS]
+        parts = ax.violinplot([samp[:, t] for t in range(4)],
+                              positions=positions,
+                              widths=width / n_cond * 0.9,
+                              showmeans=False, showmedians=True,
+                              showextrema=False)
+        for pc in parts["bodies"]:
+            pc.set_facecolor(color)
+            pc.set_alpha(alpha)
+            pc.set_edgecolor(color)
+            pc.set_linewidth(0.5)
+        parts["cmedians"].set_color(color)
+        parts["cmedians"].set_linewidth(0.8)
+        # Dummy line for legend
+        ax.plot([], [], color=color, linewidth=1.5, label=label)
+
+    ax.set_xticks(ZT_HOURS)
+    ax.set_xticklabels(ZT_LABELS, fontsize=5)
