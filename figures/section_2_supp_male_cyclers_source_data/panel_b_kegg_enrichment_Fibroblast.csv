@@ -5,7 +5,6 @@ Wnt signaling pathway,6,Wif1;Fzd1;Wnt10b;Wnt2;Wnt4;Sost,6.0,3,8.136263984544193,
 Drug metabolism,11,Gsta3;Aldh3a1;Mgst1;Adh1;Aldh3b1;Gstm7;Aox1;Fmo1;Fmo2;Fmo3;Fmo4,4.363636363636364,7,13.522020747726465,2.86949085382135,15.0
 Protein processing in endoplasmic reticulum,11,Ern1;Selenos;Dnajb11;Erp29;Tusc3;Pdia6;Hyou1;Hspa4l;Hspa5;Hspa8;Rpn1,4.363636363636364,10,21.02406128713545,3.770718376825122,21.0
 AMPK signaling pathway,6,Creb3l1;Rheb;Lepr;Cpt1a;Camkk2;Scd2,4.0,6,9.629094536991127,6.335310942521882,13.0
-Chemical carcinogenesis,9,Gsta3;Gstm7;Cyp2b10;Cyp1b1;Aldh3a1;Mgst1;Ptgs2;Adh1;Aldh3b1,4.0,6,13.070118997917879,3.903209010623817,13.0
 cAMP signaling pathway,6,Creb3l1;Npy1r;Atp1b1;Gria4;Pld1;Pde4b,4.0,5,21.191800589105384,8.997744748569374,11.0
 mTOR signaling pathway,6,Fzd1;Wnt10b;Rheb;Wnt2;Wnt4;Deptor,4.0,3,10.540943806275436,2.6817134544376966,7.0
 Hippo signaling pathway,6,Serpine1;Ccn2;Fzd1;Wnt10b;Wnt2;Wnt4,4.0,3,10.090346855896158,3.2838304144412733,7.0

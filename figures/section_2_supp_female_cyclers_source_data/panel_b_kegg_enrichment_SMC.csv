@@ -1,59 +1,56 @@
 pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
 Metabolism of xenobiotics by cytochrome P450,6,Cyp1b1;Cbr2;Ephx1;Gsto1;Gstt2;Gstt1,8.0,5,12.833640996601755,4.278356098509536,11.0
-Legionellosis,7,Hspa1l;Hspa8;Hspa2;Tlr2;Hspa1a;Hspa1b;Casp3,6.857142857142857,10,20.336529999833633,4.7242061603621766,21.0
 Antigen processing and presentation,9,Hsp90aa1;Hspa5;Hspa1l;Hspa8;Hspa2;Tap2;Hspa1a;Hspa1b;Ifi30,6.666666666666667,10,20.93032600421941,4.222757067123254,21.0
-Cortisol synthesis and secretion,6,Orai1;Adcy7;Ldlr;Nceh1;Creb5;Nr4a1,6.0,7,14.684909546501377,2.877550681016175,15.0
-"Parathyroid hormone synthesis, secretion and action",6,Adcy7;Nr4a2;Creb5;Mmp14;Cdkn1a;Sost,6.0,7,20.05477466047798,7.01627347987104,15.0
-Protein processing in endoplasmic reticulum,16,Hspa1l;Hspa1a;Hspa1b;Hsp90b1;Pdia6;Dnajc10;Hspa4l;Hsph1;Hsp90aa1;Hspa5;Hspa8;Hspa2;Nfe2l2;Dnajb2;Dnajb1;Dnaja1,6.0,10,20.415877565571588,2.5604776202103405,21.0
 Gap junction,6,Htr2a;Adcy7;Csnk1d;Tubb4a;Pdgfb;Tuba1b,6.0,7,14.572182051573396,4.6194849422457205,15.0
-Chemical carcinogenesis,6,Cyp1b1;Ephx1;Gsto1;Gstt2;Gstt1;Ptgs2,6.0,5,14.075735981844474,4.082800070520243,11.0
+"Parathyroid hormone synthesis, secretion and action",6,Adcy7;Nr4a2;Creb5;Mmp14;Cdkn1a;Sost,6.0,7,20.05477466047798,7.01627347987104,15.0
 Terpenoid backbone biosynthesis,6,Fdps;Idi1;Hmgcs2;Hmgcs1;Pmvk;Mvd,6.0,9,17.013786437672515,2.42911943739304,19.0
+Cortisol synthesis and secretion,6,Orai1;Adcy7;Ldlr;Nceh1;Creb5;Nr4a1,6.0,7,14.684909546501377,2.877550681016175,15.0
+Protein processing in endoplasmic reticulum,16,Hspa1l;Hspa1a;Hspa1b;Hsp90b1;Pdia6;Dnajc10;Hspa4l;Hsph1;Hsp90aa1;Hspa5;Hspa8;Hspa2;Nfe2l2;Dnajb2;Dnajb1;Dnaja1,6.0,10,20.415877565571588,2.5604776202103405,21.0
 Aldosterone synthesis and secretion,9,Atp1b1;Orai1;Adcy7;Ldlr;Nr4a2;Creb5;Nr4a1;Camk1d;Camk2b,5.333333333333333,7,14.738970904482613,3.795825169938138,15.0
 JAK-STAT signaling pathway,7,Cntfr;Il6ra;Pdgfb;Pim1;Ghr;Il15ra;Cdkn1a,5.142857142857143,1,2.796971269628721,4.450572880849691,3.0
 mTOR signaling pathway,7,Wnt5a;Wnt5b;Fzd4;Fzd8;Igf1;Tnfrsf1a;Wnt16,5.142857142857143,6,9.650404208743108,7.510255014090979,13.0
-Arginine and proline metabolism,7,Ckm;Pycr1;P4ha1;Odc1;L3hypdh;Ckb;Prodh,5.142857142857143,3,10.045740869973969,4.24871065947743,7.0
 Relaxin signaling pathway,7,Adcy7;Gnb2;Creb5;Gng11;Edn1;Vegfd;Col4a3,5.142857142857143,7,12.975661509636858,5.467179267615829,15.0
-Longevity regulating pathway,10,Hspa1l;Trp53;Hspa1a;Hspa1b;Adcy7;Igf1;Creb5;Irs2;Hspa8;Hspa2,4.800000000000001,10,19.21929511985983,4.1405040310772225,21.0
+Arginine and proline metabolism,7,Ckm;Pycr1;P4ha1;Odc1;L3hypdh;Ckb;Prodh,5.142857142857143,3,10.045740869973969,4.24871065947743,7.0
 Spliceosome,10,Hspa1l;Alyref;Hnrnpk;Hspa1a;Hspa1b;Lsm6;Lsm8;Hspa8;Hspa2;Alyref2,4.800000000000001,10,0.5035211808800373,5.102682147273273,21.0
+Longevity regulating pathway,10,Hspa1l;Trp53;Hspa1a;Hspa1b;Adcy7;Igf1;Creb5;Irs2;Hspa8;Hspa2,4.800000000000001,10,19.21929511985983,4.1405040310772225,21.0
 Estrogen signaling pathway,13,Hspa1l;Hspa1a;Fkbp5;Fkbp4;Hspa1b;Adcy7;Hsp90b1;Prkcd;Creb5;Hsp90aa1;Hspa8;Hspa2;Krt18,4.615384615384616,10,20.147480999039775,4.264025378667943,21.0
-Viral carcinogenesis,8,Hnrnpk;Cdkn2b;Cdkn1a;Trp53;Creb5;Casp3;Hdac5;Hdac4,4.5,2,0.47490696402586574,6.305306736725225,5.0
 Melanogenesis,8,Wnt5a;Wnt5b;Adcy7;Fzd4;Fzd8;Edn1;Wnt16;Camk2b,4.5,6,15.988340174562639,7.367845592633034,13.0
-Retrograde endocannabinoid signaling,8,Gabrq;Adcy7;Gnb2;Gng11;Gabra3;Ndufs3;Ptgs2;Gabre,4.5,7,12.791767512482842,4.561779614791476,15.0
 TGF-beta signaling pathway,8,Tgfb3;Tgfb2;Bmp2;Rock1;Lefty1;Cdkn2b;Inhbb;Thbs1,4.5,9,20.780224218383342,3.649375306156694,19.0
+Retrograde endocannabinoid signaling,8,Gabrq;Adcy7;Gnb2;Gng11;Gabra3;Ndufs3;Ptgs2;Gabre,4.5,7,12.791767512482842,4.561779614791476,15.0
 Oxytocin signaling pathway,11,Rock1;Adcy7;Pla2g4a;Cacnb2;Rcan1;Camk1d;Cdkn1a;Camk2b;Mylk4;Ptgs2;Cacng7,4.363636363636364,8,18.6107513025931,4.4044092971262,17.0
-Purine metabolism,6,Pde7a;Adcy7;Pnp;Nme3;Gmpr;Enpp4,4.0,5,13.556366842471572,4.4247101190296805,11.0
-HIF-1 signaling pathway,9,Il6ra;Igf1;Edn1;Angpt2;Hk2;Mknk2;Egln3;Cdkn1a;Camk2b,4.0,1,3.6183647210578136,5.646798239801583,3.0
-Bile secretion,6,Atp1b1;Adcy7;Aqp1;Ldlr;Ephx1;Nceh1,4.0,4,12.541200570813228,3.435726989548872,9.0
-Glutamatergic synapse,6,Homer1;Adcy7;Pla2g4a;Gnb2;Gng11;Glul,4.0,8,12.802842623996845,4.301902714292428,17.0
-Wnt signaling pathway,9,Wnt5a;Wnt5b;Trp53;Fzd4;Fzd8;Wnt16;Camk2b;Rspo3;Sost,4.0,6,7.275151118270907,6.99235563851504,13.0
-Platelet activation,6,Orai1;Rock1;Adcy7;Pla2g4a;Myl12a;Mylk4,4.0,8,17.437163448019877,3.3348162525224563,17.0
-Signaling pathways regulating pluripotency of stem cells,9,Pcgf5;Wnt5a;Wnt5b;Fzd4;Fzd8;Igf1;Inhbb;Fgfr2;Wnt16,4.0,6,19.736864949750014,5.656690974014928,13.0
-Vascular smooth muscle contraction,6,Rock1;Adcy7;Prkcd;Pla2g4a;Edn1;Mylk4,4.0,8,18.927682233491616,2.8881758925169736,17.0
-Insulin secretion,6,Cck;Atp1b1;Adcy7;Creb5;Rab3a;Camk2b,4.0,4,9.033378509379279,5.0007032832643254,9.0
-cGMP-PKG signaling pathway,9,Atp1b1;Gtf2ird1;Rock1;Adcy7;Adora1;Creb5;Irs2;Mylk4;Pln,4.0,7,14.471256312097156,5.683518681647496,15.0
-Phospholipase D signaling pathway,6,Adcy7;Pla2g4a;Plpp3;Pdgfb;Sphk2;Sphk1,4.0,3,7.6451638009795975,7.596448745105725,7.0
-Thyroid hormone signaling pathway,6,Trp53;Atp1b1;Rcan1;Rcan2;Thra;Pln,4.0,10,5.348798319472185,6.766495389535557,21.0
-PPAR signaling pathway,9,Gk;Hmgcs2;Pck2;Fabp3;Fabp5;Plin4;Lpl;Ubc;Scd2,4.0,5,15.583659864923305,7.0062797408428,11.0
-Cholinergic synapse,6,Adcy7;Gnb2;Creb5;Gng11;Kcnq3;Camk2b,4.0,7,11.482335110996214,7.47299549213982,15.0
 Alcoholism,9,Ppp1r1b;Pkia;Gng11;H3f3b;Hist2h3c2;Gnb2;Creb5;Hdac5;Hdac4,4.0,4,14.790366481926293,7.4867005539168865,9.0
+Signaling pathways regulating pluripotency of stem cells,9,Pcgf5;Wnt5a;Wnt5b;Fzd4;Fzd8;Igf1;Inhbb;Fgfr2;Wnt16,4.0,6,19.736864949750014,5.656690974014928,13.0
+HIF-1 signaling pathway,9,Il6ra;Igf1;Edn1;Angpt2;Hk2;Mknk2;Egln3;Cdkn1a;Camk2b,4.0,1,3.6183647210578136,5.646798239801583,3.0
+Phospholipase D signaling pathway,6,Adcy7;Pla2g4a;Plpp3;Pdgfb;Sphk2;Sphk1,4.0,3,7.6451638009795975,7.596448745105725,7.0
+Purine metabolism,6,Pde7a;Adcy7;Pnp;Nme3;Gmpr;Enpp4,4.0,5,13.556366842471572,4.4247101190296805,11.0
+PPAR signaling pathway,9,Gk;Hmgcs2;Pck2;Fabp3;Fabp5;Plin4;Lpl;Ubc;Scd2,4.0,5,15.583659864923305,7.0062797408428,11.0
+Glutamatergic synapse,6,Homer1;Adcy7;Pla2g4a;Gnb2;Gng11;Glul,4.0,8,12.802842623996845,4.301902714292428,17.0
+Platelet activation,6,Orai1;Rock1;Adcy7;Pla2g4a;Myl12a;Mylk4,4.0,8,17.437163448019877,3.3348162525224563,17.0
+Insulin secretion,6,Cck;Atp1b1;Adcy7;Creb5;Rab3a;Camk2b,4.0,4,9.033378509379279,5.0007032832643254,9.0
+Cholinergic synapse,6,Adcy7;Gnb2;Creb5;Gng11;Kcnq3;Camk2b,4.0,7,11.482335110996214,7.47299549213982,15.0
+cGMP-PKG signaling pathway,9,Atp1b1;Gtf2ird1;Rock1;Adcy7;Adora1;Creb5;Irs2;Mylk4;Pln,4.0,7,14.471256312097156,5.683518681647496,15.0
+Wnt signaling pathway,9,Wnt5a;Wnt5b;Trp53;Fzd4;Fzd8;Wnt16;Camk2b;Rspo3;Sost,4.0,6,7.275151118270907,6.99235563851504,13.0
+Thyroid hormone signaling pathway,6,Trp53;Atp1b1;Rcan1;Rcan2;Thra;Pln,4.0,10,5.348798319472185,6.766495389535557,21.0
+Bile secretion,6,Atp1b1;Adcy7;Aqp1;Ldlr;Ephx1;Nceh1,4.0,4,12.541200570813228,3.435726989548872,9.0
+Vascular smooth muscle contraction,6,Rock1;Adcy7;Prkcd;Pla2g4a;Edn1;Mylk4,4.0,8,18.927682233491616,2.8881758925169736,17.0
 TNF signaling pathway,10,Vcam1;Fas;Csf1;Creb5;Edn1;Tnfrsf1a;Mmp14;Cx3cl1;Casp3;Ptgs2,3.6,3,5.693804332448023,6.006220928751644,7.0
 Calcium signaling pathway,10,Orai1;Adcy7;Sphk2;Sphk1;Htr2a;Camk1d;P2rx5;Camk2b;Mylk4;Pln,3.6,8,16.41544490730447,6.262788053580479,17.0
-Apoptosis,7,Trp53;Fas;Gadd45a;Ptpn13;Tnfrsf1a;Casp3;Tuba1b,3.4285714285714284,2,6.074257586002471,5.605853098170643,5.0
-Circadian entrainment,7,Adcy7;Gnb2;Gng11;Per3;Per2;Per1;Camk2b,3.4285714285714284,7,10.614410290658542,4.2859011398061355,15.0
 Insulin resistance,7,Ppp1r3b;Ppargc1b;Prkcd;Creb5;Irs2;Tnfrsf1a;Pck2,3.4285714285714284,7,16.317663994596984,7.4278350862420375,15.0
-Inflammatory mediator regulation of TRP channels,7,Adcy7;Cyp2j6;Prkcd;Pla2g4a;Igf1;Htr2a;Camk2b,3.4285714285714284,11,23.762810744217507,5.708536945292702,23.0
-Hippo signaling pathway,14,Tgfb3;Tgfb2;Wnt5a;Wnt5b;Csnk1d;Ccn2;Fzd4;Fzd8;Lats2;Wnt16;Bmp2;Limd1;Tead1;Wtip,3.4285714285714284,6,18.322696926443086,4.380369945427711,13.0
-Endocytosis,14,Hspa1l;Hspa1a;Hspa1b;Arpc5l;Vps37b;Arf5;Ap2a2;Kif5c;Ldlr;Fgfr2;Sh3kbp1;Hspa8;Hspa2;Grk5,3.4285714285714284,8,20.35304713008047,3.267210971433105,17.0
-ECM-receptor interaction,7,Itga10;Lamc2;Comp;Sv2a;Col4a3;Lama4;Thbs1,3.4285714285714284,4,19.909415296501553,9.733004394505546,9.0
+Apoptosis,7,Trp53;Fas;Gadd45a;Ptpn13;Tnfrsf1a;Casp3;Tuba1b,3.4285714285714284,2,6.074257586002471,5.605853098170643,5.0
 Non-alcoholic fatty liver disease (NAFLD),7,Sdhd;Fas;Il6ra;Irs2;Tnfrsf1a;Ndufs3;Casp3,3.4285714285714284,2,5.379835239734307,4.742318507111234,5.0
-Circadian rhythm,11,Nr1d1;Per3;Per2;Bhlhe40;Per1;Bhlhe41;Cry2;Clock;Npas2;Arntl;Csnk1d,3.2727272727272725,0,11.638455744673022,5.478661254722341,1.0
-Cell cycle,11,Tgfb3;Tgfb2;Trp53;Cdc25b;Gadd45a;Cdc14a;Cdkn2c;Cdkn2b;Wee1;Dbf4;Cdkn1a,3.2727272727272725,3,8.987153576891693,7.320188487872831,7.0
+Inflammatory mediator regulation of TRP channels,7,Adcy7;Cyp2j6;Prkcd;Pla2g4a;Igf1;Htr2a;Camk2b,3.4285714285714284,11,23.762810744217507,5.708536945292702,23.0
+Circadian entrainment,7,Adcy7;Gnb2;Gng11;Per3;Per2;Per1;Camk2b,3.4285714285714284,7,10.614410290658542,4.2859011398061355,15.0
+Hippo signaling pathway,14,Tgfb3;Tgfb2;Wnt5a;Wnt5b;Csnk1d;Ccn2;Fzd4;Fzd8;Lats2;Wnt16;Bmp2;Limd1;Tead1;Wtip,3.4285714285714284,6,18.322696926443086,4.380369945427711,13.0
+ECM-receptor interaction,7,Itga10;Lamc2;Comp;Sv2a;Col4a3;Lama4;Thbs1,3.4285714285714284,4,19.909415296501553,9.733004394505546,9.0
+Endocytosis,14,Hspa1l;Hspa1a;Hspa1b;Arpc5l;Vps37b;Arf5;Ap2a2;Kif5c;Ldlr;Fgfr2;Sh3kbp1;Hspa8;Hspa2;Grk5,3.4285714285714284,8,20.35304713008047,3.267210971433105,17.0
 Chemokine signaling pathway,11,Adcy7;Prex1;Prkcd;Gng11;Vav3;Cx3cl1;Cxcl12;Elmo1;Rock1;Gnb2;Grk5,3.2727272727272725,3,8.126005171041498,8.407549979284743,7.0
 Tight junction,11,Amotl2;Rock1;Cldn3;Jam2;Myh10;Myl12a;Ezr;Actr3b;Arhgef2;Cldn22;Tuba1b,3.2727272727272725,11,19.11314095170566,4.8871817404116715,23.0
+Cell cycle,11,Tgfb3;Tgfb2;Trp53;Cdc25b;Gadd45a;Cdc14a;Cdkn2c;Cdkn2b;Wee1;Dbf4;Cdkn1a,3.2727272727272725,3,8.987153576891693,7.320188487872831,7.0
+Circadian rhythm,11,Nr1d1;Per3;Per2;Bhlhe40;Per1;Bhlhe41;Cry2;Clock;Npas2;Arntl;Csnk1d,3.2727272727272725,0,11.638455744673022,5.478661254722341,1.0
 Serotonergic synapse,8,Cyp2j6;Pla2g4a;Gnb2;Gng11;Htr1b;Htr2a;Casp3;Ptgs2,3.0,3,8.81506077316269,7.428324753589529,7.0
+Ovarian steroidogenesis,8,Acot2;Adcy7;Cyp1b1;Ldlr;Cyp2j6;Pla2g4a;Igf1;Ptgs2,3.0,3,17.217746981014876,6.45267452612283,7.0
 Sphingolipid signaling pathway,8,Trp53;Rock1;Adora1;S1pr3;Sphk2;Sphk1;Tnfrsf1a;Smpd1,3.0,2,6.5464648042403,5.49862532353346,5.0
 Adrenergic signaling in cardiomyocytes,8,Atp1b1;Adcy7;Cacnb2;Creb5;Camk2b;Cacng7;Pln;Tnni3,3.0,4,11.814113906883204,6.240957783116591,9.0
-Ovarian steroidogenesis,8,Acot2;Adcy7;Cyp1b1;Ldlr;Cyp2j6;Pla2g4a;Igf1;Ptgs2,3.0,3,17.217746981014876,6.45267452612283,7.0
 Dopaminergic synapse,8,Arntl;Kif5c;Ppp1r1b;Gnb2;Creb5;Gng11;Clock;Camk2b,3.0,0,4.707107816548379,6.528385670796219,1.0
 GABAergic synapse,8,Gabra3;Plcl1;Gabrq;Adcy7;Gnb2;Gng11;Glul;Gabre,3.0,7,13.65128291909049,4.33050952433496,15.0
 Regulation of actin cytoskeleton,17,Pfn1;Arpc5l;Pip4k2a;Myl12a;Ezr;Pdgfb;Enah;Vav3;Itga10;Cxcl12;Rock1;Cfl1;Myh10;Pak6;Fgfr2;Wasf1;Mylk4,2.823529411764706,9,21.273710894476864,6.596794652300656,19.0
@@ -61,17 +58,17 @@ Fluid shear stress and atherosclerosis,13,Trp53;Vcam1;Hsp90b1;Pdgfb;Gstt2;Gstt1;
 cAMP signaling pathway,13,Orai1;Adcy7;Ppp1r1b;Edn1;Vav3;Atp1b1;Rock1;Adora1;Creb5;Htr1b;Camk2b;Pln;Tnni3,2.7692307692307696,4,13.029985309588842,6.141854530275446,9.0
 Rap1 signaling pathway,13,Pfn1;Adcy7;Igf1;Pdgfb;Vegfd;Rapgef5;Sipa1l3;Csf1;Efna5;Pgf;Fgfr2;Angpt2;Thbs1,2.7692307692307696,3,9.079318369886513,7.868098925097213,7.0
 Apelin signaling pathway,9,Adcy7;Ccn2;Gnb2;Gng11;Sphk2;Sphk1;Hdac5;Hdac4;Mylk4,2.6666666666666665,3,18.4228554349611,6.742642212755518,7.0
-Cell adhesion molecules (CAMs),9,Vcam1;Vtcn1;Cldn3;Cdh3;Jam2;Alcam;Vcan;Pecam1;Cldn22,2.6666666666666665,1,1.9541195864556915,8.567340668427928,3.0
 Morphine addiction,9,Gabra3;Gabrq;Pde7a;Adcy7;Grk5;Adora1;Gnb2;Gng11;Gabre,2.6666666666666665,3,13.570080734339902,6.157983201300271,7.0
+Cell adhesion molecules (CAMs),9,Vcam1;Vtcn1;Cldn3;Cdh3;Jam2;Alcam;Vcan;Pecam1;Cldn22,2.6666666666666665,1,1.9541195864556915,8.567340668427928,3.0
 Cellular senescence,9,Tgfb3;Tgfb2;Trp53;Hipk3;Zfp36l1;Zfp36l2;Gadd45a;Cdkn2b;Cdkn1a,2.6666666666666665,9,23.492036477310883,5.624714055091079,19.0
 Hypertrophic cardiomyopathy (HCM),9,Edn1;Tgfb3;Tgfb2;Itga10;Igf1;Cacnb2;Cacng7;Sgcd;Tnni3,2.6666666666666665,9,20.754055573649616,5.013105242426088,19.0
 Drug metabolism,9,Upb1;Gstt2;Gstt1;Nme3;Gsto1;Fmo1;Fmo2;Fmo3;Upp2,2.6666666666666665,5,15.83266897262832,4.701384666709581,11.0
+FoxO signaling pathway,10,Tgfb3;Tgfb2;Homer1;Gadd45a;Igf1;Fbxo32;Irs2;Pck2;Cdkn2b;Cdkn1a,2.4000000000000004,3,20.654384645089756,7.308253267982906,7.0
 Dilated cardiomyopathy (DCM),10,Tgfb3;Tgfb2;Itga10;Adcy7;Igf1;Cacnb2;Cacng7;Pln;Sgcd;Tnni3,2.4000000000000004,7,18.460506238632938,6.4235653679574956,15.0
 Fc gamma R-mediated phagocytosis,10,Sphk2;Sphk1;Vav3;Arpc5l;Cfl1;Wasf1;Prkcd;Myo10;Pla2g4a;Plpp3,2.4000000000000004,3,0.9416131947125712,6.249318470583464,7.0
-FoxO signaling pathway,10,Tgfb3;Tgfb2;Homer1;Gadd45a;Igf1;Fbxo32;Irs2;Pck2;Cdkn2b;Cdkn1a,2.4000000000000004,3,20.654384645089756,7.308253267982906,7.0
+p53 signaling pathway,10,Trp53;Fas;Steap3;Cd82;Casp3;Gadd45a;Igf1;Cdkn1a;Thbs1;Aifm2,2.4000000000000004,0,4.840699632078435,4.628037313380507,1.0
 Ras signaling pathway,15,Pla2g4a;Igf1;Rgl1;Pdgfb;Gng11;Vegfd;Rapgef5;Csf1;Efna5;Ntf3;Pak6;Pgf;Gnb2;Fgfr2;Angpt2,2.4000000000000004,3,9.049757376605516,7.608807193742477,7.0
 Leukocyte transendothelial migration,10,Vcam1;Cxcl12;Rock1;Cldn3;Jam2;Myl12a;Ezr;Vav3;Pecam1;Cldn22,2.4000000000000004,9,17.21181059710664,7.1333784033096155,19.0
-p53 signaling pathway,10,Trp53;Fas;Steap3;Cd82;Casp3;Gadd45a;Igf1;Cdkn1a;Thbs1;Aifm2,2.4000000000000004,0,4.840699632078435,4.628037313380507,1.0
 PI3K-Akt signaling pathway,27,Igf1;Pdgfb;Gng11;Vegfd;Tlr2;Pck2;Col4a3;Cdkn1a;Trp53;Itga10;Csf1;Il6ra;Efna5;Hsp90b1;Comp;Ntf3;Pgf;Gnb2;Creb5;Fgfr2;Nr4a1;Hsp90aa1;Angpt2;Lamc2;Ghr;Lama4;Thbs1,2.2222222222222223,7,4.74748649672142,7.838798001765843,15.0
 Glycerolipid metabolism,6,Gk;Dgat2;Mboat1;Plpp3;Lpl;Akr1b8,2.0,0,3.834463204302372,6.78612537044955,1.0
 Glycerophospholipid metabolism,6,Pcyt2;Pla2g4a;Plpp3;Plb1;Gpcpd1;Mboat1,2.0,0,0.09078778083994035,6.460837427982244,1.0
