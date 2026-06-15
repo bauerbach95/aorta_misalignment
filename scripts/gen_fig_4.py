@@ -5,7 +5,7 @@ Subplots (male primary):
   a) Amplitude loss histograms — aligned vs misaligned (4 cell types)
   b) Acrophase shift scatter — aligned vs misaligned (4 cell types)
   c) CCR2/CX3CR1 waveforms in macrophages — aligned vs misaligned
-  d) Clock relative timing in SMCs — Per2/Dbp vs Arntl phase shifts
+  d) Clock relative timing in SMCs — Dbp/Nr1d1 vs Arntl phase shifts
   e) Proteostasis disruption — chaperone loss + protein degradation waveforms
 
 Output:
@@ -129,18 +129,77 @@ for gene in MAC_GENES:
 print("\nStep 4: Clock relative timing in SMCs...")
 
 REFERENCE_GENE = "Arntl"
-CLOCK_TARGETS = ["Per2", "Dbp"]
+ALL_CLOCK_CANDIDATES = [
+    "Per1", "Per2", "Per3", "Cry1", "Cry2", "Dbp", "Nr1d1", "Nr1d2",
+    "Tef", "Hlf", "Bhlhe40", "Bhlhe41", "Npas2", "Clock",
+]
 NUM_CLOCK_SAMPLES = 30000
+ACROPHASE_95_MAX_HOURS = 2.0
 
 
-def fft_acrophase_hours(waveform_samples):
+def fft_acrophase_rad(waveform_samples):
+    """Return acrophase in radians [0, 2pi) from posterior waveform samples."""
     F = np.fft.fft(waveform_samples, axis=-1)
     f1 = F[:, 1]
-    phi = (-np.arctan2(f1.imag, f1.real)) % (2 * np.pi)
-    return phi * 24 / (2 * np.pi)
+    return (-np.arctan2(f1.imag, f1.real)) % (2 * np.pi)
 
 
-clock_shifts = {}  # {target: {cond_label: shifts_array}}
+def acrophase_95_range_hours(acrophase_rad_samples):
+    """Smallest circular interval containing 95% of samples, in hours."""
+    s = np.sort(acrophase_rad_samples % (2 * np.pi))
+    n = len(s)
+    k = int(np.ceil(0.95 * n))
+    best_width = 2 * np.pi
+    for i in range(n):
+        j = (i + k - 1) % n
+        width = (s[j] - s[i]) if j >= i else ((2 * np.pi - s[i]) + s[j])
+        if width < best_width:
+            best_width = width
+    return (best_width / (2 * np.pi)) * 24
+
+
+def circular_mean(angles):
+    """Circular mean of angles in radians."""
+    return np.arctan2(np.mean(np.sin(angles)), np.mean(np.cos(angles))) % (2 * np.pi)
+
+
+def signed_circular_diff_scalar(a1, a2):
+    """Signed circular difference (a2 - a1) in [-pi, pi]."""
+    return ((a2 - a1 + np.pi) % (2 * np.pi)) - np.pi
+
+
+# Filter clock genes: 95% acrophase posterior must be <= 2h in BOTH conditions
+print(f"  Filtering clock genes: 95% acrophase range <= {ACROPHASE_95_MAX_HOURS}h in both conditions")
+acro_ranges = {}
+for cond_label, condition in [("Aligned", COND_AL), ("Misaligned", COND_MIS)]:
+    a, b, m = load_waveform_params("cluster_0", condition)
+    all_genes_to_load = [REFERENCE_GENE] + ALL_CLOCK_CANDIDATES
+    samp, genes = sample_waveforms(a, b, m, all_genes_to_load, NUM_CLOCK_SAMPLES)
+    gene_idx = {g: i for i, g in enumerate(genes)}
+    for g in genes:
+        rng = acrophase_95_range_hours(fft_acrophase_rad(samp[gene_idx[g]]))
+        acro_ranges[(g, cond_label)] = rng
+
+passing_targets = []
+for g in ALL_CLOCK_CANDIDATES:
+    al_rng = acro_ranges.get((g, "Aligned"))
+    mis_rng = acro_ranges.get((g, "Misaligned"))
+    if al_rng is not None and mis_rng is not None:
+        passes = al_rng <= ACROPHASE_95_MAX_HOURS and mis_rng <= ACROPHASE_95_MAX_HOURS
+        status = "PASS" if passes else "fail"
+        print(f"    {g:12s} Al={al_rng:.1f}h  Mis={mis_rng:.1f}h  {status}")
+        if passes:
+            passing_targets.append(g)
+
+ref_al_rng = acro_ranges.get((REFERENCE_GENE, "Aligned"), 99)
+ref_mis_rng = acro_ranges.get((REFERENCE_GENE, "Misaligned"), 99)
+print(f"    {REFERENCE_GENE:12s} Al={ref_al_rng:.1f}h  Mis={ref_mis_rng:.1f}h  (reference)")
+print(f"  Passing targets: {passing_targets}")
+
+CLOCK_TARGETS = passing_targets
+
+# Compute relative phases for passing genes
+clock_shifts = {}  # {target: {cond_label: relative_phase_rad_array}}
 
 for target in CLOCK_TARGETS:
     clock_shifts[target] = {}
@@ -152,12 +211,20 @@ for target in CLOCK_TARGETS:
             print(f"  {target} {cond_label}: SKIP")
             continue
         gene_idx = {g: i for i, g in enumerate(genes)}
-        ref_hours = fft_acrophase_hours(samp[gene_idx[ref_gene]])
-        tgt_hours = fft_acrophase_hours(samp[gene_idx[target]])
-        shifts = (tgt_hours - ref_hours) % 24
-        clock_shifts[target][cond_label] = shifts
-        med = np.median(shifts)
+        ref_rad = fft_acrophase_rad(samp[gene_idx[ref_gene]])
+        tgt_rad = fft_acrophase_rad(samp[gene_idx[target]])
+        rel_phase = (tgt_rad - ref_rad) % (2 * np.pi)
+        clock_shifts[target][cond_label] = rel_phase
+        rel_hours = (rel_phase / (2 * np.pi)) * 24
+        med = np.median(rel_hours)
         print(f"  {target}-{ref_gene} {cond_label}: median delay = {med:.1f}h")
+
+    if "Aligned" in clock_shifts[target] and "Misaligned" in clock_shifts[target]:
+        cm_al = circular_mean(clock_shifts[target]["Aligned"])
+        cm_mis = circular_mean(clock_shifts[target]["Misaligned"])
+        shift = signed_circular_diff_scalar(cm_al, cm_mis)
+        shift_h = (shift / np.pi) * 12.0
+        print(f"  {target}: signed relative phase shift = {shift_h:+.1f}h")
 
 # ── Step 5: Panel e — proteostasis disruption ───────────────────────────────
 
@@ -213,10 +280,11 @@ for gene in MAC_GENES:
                        "ci_hi_log10": np.quantile(samp10, 0.975, axis=0)}).to_csv(
             os.path.join(SOURCE_DATA_DIR, f"panel_c_{gene}_{cond_label}.csv"), index=False)
 
-# Panel d
+# Panel d (relative phase in hours, 0-24)
 for target, cond_shifts in clock_shifts.items():
-    for cond_label, shifts in cond_shifts.items():
-        pd.DataFrame({f"{target}_Arntl_delay_hours": shifts}).to_csv(
+    for cond_label, rel_phase in cond_shifts.items():
+        rel_hours = (rel_phase / (2 * np.pi)) * 24
+        pd.DataFrame({f"{target}_Arntl_delay_hours": rel_hours}).to_csv(
             os.path.join(SOURCE_DATA_DIR, f"panel_d_{target}_{cond_label}.csv"), index=False)
 
 # Panel e (log10 scale)
@@ -313,14 +381,14 @@ for j, target in enumerate(CLOCK_TARGETS):
     ax = fig.add_subplot(gs_cd[0, 2 + j])
     for cond_label, color in COND_COLORS.items():
         if cond_label in clock_shifts.get(target, {}):
-            shifts = clock_shifts[target][cond_label]
-            ax.hist(shifts, bins=30, density=True, alpha=0.2,
+            rel_hours = (clock_shifts[target][cond_label] / (2 * np.pi)) * 24
+            ax.hist(rel_hours, bins=30, density=True, alpha=0.2,
                     color=color, edgecolor="none")
             try:
-                sns.kdeplot(shifts, ax=ax, color=color, linewidth=1.0,
+                sns.kdeplot(rel_hours, ax=ax, color=color, linewidth=1.0,
                             label=cond_label, bw_adjust=0.8, clip=(0, 24))
             except Exception:
-                ax.axvline(np.median(shifts), color=color, linewidth=1.0,
+                ax.axvline(np.median(rel_hours), color=color, linewidth=1.0,
                            label=cond_label)
     ax.set_xlim(0, 24)
     ax.set_title(f"{target} \u2013 Arntl", fontsize=7, fontweight="semibold",
