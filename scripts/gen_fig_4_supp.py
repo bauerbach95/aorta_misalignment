@@ -191,15 +191,47 @@ for ct, ct_res in enrich_results.items():
 
 print(f"  Source data written to {SOURCE_DATA_DIR}/")
 
-# ── Step 4: Generate figure ──────────────────────────────────────────────────
+# ── Step 4: Load supplementary proteostasis gene waveforms ──────────────────
 
-print("\nStep 4: Generating figure...")
+print("\nStep 4: Loading supplementary proteostasis gene waveforms...")
 
-fig = plt.figure(figsize=(8.5, 16), dpi=300)
+from circadian_utils import plot_posterior_violins
+
+PROTEO_SUPP_GENES = ["Hspa1b", "Dnajb1", "Dnajb4", "Dnaja1", "Hsph1", "Ankrd1", "Paip2b"]
+COND_COLORS = {"Aligned": "#4878CF", "Misaligned": "#D65F5F"}
+
+alpha_al_smc, beta_al_smc, mm_al_smc = load_waveform_params("cluster_0", COND_AL)
+alpha_mis_smc, beta_mis_smc, mm_mis_smc = load_waveform_params("cluster_0", COND_MIS)
+
+proteo_supp_waveforms = {}
+for gene in PROTEO_SUPP_GENES:
+    proteo_supp_waveforms[gene] = {}
+    for cond_label, (a, b, m) in [("Aligned", (alpha_al_smc, beta_al_smc, mm_al_smc)),
+                                   ("Misaligned", (alpha_mis_smc, beta_mis_smc, mm_mis_smc))]:
+        samp, genes = sample_waveforms(a, b, m, [gene], 5000)
+        if genes:
+            proteo_supp_waveforms[gene][cond_label] = samp[0]
+found_supp = [g for g in PROTEO_SUPP_GENES if proteo_supp_waveforms[g]]
+print(f"  Found: {', '.join(found_supp)}")
+
+# ── Step 5: Generate figure ──────────────────────────────────────────────────
+
+print("\nStep 5: Generating figure...")
+
+n_proteo_cols = min(4, len(found_supp))
+n_proteo_rows = (len(found_supp) + n_proteo_cols - 1) // n_proteo_cols
+proteo_height = 0.3 * n_proteo_rows
+
+from matplotlib.gridspec import GridSpecFromSubplotSpec
+
+fig = plt.figure(figsize=(8.5, 18 + proteo_height * 4), dpi=300)
 fig.patch.set_facecolor("white")
 
-gs_main = GridSpec(4, 2, figure=fig, hspace=0.85, wspace=0.35,
-                   left=0.10, right=0.95, top=0.96, bottom=0.04)
+gs_top = GridSpec(5, 1, figure=fig, hspace=0.55,
+                  height_ratios=[1, 1, 1, 1, proteo_height * n_proteo_rows],
+                  left=0.10, right=0.95, top=0.96, bottom=0.04)
+
+gs_enrich = [GridSpecFromSubplotSpec(1, 2, subplot_spec=gs_top[i], wspace=0.35) for i in range(4)]
 
 enrich_cell_types = list(ENRICH_CLUSTERS.values())
 
@@ -214,7 +246,7 @@ panel_labels = ["a", "b", "c", "d"]
 
 for row_idx, gs_type in enumerate(GS_TYPES):
     for col_idx, ct in enumerate(enrich_cell_types):
-        ax = fig.add_subplot(gs_main[row_idx, col_idx])
+        ax = fig.add_subplot(gs_enrich[row_idx][0, col_idx])
         sig_sets = enrich_results[ct][gs_type]
         top_sets = sig_sets[:TOP_N_WAVEFORMS]
 
@@ -255,6 +287,30 @@ for row_idx, gs_type in enumerate(GS_TYPES):
         if col_idx == 0:
             ax.text(-0.22, 1.15, panel_labels[row_idx], transform=ax.transAxes,
                     fontsize=11, fontweight="bold", va="top")
+
+# ── Row e: supplementary proteostasis gene waveforms ──────────────────────
+
+gs_proteo = GridSpecFromSubplotSpec(n_proteo_rows, n_proteo_cols,
+                                    subplot_spec=gs_top[4],
+                                    hspace=0.5, wspace=0.35)
+
+for idx, gene in enumerate(found_supp):
+    r = idx // n_proteo_cols
+    c = idx % n_proteo_cols
+    ax = fig.add_subplot(gs_proteo[r, c])
+    gene_samps = {cl: s for cl, s in proteo_supp_waveforms[gene].items()}
+    if gene_samps:
+        plot_posterior_violins(ax, gene_samps, COND_COLORS, width=2.0, alpha=0.5)
+    ax.set_title(gene, fontsize=6.5, fontweight="semibold", color="0.2")
+    ax.tick_params(axis="y", labelsize=4.5)
+    if c == 0:
+        ax.set_ylabel("Log10 rate", fontsize=5.5)
+    if idx < 2:
+        ax.legend(fontsize=4, frameon=False)
+    sns.despine(ax=ax)
+    if idx == 0:
+        ax.text(-0.3, 1.2, "e", transform=ax.transAxes,
+                fontsize=11, fontweight="bold", va="top")
 
 # Save
 os.makedirs(FIGURES_DIR, exist_ok=True)

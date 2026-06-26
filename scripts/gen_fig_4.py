@@ -2,11 +2,11 @@
 Generate Figure 4: Acute misalignment with the light-dark cycle disrupts aorta homeostasis.
 
 Subplots (male primary):
-  a) Amplitude loss histograms — aligned vs misaligned (4 cell types)
-  b) Acrophase shift scatter — aligned vs misaligned (4 cell types)
-  c) CCR2/CX3CR1 waveforms in macrophages — aligned vs misaligned
-  d) Clock relative timing in SMCs — Dbp/Nr1d1 vs Arntl phase shifts
-  e) Proteostasis disruption — chaperone loss + protein degradation waveforms
+  a) Amplitude loss histograms -- aligned vs misaligned (4 cell types)
+  b) Acrophase shift scatter -- aligned vs misaligned (4 cell types)
+  c) Clock relative timing in SMCs -- Dbp/Nr1d1 vs Arntl phase shifts
+  d) Proteostasis disruption -- chaperone loss + protein degradation waveforms
+  e) CCR2/CX3CR1 waveforms in macrophages -- aligned vs misaligned
 
 Output:
   figures/fig_4.pdf
@@ -102,7 +102,7 @@ for cluster, cell_type in CLUSTER_CELL_TYPE.items():
     acro_data[cell_type] = (acro_al_h, acro_mis_h, shared)
     print(f"  {cell_type}: {len(shared)} shared cyclers")
 
-# ── Step 3: Panel c — CCR2/CX3CR1 in macrophages ───────────────────────────
+# ── Step 3: CCR2/CX3CR1 in macrophages ───────────────────────────────────
 
 print("\nStep 3: CCR2/CX3CR1 waveforms in macrophages...")
 
@@ -124,7 +124,7 @@ for gene in MAC_GENES:
         else:
             print(f"  {gene} {cond_label}: NOT FOUND")
 
-# ── Step 4: Panel d — clock relative timing in SMCs ─────────────────────────
+# ── Step 4: Clock relative timing in SMCs ─────────────────────────────────
 
 print("\nStep 4: Clock relative timing in SMCs...")
 
@@ -226,7 +226,7 @@ for target in CLOCK_TARGETS:
         shift_h = (shift / np.pi) * 12.0
         print(f"  {target}: signed relative phase shift = {shift_h:+.1f}h")
 
-# ── Step 5: Panel e — proteostasis disruption ───────────────────────────────
+# ── Step 5: Proteostasis disruption ───────────────────────────────────────
 
 print("\nStep 5: Proteostasis disruption waveforms...")
 
@@ -234,6 +234,8 @@ CHAPERONE_GENES = ["Hspa1a", "Hspa1b", "Dnajb1", "Dnajb4", "Dnaja1",
                    "Hsph1", "Xbp1", "Ankrd1", "Paip2b", "Atf3"]
 DEGRADATION_GENES = ["Uba52"]
 PROTEO_GENES = CHAPERONE_GENES + DEGRADATION_GENES
+PROTEO_MAIN = ["Hspa1a", "Xbp1", "Uba52", "Atf3"]
+PROTEO_SUPP = [g for g in PROTEO_GENES if g not in PROTEO_MAIN]
 
 proteo_waveforms = {}  # {gene: {cond_label: samples[N,4]}}
 
@@ -253,7 +255,25 @@ for gene in PROTEO_GENES:
 found_proteo = [g for g in PROTEO_GENES if proteo_waveforms[g]]
 print(f"  Found waveforms for: {', '.join(found_proteo)}")
 
-# ── Step 6: Export source data ──────────────────────────────────────────────
+# ── Step 6: Load KEGG enrichment from supplement source data ───────────────
+
+print("\nStep 6: Loading KEGG enrichment from supplement source data...")
+
+SUPP_SOURCE_DIR = os.path.join(FIGURES_DIR, "fig_4_supp_source_data")
+KEGG_TOP_N = 8
+KEGG_CELL_TYPES = {"SMC": "cluster_0", "Fibroblast": "cluster_1"}
+
+kegg_enrichment = {}
+for ct in KEGG_CELL_TYPES:
+    kegg_path = os.path.join(SUPP_SOURCE_DIR, f"panel_kegg_{ct}.csv")
+    if os.path.exists(kegg_path):
+        df = pd.read_csv(kegg_path)
+        kegg_enrichment[ct] = df.head(KEGG_TOP_N)
+        print(f"  {ct}: {len(df)} significant KEGG sets, showing top {min(KEGG_TOP_N, len(df))}")
+    else:
+        print(f"  {ct}: KEGG source data not found at {kegg_path}")
+
+# ── Step 7: Export source data ──────────────────────────────────────────────
 
 print("\nStep 6: Exporting source data...")
 os.makedirs(SOURCE_DATA_DIR, exist_ok=True)
@@ -271,25 +291,25 @@ for ct, (acro_al, acro_mis, genes) in acro_data.items():
                        "acrophase_misaligned_h": acro_mis}).to_csv(
             os.path.join(SOURCE_DATA_DIR, f"panel_b_acrophase_{ct}.csv"), index=False)
 
-# Panel c (log10 scale)
-for gene in MAC_GENES:
-    for cond_label, samp in mac_waveforms.get(gene, {}).items():
-        samp10 = samp / np.log(10)
-        pd.DataFrame({"ZT": ZT_LABELS, "mean_log10": samp10.mean(axis=0),
-                       "ci_lo_log10": np.quantile(samp10, 0.025, axis=0),
-                       "ci_hi_log10": np.quantile(samp10, 0.975, axis=0)}).to_csv(
-            os.path.join(SOURCE_DATA_DIR, f"panel_c_{gene}_{cond_label}.csv"), index=False)
-
-# Panel d (relative phase in hours, 0-24)
+# Panel c (relative phase in hours, 0-24)
 for target, cond_shifts in clock_shifts.items():
     for cond_label, rel_phase in cond_shifts.items():
         rel_hours = (rel_phase / (2 * np.pi)) * 24
         pd.DataFrame({f"{target}_Arntl_delay_hours": rel_hours}).to_csv(
-            os.path.join(SOURCE_DATA_DIR, f"panel_d_{target}_{cond_label}.csv"), index=False)
+            os.path.join(SOURCE_DATA_DIR, f"panel_c_{target}_{cond_label}.csv"), index=False)
 
-# Panel e (log10 scale)
+# Panel d (log10 scale)
 for gene in found_proteo:
     for cond_label, samp in proteo_waveforms[gene].items():
+        samp10 = samp / np.log(10)
+        pd.DataFrame({"ZT": ZT_LABELS, "mean_log10": samp10.mean(axis=0),
+                       "ci_lo_log10": np.quantile(samp10, 0.025, axis=0),
+                       "ci_hi_log10": np.quantile(samp10, 0.975, axis=0)}).to_csv(
+            os.path.join(SOURCE_DATA_DIR, f"panel_d_{gene}_{cond_label}.csv"), index=False)
+
+# Panel e (log10 scale)
+for gene in MAC_GENES:
+    for cond_label, samp in mac_waveforms.get(gene, {}).items():
         samp10 = samp / np.log(10)
         pd.DataFrame({"ZT": ZT_LABELS, "mean_log10": samp10.mean(axis=0),
                        "ci_lo_log10": np.quantile(samp10, 0.025, axis=0),
@@ -298,15 +318,15 @@ for gene in found_proteo:
 
 print(f"  Source data written to {SOURCE_DATA_DIR}/")
 
-# ── Step 7: Generate figure ─────────────────────────────────────────────────
+# ── Step 8: Generate figure ─────────────────────────────────────────────────
 
-print("\nStep 7: Generating figure...")
+print("\nStep 8: Generating figure...")
 
-fig = plt.figure(figsize=(8.5, 18), dpi=300)
+fig = plt.figure(figsize=(8.5, 13), dpi=300)
 fig.patch.set_facecolor("white")
 
-gs_main = GridSpec(5, 1, figure=fig, hspace=0.55,
-                   height_ratios=[0.5, 0.6, 0.45, 0.45, 0.8],
+gs_main = GridSpec(5, 1, figure=fig, hspace=0.50,
+                   height_ratios=[0.5, 0.6, 0.45, 0.45, 0.45],
                    left=0.08, right=0.95, top=0.97, bottom=0.03)
 
 # ── Row a: amplitude loss histograms ────────────────────────────────────────
@@ -358,27 +378,13 @@ for i, ct in enumerate(all_cell_types):
         ax.text(-0.2, 1.12, "b", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
-# ── Row c+d: CCR2/CX3CR1 + clock timing ────────────────────────────────────
+# ── Row c+d: clock relative timing + macrophage waveforms ─────────────────
 
 gs_cd = GridSpecFromSubplotSpec(1, 4, subplot_spec=gs_main[2], wspace=0.45)
 
-# Panel c: CCR2/CX3CR1 waveforms as violins
-for j, gene in enumerate(MAC_GENES):
-    ax = fig.add_subplot(gs_cd[0, j])
-    gene_samps = {cl: s for cl, s in mac_waveforms.get(gene, {}).items()}
-    if gene_samps:
-        plot_posterior_violins(ax, gene_samps, COND_COLORS)
-    ax.set_title(gene, fontsize=7, fontweight="semibold", color=CELL_TYPE_COLORS["Macrophage"])
-    ax.set_ylabel("Log10 rate" if j == 0 else "", fontsize=6)
-    ax.legend(fontsize=4.5, frameon=False)
-    sns.despine(ax=ax)
-    if j == 0:
-        ax.text(-0.25, 1.15, "c", transform=ax.transAxes,
-                fontsize=11, fontweight="bold", va="top")
-
-# Panel d: clock relative timing KDE
+# Panel c: clock relative timing KDE
 for j, target in enumerate(CLOCK_TARGETS):
-    ax = fig.add_subplot(gs_cd[0, 2 + j])
+    ax = fig.add_subplot(gs_cd[0, j])
     for cond_label, color in COND_COLORS.items():
         if cond_label in clock_shifts.get(target, {}):
             rel_hours = (clock_shifts[target][cond_label] / (2 * np.pi)) * 24
@@ -391,41 +397,77 @@ for j, target in enumerate(CLOCK_TARGETS):
                 ax.axvline(np.median(rel_hours), color=color, linewidth=1.0,
                            label=cond_label)
     ax.set_xlim(0, 24)
-    ax.set_title(f"{target} \u2013 Arntl", fontsize=7, fontweight="semibold",
+    ax.set_title(f"{target} – Arntl", fontsize=7, fontweight="semibold",
                  color=CELL_TYPE_COLORS["SMC"])
     ax.set_xlabel("Delay (hours)", fontsize=5.5)
     ax.set_ylabel("Density" if j == 0 else "", fontsize=6)
     ax.legend(fontsize=4.5, frameon=False)
     sns.despine(ax=ax)
     if j == 0:
+        ax.text(-0.25, 1.15, "c", transform=ax.transAxes,
+                fontsize=11, fontweight="bold", va="top")
+
+# Panel d: CCR2/CX3CR1 macrophage waveforms (same row as c)
+for j, gene in enumerate(MAC_GENES):
+    ax = fig.add_subplot(gs_cd[0, 2 + j])
+    gene_samps = {cl: s for cl, s in mac_waveforms.get(gene, {}).items()}
+    if gene_samps:
+        plot_posterior_violins(ax, gene_samps, COND_COLORS)
+    ax.set_title(gene, fontsize=7, fontweight="semibold", color=CELL_TYPE_COLORS["Macrophage"])
+    ax.set_ylabel("Log10 rate" if j == 0 else "", fontsize=6)
+    ax.legend(fontsize=4.5, frameon=False)
+    sns.despine(ax=ax)
+    if j == 0:
         ax.text(-0.25, 1.15, "d", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
-# ── Row e: proteostasis gene waveforms ──────────────────────────────────────
+# ── Row e: KEGG misalignment enrichment (SMC + Fibroblast) ────────────────
 
-n_proteo = len(found_proteo)
-n_cols_e = min(4, n_proteo)
-n_rows_e = (n_proteo + n_cols_e - 1) // n_cols_e
+gs_e_kegg = GridSpecFromSubplotSpec(1, 2, subplot_spec=gs_main[3], wspace=0.35)
 
-gs_e = GridSpecFromSubplotSpec(n_rows_e, n_cols_e, subplot_spec=gs_main[3:],
-                                hspace=0.5, wspace=0.35)
+for col_idx, ct in enumerate(["SMC", "Fibroblast"]):
+    ax = fig.add_subplot(gs_e_kegg[0, col_idx])
+    if ct in kegg_enrichment:
+        df = kegg_enrichment[ct]
+        zt_cols = ["mean_ZT0", "mean_ZT6", "mean_ZT12", "mean_ZT18"]
+        for _, row in df.iterrows():
+            vals = [row[c] for c in zt_cols]
+            ax.plot(ZT_HOURS, vals, linewidth=1.0, alpha=0.8, label=row["gene_set"])
+        ax.axhline(0, color="k", linestyle="--", linewidth=0.4, alpha=0.4)
+    ax.set_xticks(ZT_HOURS)
+    ax.set_xticklabels(ZT_LABELS, fontsize=5)
+    ax.set_title(ct, fontsize=7, fontweight="semibold",
+                 color=CELL_TYPE_COLORS.get(ct, "0.2"))
+    ax.set_xlabel("ZT", fontsize=5.5)
+    if col_idx == 0:
+        ax.set_ylabel("Mis. - Al.\n(log rate)", fontsize=5.5)
+    ax.legend(fontsize=3.5, frameon=False, loc="best", ncol=1)
+    ax.tick_params(axis="y", labelsize=4.5)
+    sns.despine(ax=ax)
+    if col_idx == 0:
+        ax.text(-0.2, 1.15, "e", transform=ax.transAxes,
+                fontsize=11, fontweight="bold", va="top")
 
-for idx, gene in enumerate(found_proteo):
-    row_e = idx // n_cols_e
-    col_e = idx % n_cols_e
-    ax = fig.add_subplot(gs_e[row_e, col_e])
+# ── Row f: proteostasis gene waveforms (flagship subset) ──────────────────
+
+found_main = [g for g in PROTEO_MAIN if g in found_proteo]
+gs_f_proteo = GridSpecFromSubplotSpec(1, len(found_main), subplot_spec=gs_main[4],
+                                wspace=0.35)
+
+for idx, gene in enumerate(found_main):
+    ax = fig.add_subplot(gs_f_proteo[0, idx])
     gene_samps = {cl: s for cl, s in proteo_waveforms[gene].items()}
     if gene_samps:
         plot_posterior_violins(ax, gene_samps, COND_COLORS, width=2.0, alpha=0.5)
     ax.set_title(f"{gene}", fontsize=6.5, fontweight="semibold", color="0.2")
     ax.tick_params(axis="y", labelsize=4.5)
-    if col_e == 0:
+    if idx == 0:
         ax.set_ylabel("Log10 rate", fontsize=5.5)
     if idx < 2:
         ax.legend(fontsize=4, frameon=False)
     sns.despine(ax=ax)
     if idx == 0:
-        ax.text(-0.3, 1.2, "e", transform=ax.transAxes,
+        ax.text(-0.3, 1.2, "f", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
 # Save
