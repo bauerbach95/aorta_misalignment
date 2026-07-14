@@ -13,6 +13,7 @@
 \usepackage{parskip}
 \usepackage{xcolor}
 \usepackage{graphicx}
+\usepackage{float}
 \graphicspath{{figures/}{old_figures/}}
 
 \hypersetup{
@@ -310,86 +311,6 @@ predispose SMCs to phenotypic switching. Female-specific misalignment effects ar
 Supplementary Results.
 
 %-----------------------------------------------------------------------
-% FIGURES
-%-----------------------------------------------------------------------
-\clearpage
-\section*{Figures}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{fig_1.pdf}
-\caption{\textbf{Experimental overview and cell types of the mouse aorta circadian atlas.}
-\textbf{a)} Experimental conditions: male and female C57BL/6 mice under aligned and misaligned
-light-dark cycles, and male and female \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$
-mice under aligned conditions. Mice were sacrificed at ZT0, ZT6, ZT12, and ZT18, whole aortas were
-dissected and dissociated, and single-cell RNA-sequencing was performed.
-\textbf{b)} Light-dark cycle and sample collection protocol for aligned mice.
-\textbf{c)} Light-dark cycle and sample collection protocol for misaligned mice, subjected to a
-6-hour phase advance 5 days prior to sacrifice.
-\textbf{d)} UMAP visualization of scVI latent embedding for all cells, colored by cell type.
-\textbf{e)} UMAP visualization of SMCs, colored by subtype.
-\textbf{f)} Number of cells per major cell type cluster.
-\textbf{g)} Number of cells per SMC subtype cluster.}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{fig_2.pdf}
-\caption{\textbf{Cell-type-specific daily cycling expression in the mouse aorta.}
-\textbf{a)} Number of daily cycling genes shared between males and females in each major cell type,
-requiring acrophases within 3 hours.
-\textbf{b)} Reactome pathway enrichment among daily cyclers in SMCs (left) and fibroblasts (right).
-Rose plots show enriched gene sets positioned by the mean acrophase of their member genes; radial
-extent indicates the number of member genes.
-\textbf{c)} Transcription factor motif enrichment among daily cyclers in SMCs (left) and fibroblasts
-(right), plotted as in (b).
-\textbf{d)} Acrophase distributions of SMC daily cyclers implicated in phenotypic switching. Left:
-genes that monotonically increase during the SMC-to-SEM transition. Right: genes that monotonically
-decrease. Red lines indicate expected counts under a uniform distribution; $n$ and $p$-values from
-enrichment tests for dusk (left) or dawn (right) peak times.}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{fig_3.pdf}
-\caption{\textbf{Enhanced rhythmicity of female aortic cell types.}
-\textbf{a)} Distribution of the fraction of posterior amplitude samples larger in females than
-males, for genes cycling in either sex. Dashed line indicates 0.5 (no difference); median shown.
-Distributions shifted right indicate higher female amplitudes.
-\textbf{b)} Number of circadian cycling genes in males and females across $\log_{10}$ Bayes factor
-thresholds, after downsampling cells and pseudobulk UMI counts to match between sexes. SMCs (left)
-and fibroblasts (right).
-\textbf{c)} Sex-differential waveform enrichment analysis. Difference waveforms (female $-$ male)
-for KEGG pathway gene sets (top) and transcription factor motif gene sets (bottom) in SMCs (left)
-and fibroblasts (right). Each line represents a gene set; values above zero indicate higher
-expression in females at that time point.}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{fig_4.pdf}
-\caption{\textbf{Circadian misalignment disrupts proteostasis and cell-type entrainment in the
-aorta.}
-\textbf{a)} Distribution of the fraction of posterior amplitude samples larger in misaligned than
-aligned mice, for genes cycling in either condition. Distributions shifted left of 0.5 indicate
-reduced amplitudes after misalignment.
-\textbf{b)} Acrophase scatter plots comparing aligned (x-axis) and misaligned (y-axis) peak times
-for cycling genes shared between conditions. Dashed line indicates identity (perfect entrainment);
-points above the line indicate delayed acrophases. $n$, number of shared cycling genes.
-\textbf{c)} Posterior distributions of the phase delay between \textit{Dbp} and \textit{Arntl}
-(left) and \textit{Nr1d1} and \textit{Arntl} (right) in SMCs, comparing aligned and misaligned
-conditions. Compression of the delay indicates altered intracellular clock architecture.
-\textbf{d)} Posterior waveforms of macrophage \textit{Ccr2} (left) and \textit{Cx3cr1} (right) in
-aligned and misaligned conditions. Violin plots show posterior $\log_{10}$ transcript proportion
-estimates at each time point; horizontal lines indicate posterior means.
-\textbf{e)} KEGG pathway waveform enrichment showing the difference in $\log_{10}$ expression rate
-(misaligned $-$ aligned) at each time point for SMCs (left) and fibroblasts (right). Values below
-zero indicate decreased expression after misalignment.
-\textbf{f)} Posterior waveforms of representative proteostasis-related genes in SMCs, comparing
-aligned and misaligned conditions. Violin plots as in (d).}
-\end{figure}
-
-%-----------------------------------------------------------------------
 % DISCUSSION
 %-----------------------------------------------------------------------
 \section*{Discussion}
@@ -474,6 +395,86 @@ organization at multiple scales --- from intracellular clock architecture to int
 coordination to proteostatic homeostasis. These findings may help explain why circadian misalignment
 elevates cardiovascular risk and highlight proteostasis as a candidate mechanism linking circadian
 disruption to vascular disease.
+
+%-----------------------------------------------------------------------
+% FIGURES
+%-----------------------------------------------------------------------
+\clearpage
+\section*{Figures}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig_1.pdf}
+\caption{\textbf{Experimental overview and cell types of the mouse aorta circadian atlas.}
+\textbf{a)} Experimental conditions: male and female C57BL/6 mice under aligned and misaligned
+light-dark cycles, and male and female \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$
+mice under aligned conditions. Mice were sacrificed at ZT0, ZT6, ZT12, and ZT18, whole aortas were
+dissected and dissociated, and single-cell RNA-sequencing was performed.
+\textbf{b)} Light-dark cycle and sample collection protocol for aligned mice.
+\textbf{c)} Light-dark cycle and sample collection protocol for misaligned mice, subjected to a
+6-hour phase advance 5 days prior to sacrifice.
+\textbf{d)} UMAP visualization of scVI latent embedding for all cells, colored by cell type.
+\textbf{e)} UMAP visualization of SMCs, colored by subtype.
+\textbf{f)} Number of cells per major cell type cluster.
+\textbf{g)} Number of cells per SMC subtype cluster.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig_2.pdf}
+\caption{\textbf{Cell-type-specific daily cycling expression in the mouse aorta.}
+\textbf{a)} Number of daily cycling genes shared between males and females in each major cell type,
+requiring acrophases within 3 hours.
+\textbf{b)} Reactome pathway enrichment among daily cyclers in SMCs (left) and fibroblasts (right).
+Rose plots show enriched gene sets positioned by the mean acrophase of their member genes; radial
+extent indicates the number of member genes.
+\textbf{c)} Transcription factor motif enrichment among daily cyclers in SMCs (left) and fibroblasts
+(right), plotted as in (b).
+\textbf{d)} Acrophase distributions of SMC daily cyclers implicated in phenotypic switching. Left:
+genes that monotonically increase during the SMC-to-SEM transition. Right: genes that monotonically
+decrease. Red lines indicate expected counts under a uniform distribution; $n$ and $p$-values from
+enrichment tests for dusk (left) or dawn (right) peak times.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig_3.pdf}
+\caption{\textbf{Enhanced rhythmicity of female aortic cell types.}
+\textbf{a)} Distribution of the fraction of posterior amplitude samples larger in females than
+males, for genes cycling in either sex. Dashed line indicates 0.5 (no difference); median shown.
+Distributions shifted right indicate higher female amplitudes.
+\textbf{b)} Number of circadian cycling genes in males and females across $\log_{10}$ Bayes factor
+thresholds, after downsampling cells and pseudobulk UMI counts to match between sexes. SMCs (left)
+and fibroblasts (right).
+\textbf{c)} Sex-differential waveform enrichment analysis. Difference waveforms (female $-$ male)
+for KEGG pathway gene sets (top) and transcription factor motif gene sets (bottom) in SMCs (left)
+and fibroblasts (right). Each line represents a gene set; values above zero indicate higher
+expression in females at that time point.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig_4.pdf}
+\caption{\textbf{Circadian misalignment disrupts proteostasis and cell-type entrainment in the
+aorta.}
+\textbf{a)} Distribution of the fraction of posterior amplitude samples larger in misaligned than
+aligned mice, for genes cycling in either condition. Distributions shifted left of 0.5 indicate
+reduced amplitudes after misalignment.
+\textbf{b)} Acrophase scatter plots comparing aligned (x-axis) and misaligned (y-axis) peak times
+for cycling genes shared between conditions. Dashed line indicates identity (perfect entrainment);
+points above the line indicate delayed acrophases. $n$, number of shared cycling genes.
+\textbf{c)} Posterior distributions of the phase delay between \textit{Dbp} and \textit{Arntl}
+(left) and \textit{Nr1d1} and \textit{Arntl} (right) in SMCs, comparing aligned and misaligned
+conditions. Compression of the delay indicates altered intracellular clock architecture.
+\textbf{d)} Posterior waveforms of macrophage \textit{Ccr2} (left) and \textit{Cx3cr1} (right) in
+aligned and misaligned conditions. Violin plots show posterior $\log_{10}$ transcript proportion
+estimates at each time point; horizontal lines indicate posterior means.
+\textbf{e)} KEGG pathway waveform enrichment showing the difference in $\log_{10}$ expression rate
+(misaligned $-$ aligned) at each time point for SMCs (left) and fibroblasts (right). Values below
+zero indicate decreased expression after misalignment.
+\textbf{f)} Posterior waveforms of representative proteostasis-related genes in SMCs, comparing
+aligned and misaligned conditions. Violin plots as in (d).}
+\end{figure}
 
 %-----------------------------------------------------------------------
 % METHODS
@@ -1351,7 +1352,7 @@ code \highlight{GSEXXXX}.
 
 % Supplementary Figure 1: needs assembly from multiple panels (bulk comparison,
 % clock genes in major types, clock genes in SMC subtypes, acrophase distribution)
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \textit{[Supplementary Figure 1 requires assembly from multiple source panels.]}
 \caption{\textbf{Supplementary Figure 1: Validation of circadian cycling detection.}
@@ -1363,7 +1364,7 @@ times in bulk aorta from Zhang et al.
 types.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_2_supp.pdf}
 \caption{\textbf{Supplementary Figure 2: Extended pathway and gene ontology enrichment for daily
@@ -1371,7 +1372,7 @@ cycling genes.} KEGG and GO Biological Process overrepresentation enrichment for
 cycling genes at various time points over the circadian cycle in SMCs and fibroblasts.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_3_supp.pdf}
 \caption{\textbf{Supplementary Figure 3: Extended waveform enrichment for sex-differential
@@ -1379,7 +1380,7 @@ expression.} Reactome pathway and GO Biological Process waveform enrichment resu
 sex-differential temporal expression in SMCs and fibroblasts.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf}
 \caption{\textbf{Supplementary Figure 4: Misalignment cycling controlled for cell counts and library
@@ -1388,14 +1389,14 @@ match between aligned and misaligned male mice. Number of called cyclers across 
 Bayes factor thresholds for major cell types and SMC subtypes.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=0.8\textwidth]{supp_fig_8_bmal1_ko_western_blot.pdf}
 \caption{\textbf{Supplementary Figure 5: Western blots of Bmal1 protein.} Western blots of Bmal1
 protein product from aorta across all conditions collected in the study.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_7.pdf}
 \caption{\textbf{Supplementary Figure 6: General characteristics of the effect of inducible Bmal1
@@ -1408,7 +1409,7 @@ Bmal1 knockout cell types relative to wild type, considering the union of confid
 time point and in each major cell type of the Bmal1 knockout mice.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_8.pdf}
 \caption{\textbf{Supplementary Figure 7: Bmal1 knockout effects on individual gene expression
@@ -1420,7 +1421,7 @@ vascular recruitment. \textbf{g)} Posterior circadian waveforms in ECs for ligan
 vascular recruitment.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{supp_fig_4_concordance_between_KO_effects.pdf}
 \caption{\textbf{Supplementary Figure 8: Concordance of Bmal1 knockout effect in males and
@@ -1429,7 +1430,7 @@ Center: the posterior Bmal1 KO effect on each gene's mesor in males vs.\ females
 expected cosine similarity between the male and female effects at each time point.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_9.pdf}
 \caption{\textbf{Supplementary Figure 9: General characteristics of the sex and inducible Bmal1
@@ -1442,7 +1443,7 @@ Bmal1 knockout cell types relative to male.
 types after Bmal1 knockout.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_10.pdf}
 \caption{\textbf{Supplementary Figure 10: Sex and Bmal1 knockout effects on individual gene
@@ -1455,7 +1456,7 @@ the Bmal1 WT and KO SMCs.
 the KO conditions over the WT conditions, at various $\log_{10}$ Bayes factor thresholds.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_11.pdf}
 \caption{\textbf{Supplementary Figure 11: Sex and Bmal1 knockout effects on individual gene
@@ -1466,7 +1467,7 @@ representative genes with sex-dependent Bmal1 knockout effects.
 Bmal1 knockout effects.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_16.pdf}
 \caption{\textbf{Supplementary Figure 12: General characteristics of the sex and misalignment
@@ -1478,7 +1479,7 @@ misaligned cell types relative to male misaligned cell types, considering the un
 cycling genes.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf}
 \caption{\textbf{Supplementary Figure 13: Comparison of male aligned vs.\ male misaligned cell type
@@ -1487,7 +1488,7 @@ downsampled to match between male aligned and misaligned mice. The number of cal
 $\log_{10}$ circadian Bayes factor thresholds for major cell types and SMC subtypes.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{supp_fig_6_female_aligned_vs_misaligned_rhythmicity.pdf}
 \caption{\textbf{Supplementary Figure 14: Comparison of female aligned vs.\ female misaligned cell
@@ -1496,7 +1497,7 @@ were downsampled to match between female aligned and misaligned mice. The number
 across $\log_{10}$ circadian Bayes factor thresholds for major cell types and SMC subtypes.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{supp_fig_7_sex_differences_in_entrainment_speed.pdf}
 \caption{\textbf{Supplementary Figure 15: Male vs.\ female entrainment speed of major aortic cell
@@ -1506,7 +1507,7 @@ posterior samples that were smaller in females was visualized for \textbf{a)} SM
 and \textbf{b)} SMC subtypes.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_17.pdf}
 \caption{\textbf{Supplementary Figure 16: Acute misalignment and sex effects on SMC phenotypic
@@ -1517,7 +1518,7 @@ comparing aligned and misaligned conditions.
 aligned and misaligned conditions.}
 \end{figure}
 
-\begin{figure}[p]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{fig_18.pdf}
 \caption{\textbf{Supplementary Figure 17: Acute misalignment and sex effects on endothelial and
