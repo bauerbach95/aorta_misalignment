@@ -1,0 +1,21 @@
+{
+    "latex-workshop.latex.tools": [
+        {
+            "name": "tectonic",
+            "command": "/Users/mingyaolab/opt/anaconda3/envs/misalignment/bin/tectonic",
+            "args": [
+                "%DOC%.tex",
+                "--synctex",
+                "--keep-logs"
+            ]
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "tectonic",
+            "tools": ["tectonic"]
+        }
+    ],
+    "latex-workshop.latex.autoBuild.run": "onSave",
+    "latex-workshop.view.pdf.viewer": "tab"
+}
