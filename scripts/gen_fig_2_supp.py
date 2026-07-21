@@ -1,194 +1,293 @@
 """
-Generate Supplementary Figure 2: KEGG and GO:BP acrophase enrichment.
+Generate Supplementary Figures for Section 2: sex-specific daily cyclers.
 
-Extends Figure 2b (Reactome) with additional gene set databases for shared M/F
-daily cyclers in SMC and Fibroblast.
+Produces two supplementary figures (one male, one female), each analogous
+to Figure 2 but for sex-specific cyclers rather than shared M/F cyclers.
 
-Subplots:
-  a) Rose plots: KEGG pathway acrophase enrichment (SMC, Fibroblast)
-  b) Rose plots: GO Biological Process acrophase enrichment (SMC, Fibroblast)
+Subplots (per sex):
+  a) Bar chart: number of daily cyclers per major cell type
+  b) Rose plots: Reactome pathway acrophase enrichment (SMC, Fibroblast)
+  c) Rose plots: TF acrophase enrichment (SMC, Fibroblast)
+  d) SMC phenotypic switching acrophase histograms + permutation test
 
 Output:
-  figures/fig_2_supp.pdf
-  figures/fig_2_supp_source_data/
+  figures/fig_2_supp_male.pdf
+  figures/fig_2_supp_female.pdf
+  figures/fig_2_supp_{male,female}_source_data/
 """
 
 import os
-import re
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 import seaborn as sns
-from scipy.stats import circmean
 
 from circadian_utils import (
     apply_style, CLUSTER_CELL_TYPE, ALIGNED_CONDITIONS, CELL_TYPE_COLORS,
-    FIGURES_DIR, ACROPHASE_HOUR_THRESH, TOP_N_PATHWAYS, GENE_SETS_DIR,
-    load_metrics, filter_cyclers, acrophase_rad_to_hours, circular_hour_distance,
-    load_kegg_dict, parse_gsea_set_file, run_enrichment,
+    FIGURES_DIR,
+    load_metrics, filter_cyclers, acrophase_rad_to_hours,
+    load_reactome_dict, clean_reactome_name, load_tf_dict, run_enrichment,
     make_rose_plot, export_enrichment_tables,
+    load_smc_switching_genes,
 )
 
 apply_style()
 
-SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, "fig_2_supp_source_data")
 ROSE_PLOT_CELL_TYPES = ["SMC", "Fibroblast"]
 
-GO_EXCLUDE_PATTERNS = [
-    r"VIRUS", r"VIRAL", r"BACTERIUM", r"BACTERIAL", r"PARASITE", r"PARASIT",
-    r"SYMBIONT", r"SYMBIOSIS",
-    r"OLFACT", r"TASTE", r"PHEROMONE",
-    r"EMBRYONIC", r"EMBRYO_DEVELOPMENT",
-    r"SPERMAT", r"OOCYTE", r"OVULAT",
-    r"NEURON_MIGRATION", r"NEUROGENESIS",
-]
+DUSK_LO, DUSK_HI = 2.0, 4.0
+DAWN_LO, DAWN_HI = (20 / 12) * np.pi, (4 / 12) * np.pi
+NUM_PERMUTATIONS = 5000
 
 
-def filter_gobp_dict(d, max_genes=300):
-    pattern = re.compile("|".join(GO_EXCLUDE_PATTERNS), re.IGNORECASE)
-    return {k: v for k, v in d.items() if not pattern.search(k) and len(v) <= max_genes}
+def count_in_window(acrophases, lo, hi, wraps=False):
+    a = np.asarray(acrophases)
+    if wraps:
+        return int(np.sum((a >= lo) | (a <= hi)))
+    return int(np.sum((a >= lo) & (a <= hi)))
 
 
-def clean_gobp_name(name):
-    """GOBP_SMOOTH_MUSCLE_CONTRACTION -> Smooth muscle contraction."""
-    name = re.sub(r"^GOBP_", "", name)
-    name = name.replace("_", " ")
-    return name[0].upper() + name[1:].lower() if name else name
+def window_permutation_pvalue(observed_acro, all_cyclers, acro_series,
+                              lo, hi, wraps, n_perm):
+    obs = count_in_window(list(observed_acro.values()), lo, hi, wraps)
+    n = len(observed_acro)
+    count_ge = 0
+    for _ in range(n_perm):
+        perm = np.random.choice(all_cyclers, size=n, replace=True)
+        perm_stat = count_in_window(acro_series.loc[perm].values, lo, hi, wraps)
+        if perm_stat >= obs:
+            count_ge += 1
+    return (count_ge + 1) / (n_perm + 1), obs
 
 
-# ── Step 1: Identify daily cyclers (shared M/F) ─────────────────────────────
+# ── Shared resources ───────────────────────────────────────────────────────
 
-print("Step 1: Identifying daily cyclers shared between male and female...")
+print("Loading shared gene set databases...")
+reactome_dict = load_reactome_dict()
+tf_dict = load_tf_dict()
+switching_genes = load_smc_switching_genes()
 
-daily_cycler_acrophases = {}
+# ── Generate one figure per sex ────────────────────────────────────────────
 
-for cluster, cell_type in CLUSTER_CELL_TYPE.items():
-    male_df = load_metrics(cluster, ALIGNED_CONDITIONS["male"])
-    female_df = load_metrics(cluster, ALIGNED_CONDITIONS["female"])
+for sex in ["male", "female"]:
+    print(f"\n{'='*60}")
+    print(f"  Processing {sex} cyclers")
+    print(f"{'='*60}")
 
-    shared = filter_cyclers(male_df) & filter_cyclers(female_df)
-    acrophases = {}
-    for gene in sorted(shared):
-        m_acro = male_df.loc[gene, "expected_acrophase"]
-        f_acro = female_df.loc[gene, "expected_acrophase"]
-        m_h = acrophase_rad_to_hours(m_acro)
-        f_h = acrophase_rad_to_hours(f_acro)
-        dist = circular_hour_distance(m_h, f_h)
-        if dist <= ACROPHASE_HOUR_THRESH:
-            avg_acro = circmean([m_acro, f_acro], high=2 * np.pi, low=0)
-            acrophases[gene] = avg_acro
+    figure_name = f"fig_2_supp_{sex}"
+    source_data_dir = os.path.join(FIGURES_DIR, f"{figure_name}_source_data")
 
-    daily_cycler_acrophases[cell_type] = acrophases
-    print(f"  {cell_type}: {len(acrophases)} daily cyclers")
+    # Step 1: Identify cyclers
+    print(f"\nStep 1: Identifying {sex} cyclers...")
+    cyclers = {}
+    cycler_acrophases = {}
+    cycler_details = {}
 
-# ── Step 2: Load gene set databases ──────────────────────────────────────────
+    for cluster, cell_type in CLUSTER_CELL_TYPE.items():
+        df = load_metrics(cluster, ALIGNED_CONDITIONS[sex])
+        cyc = filter_cyclers(df)
 
-print("\nStep 2: Loading gene set databases...")
+        acrophases = {}
+        details_rows = []
+        for gene in sorted(cyc):
+            acro = df.loc[gene, "expected_acrophase"]
+            h = acrophase_rad_to_hours(acro)
+            acrophases[gene] = acro
+            details_rows.append({
+                "gene": gene,
+                "acrophase_hour": round(h, 2),
+                "acrophase_rad": round(float(acro), 4),
+                "bf_log10": round(df.loc[gene, "waveform_over_circadian_component_subtracted_log10_bf"], 2),
+                "expected_mesor": round(df.loc[gene, "expected_mesor"], 4),
+            })
 
-kegg_dict = load_kegg_dict()
+        cyclers[cell_type] = cyc
+        cycler_acrophases[cell_type] = acrophases
+        cycler_details[cell_type] = pd.DataFrame(details_rows)
+        print(f"  {cell_type}: {len(cyc)} cyclers")
 
-gobp_raw = parse_gsea_set_file(
-    os.path.join(GENE_SETS_DIR, "go_biological_process")
-)
-gobp_dict = filter_gobp_dict(gobp_raw)
-print(f"  GO:BP: {len(gobp_raw)} total -> {len(gobp_dict)} after filtering")
+    # Step 2: Reactome enrichment
+    print("\nStep 2: Reactome pathway acrophase enrichment...")
+    reactome_enrichments = {}
+    reactome_enrichments_full = {}
+    for cell_type in CLUSTER_CELL_TYPE.values():
+        full_df, top_df, lrt_df = run_enrichment(
+            cycler_acrophases[cell_type], reactome_dict, cell_type
+        )
+        reactome_enrichments_full[cell_type] = (full_df, lrt_df)
+        reactome_enrichments[cell_type] = (top_df, lrt_df)
 
-# ── Step 3: Run enrichment ───────────────────────────────────────────────────
+    # Step 3: TF enrichment
+    print("\nStep 3: TF acrophase enrichment...")
+    tf_enrichments = {}
+    tf_enrichments_full = {}
+    for cell_type in CLUSTER_CELL_TYPE.values():
+        full_df, top_df, lrt_df = run_enrichment(
+            cycler_acrophases[cell_type], tf_dict, cell_type
+        )
+        tf_enrichments_full[cell_type] = (full_df, lrt_df)
+        tf_enrichments[cell_type] = (top_df, lrt_df)
 
-print("\nStep 3: Running KEGG enrichment...")
-kegg_enrichments = {}
-kegg_enrichments_full = {}
-for cell_type in CLUSTER_CELL_TYPE.values():
-    full_df, top_df, lrt_df = run_enrichment(
-        daily_cycler_acrophases[cell_type], kegg_dict, cell_type
+    # Step 4: SMC phenotypic switching
+    print(f"\nStep 4: SMC phenotypic switching acrophase analysis...")
+    smc_acro = cycler_acrophases["SMC"]
+    smc_cycler_list = list(smc_acro.keys())
+
+    switch_up_acro = {g: smc_acro[g] for g in switching_genes["up"] if g in smc_acro}
+    switch_down_acro = {g: smc_acro[g] for g in switching_genes["down"] if g in smc_acro}
+    print(f"  {sex} SMC cyclers: {len(smc_cycler_list)}")
+    print(f"  Switching UP among {sex} cyclers: {len(switch_up_acro)}/{len(switching_genes['up'])}")
+    print(f"  Switching DOWN among {sex} cyclers: {len(switch_down_acro)}/{len(switching_genes['down'])}")
+
+    acro_series = pd.Series(smc_acro)
+
+    switch_up_pval, switch_up_count = window_permutation_pvalue(
+        switch_up_acro, smc_cycler_list, acro_series,
+        DUSK_LO, DUSK_HI, wraps=False, n_perm=NUM_PERMUTATIONS)
+    switch_down_pval, switch_down_count = window_permutation_pvalue(
+        switch_down_acro, smc_cycler_list, acro_series,
+        DAWN_LO, DAWN_HI, wraps=True, n_perm=NUM_PERMUTATIONS)
+    print(f"  Dusk: {switch_up_count}/{len(switch_up_acro)} UP genes, p={switch_up_pval:.4f}")
+    print(f"  Dawn: {switch_down_count}/{len(switch_down_acro)} DOWN genes, p={switch_down_pval:.4f}")
+
+    # Step 5: Export source data
+    print("\nStep 5: Exporting source data...")
+    os.makedirs(source_data_dir, exist_ok=True)
+
+    bar_data = pd.DataFrame({
+        "cell_type": list(CLUSTER_CELL_TYPE.values()),
+        f"num_{sex}_cyclers": [len(cyclers[ct]) for ct in CLUSTER_CELL_TYPE.values()],
+    })
+    bar_data.to_csv(os.path.join(source_data_dir, "panel_a_cycler_counts.csv"), index=False)
+
+    for ct in CLUSTER_CELL_TYPE.values():
+        if not cycler_details[ct].empty:
+            cycler_details[ct].to_csv(
+                os.path.join(source_data_dir, f"cyclers_{ct}.csv"), index=False
+            )
+
+    export_enrichment_tables(source_data_dir, "panel_b_reactome", reactome_enrichments_full, "pathway")
+    export_enrichment_tables(source_data_dir, "panel_c_tf", tf_enrichments_full, "tf_motif")
+
+    for direction, acro_dict, pval in [
+        ("up", switch_up_acro, switch_up_pval),
+        ("down", switch_down_acro, switch_down_pval),
+    ]:
+        rows = [{"gene": g, "acrophase_rad": float(a),
+                 "acrophase_hour": round(acrophase_rad_to_hours(a), 2)}
+                for g, a in sorted(acro_dict.items())]
+        df = pd.DataFrame(rows)
+        df.to_csv(os.path.join(source_data_dir, f"panel_d_switching_{direction}.csv"), index=False)
+
+    print(f"  Source data written to {source_data_dir}/")
+
+    # Step 6: Generate figure
+    print("\nStep 6: Generating figure...")
+
+    all_cell_types = list(CLUSTER_CELL_TYPE.values())
+    n_rose = len(ROSE_PLOT_CELL_TYPES)
+
+    fig = plt.figure(figsize=(8.5, 10.5), dpi=300)
+    fig.patch.set_facecolor("white")
+
+    gs = GridSpec(
+        4, n_rose, figure=fig, hspace=0.70, wspace=0.65,
+        height_ratios=[0.4, 1.0, 1.0, 0.45],
+        left=0.08, right=0.92, top=0.96, bottom=0.03,
     )
-    kegg_enrichments_full[cell_type] = (full_df, lrt_df)
-    kegg_enrichments[cell_type] = (top_df, lrt_df)
 
-print("\nStep 4: Running GO:BP enrichment...")
-gobp_enrichments = {}
-gobp_enrichments_full = {}
-for cell_type in CLUSTER_CELL_TYPE.values():
-    full_df, top_df, lrt_df = run_enrichment(
-        daily_cycler_acrophases[cell_type], gobp_dict, cell_type
-    )
-    gobp_enrichments_full[cell_type] = (full_df, lrt_df)
-    gobp_enrichments[cell_type] = (top_df, lrt_df)
+    sex_label = sex.capitalize()
 
-# ── Step 5: Export source data ───────────────────────────────────────────────
+    # Row a: Bar chart
+    ax_bar = fig.add_subplot(gs[0, :])
+    x = np.arange(len(all_cell_types))
+    counts = [len(cyclers[ct]) for ct in all_cell_types]
+    bar_colors = [CELL_TYPE_COLORS[ct] for ct in all_cell_types]
 
-print("\nStep 5: Exporting source data...")
-os.makedirs(SOURCE_DATA_DIR, exist_ok=True)
+    bars = ax_bar.bar(x, counts, width=0.55, color=bar_colors,
+                      edgecolor="white", linewidth=0.8, zorder=3)
+    ax_bar.set_xticks(x)
+    ax_bar.set_xticklabels(all_cell_types, fontsize=7, rotation=0, ha="center")
+    ax_bar.set_ylabel(f"Daily cyclers\n({sex_label})", fontsize=7)
+    ax_bar.set_xlim(-0.6, len(all_cell_types) - 0.4)
+    ax_bar.tick_params(axis="y", labelsize=6)
+    sns.despine(ax=ax_bar, bottom=True)
+    ax_bar.tick_params(axis="x", length=0)
+    ax_bar.set_axisbelow(True)
+    ax_bar.yaxis.grid(True, alpha=0.15, linewidth=0.4)
 
-export_enrichment_tables(SOURCE_DATA_DIR, "panel_a_kegg", kegg_enrichments_full, "pathway")
-export_enrichment_tables(SOURCE_DATA_DIR, "panel_b_gobp", gobp_enrichments_full, "go_term")
+    for bar in bars:
+        h = bar.get_height()
+        ax_bar.text(bar.get_x() + bar.get_width() / 2, h + max(counts) * 0.02,
+                    str(int(h)), ha="center", va="bottom", fontsize=6.5, fontweight="medium",
+                    color="0.25")
 
-for ct in ROSE_PLOT_CELL_TYPES:
-    full_df, _ = gobp_enrichments_full[ct]
-    if not full_df.empty:
-        out = full_df.copy()
-        out.index = [clean_gobp_name(n) for n in out.index]
-        out.to_csv(os.path.join(SOURCE_DATA_DIR, f"panel_b_gobp_{ct}_readable.csv"))
-
-print(f"  Source data written to {SOURCE_DATA_DIR}/")
-
-# ── Step 6: Generate figure ──────────────────────────────────────────────────
-
-print("\nStep 6: Generating figure...")
-
-n_rose = len(ROSE_PLOT_CELL_TYPES)
-
-fig = plt.figure(figsize=(8.5, 9), dpi=300)
-fig.patch.set_facecolor("white")
-
-gs = GridSpec(
-    2, n_rose, figure=fig, hspace=0.55, wspace=0.65,
-    height_ratios=[1.0, 1.0],
-    left=0.08, right=0.92, top=0.95, bottom=0.04,
-)
-
-
-def make_rose_plot_clean(ax, enrich_df, lrt_df, title, clean_fn):
-    """Wrapper that cleans pathway names before plotting."""
-    if not enrich_df.empty:
-        cleaned_df = enrich_df.copy()
-        cleaned_df.index = [clean_fn(n) for n in cleaned_df.index]
-        cleaned_lrt = lrt_df.copy()
-        cleaned_lrt.index = [clean_fn(n) for n in cleaned_lrt.index]
-    else:
-        cleaned_df = enrich_df
-        cleaned_lrt = lrt_df
-    make_rose_plot(ax, cleaned_df, cleaned_lrt, title, is_tf=False)
-
-
-# Row a: KEGG rose plots
-for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
-    ax = fig.add_subplot(gs[0, i], projection="polar")
-    enrich_df, lrt_df = kegg_enrichments[ct]
-    make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=False)
-    if i == 0:
-        ax.text(-0.25, 1.22, "a", transform=ax.transAxes,
+    ax_bar.text(-0.06, 1.08, "a", transform=ax_bar.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
-fig.text(0.02, 0.73, "KEGG\nPathways", rotation=90, fontsize=8,
-         fontweight="semibold", va="center", color="0.3")
+    # Row b: Reactome rose plots
+    for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
+        ax = fig.add_subplot(gs[1, i], projection="polar")
+        enrich_df, lrt_df = reactome_enrichments[ct]
+        if not enrich_df.empty:
+            cleaned_df = enrich_df.copy()
+            cleaned_df.index = [clean_reactome_name(n) for n in cleaned_df.index]
+            cleaned_lrt = lrt_df.loc[enrich_df.index].copy()
+            cleaned_lrt.index = cleaned_df.index
+        else:
+            cleaned_df, cleaned_lrt = enrich_df, lrt_df
+        make_rose_plot(ax, cleaned_df, cleaned_lrt, ct, is_tf=False)
+        if i == 0:
+            ax.text(-0.25, 1.22, "b", transform=ax.transAxes,
+                    fontsize=11, fontweight="bold", va="top")
 
-# Row b: GO:BP rose plots
-for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
-    ax = fig.add_subplot(gs[1, i], projection="polar")
-    enrich_df, lrt_df = gobp_enrichments[ct]
-    make_rose_plot_clean(ax, enrich_df, lrt_df, ct, clean_gobp_name)
-    if i == 0:
-        ax.text(-0.25, 1.22, "b", transform=ax.transAxes,
-                fontsize=11, fontweight="bold", va="top")
+    fig.text(0.02, 0.69, "Reactome\nPathways", rotation=90, fontsize=8,
+             fontweight="semibold", va="center", color="0.3")
 
-fig.text(0.02, 0.27, "GO Biological\nProcess", rotation=90, fontsize=8,
-         fontweight="semibold", va="center", color="0.3")
+    # Row c: TF rose plots
+    for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
+        ax = fig.add_subplot(gs[2, i], projection="polar")
+        enrich_df, lrt_df = tf_enrichments[ct]
+        make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=True)
+        if i == 0:
+            ax.text(-0.25, 1.22, "c", transform=ax.transAxes,
+                    fontsize=11, fontweight="bold", va="top")
 
-# Save
-os.makedirs(FIGURES_DIR, exist_ok=True)
-outpath = os.path.join(FIGURES_DIR, "fig_2_supp.pdf")
-fig.savefig(outpath, bbox_inches="tight", dpi=300, facecolor="white")
-print(f"\nFigure saved to {outpath}")
-plt.close(fig)
+    fig.text(0.02, 0.38, "TF Motifs", rotation=90, fontsize=8,
+             fontweight="semibold", va="center", color="0.3")
+
+    # Row d: SMC phenotypic switching histograms
+    num_bins_hist = 12
+    bin_edges_h = np.linspace(0, 24, num_bins_hist + 1)
+
+    for i, (direction, acro_dict, pval, title) in enumerate([
+        ("up", switch_up_acro, switch_up_pval, "Increasing with\nphenotypic switching"),
+        ("down", switch_down_acro, switch_down_pval, "Decreasing with\nphenotypic switching"),
+    ]):
+        ax = fig.add_subplot(gs[3, i])
+        hours = [acrophase_rad_to_hours(a) for a in acro_dict.values()]
+        ax.hist(hours, bins=bin_edges_h, color=CELL_TYPE_COLORS["SMC"],
+                edgecolor="white", linewidth=0.5, alpha=0.85)
+        ax.set_xlim(0, 24)
+        ax.set_xticks([0, 6, 12, 18, 24])
+        ax.set_xticklabels(["ZT0", "ZT6", "ZT12", "ZT18", "ZT24"], fontsize=5.5)
+        ax.set_xlabel("Acrophase (hours)", fontsize=6.5)
+        ax.set_ylabel("Number of genes" if i == 0 else "", fontsize=6.5)
+        ax.set_title(title, fontsize=7, fontweight="medium", color="0.2")
+        ax.text(0.97, 0.95, f"n={len(acro_dict)}\np={pval:.3f}",
+                transform=ax.transAxes, fontsize=5, ha="right", va="top", color="0.35")
+        sns.despine(ax=ax)
+        if i == 0:
+            ax.text(-0.15, 1.15, "d", transform=ax.transAxes,
+                    fontsize=11, fontweight="bold", va="top")
+
+    fig.text(0.02, 0.10, "SMC Switching", rotation=90, fontsize=8,
+             fontweight="semibold", va="center", color="0.3")
+
+    # Save
+    os.makedirs(FIGURES_DIR, exist_ok=True)
+    outpath = os.path.join(FIGURES_DIR, f"{figure_name}.pdf")
+    fig.savefig(outpath, bbox_inches="tight", dpi=300, facecolor="white")
+    print(f"\nFigure saved to {outpath}")
+    plt.close(fig)

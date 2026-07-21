@@ -108,45 +108,52 @@ for cell_type in CLUSTER_CELL_TYPE.values():
 print("\nStep 3b: SMC phenotypic switching acrophase analysis...")
 switching_genes = load_smc_switching_genes()
 
-# Use male aligned SMC cyclers (broader pool than shared M/F) for switching analysis
-male_smc_df = load_metrics("cluster_0", ALIGNED_CONDITIONS["male"])
-male_smc_cyclers = filter_cyclers(male_smc_df)
-male_smc_acro = {
-    g: male_smc_df.loc[g, "expected_acrophase"]
-    for g in male_smc_cyclers
-}
+shared_smc_acro = daily_cycler_acrophases["SMC"]
+shared_smc_cycler_list = list(shared_smc_acro.keys())
 
-switch_up_acro = {g: male_smc_acro[g] for g in switching_genes["up"] if g in male_smc_acro}
-switch_down_acro = {g: male_smc_acro[g] for g in switching_genes["down"] if g in male_smc_acro}
-print(f"  Male SMC cyclers: {len(male_smc_cyclers)}")
-print(f"  Switching UP genes among male SMC cyclers: {len(switch_up_acro)}/{len(switching_genes['up'])}")
-print(f"  Switching DOWN genes among male SMC cyclers: {len(switch_down_acro)}/{len(switching_genes['down'])}")
+switch_up_acro = {g: shared_smc_acro[g] for g in switching_genes["up"] if g in shared_smc_acro}
+switch_down_acro = {g: shared_smc_acro[g] for g in switching_genes["down"] if g in shared_smc_acro}
+print(f"  Shared M/F SMC cyclers: {len(shared_smc_cycler_list)}")
+print(f"  Switching UP genes among shared cyclers: {len(switch_up_acro)}/{len(switching_genes['up'])}")
+print(f"  Switching DOWN genes among shared cyclers: {len(switch_down_acro)}/{len(switching_genes['down'])}")
 
-# Permutation test: is the observed circular concentration more extreme
-# than expected from random gene sets of the same size?
 NUM_PERMUTATIONS = 5000
-all_smc_acro_vals = np.array(list(male_smc_acro.values()))
+shared_acro_series = pd.Series(shared_smc_acro)
+
+DUSK_LO, DUSK_HI = 2.0, 4.0  # radians — roughly ZT8–ZT16
+DAWN_LO, DAWN_HI = (20 / 12) * np.pi, (4 / 12) * np.pi  # wraps around 0
 
 
-def circular_resultant_length(angles_rad):
-    return np.abs(np.mean(np.exp(1j * np.array(angles_rad))))
+def count_in_window(acrophases, lo, hi, wraps=False):
+    a = np.asarray(acrophases)
+    if wraps:
+        return int(np.sum((a >= lo) | (a <= hi)))
+    return int(np.sum((a >= lo) & (a <= hi)))
 
 
-def permutation_pvalue(observed_genes_acro, all_acro, n_perm):
-    obs_R = circular_resultant_length(list(observed_genes_acro.values()))
-    n = len(observed_genes_acro)
+def window_permutation_pvalue(observed_acro, all_cyclers, acro_series,
+                              lo, hi, wraps, n_perm):
+    obs = count_in_window(list(observed_acro.values()), lo, hi, wraps)
+    n = len(observed_acro)
     count_ge = 0
     for _ in range(n_perm):
-        perm = np.random.choice(all_acro, size=n, replace=False)
-        if circular_resultant_length(perm) >= obs_R:
+        perm = np.random.choice(all_cyclers, size=n, replace=True)
+        perm_stat = count_in_window(acro_series.loc[perm].values, lo, hi, wraps)
+        if perm_stat >= obs:
             count_ge += 1
-    return (count_ge + 1) / (n_perm + 1)
+    return (count_ge + 1) / (n_perm + 1), obs
 
 
-switch_up_pval = permutation_pvalue(switch_up_acro, all_smc_acro_vals, NUM_PERMUTATIONS)
-switch_down_pval = permutation_pvalue(switch_down_acro, all_smc_acro_vals, NUM_PERMUTATIONS)
-print(f"  Permutation p-value (UP, dusk enrichment): {switch_up_pval:.4f}")
-print(f"  Permutation p-value (DOWN, dawn enrichment): {switch_down_pval:.4f}")
+switch_up_pval, switch_up_count = window_permutation_pvalue(
+    switch_up_acro, shared_smc_cycler_list, shared_acro_series,
+    DUSK_LO, DUSK_HI, wraps=False, n_perm=NUM_PERMUTATIONS)
+switch_down_pval, switch_down_count = window_permutation_pvalue(
+    switch_down_acro, shared_smc_cycler_list, shared_acro_series,
+    DAWN_LO, DAWN_HI, wraps=True, n_perm=NUM_PERMUTATIONS)
+print(f"  Dusk window [{DUSK_LO:.2f}, {DUSK_HI:.2f}] rad: "
+      f"{switch_up_count}/{len(switch_up_acro)} UP genes, p={switch_up_pval:.4f}")
+print(f"  Dawn window [>={DAWN_LO:.2f} or <={DAWN_HI:.2f}] rad: "
+      f"{switch_down_count}/{len(switch_down_acro)} DOWN genes, p={switch_down_pval:.4f}")
 
 # ── Step 4: Export source data ───────────────────────────────────────────────
 
@@ -192,7 +199,7 @@ print("\nStep 5: Generating figure...")
 all_cell_types = ["SMC", "Fibroblast", "EC", "Macrophage"]
 n_rose = len(ROSE_PLOT_CELL_TYPES)
 
-fig = plt.figure(figsize=(8.5, 13), dpi=300)
+fig = plt.figure(figsize=(8.5, 10.5), dpi=300)
 fig.patch.set_facecolor("white")
 
 gs = GridSpec(

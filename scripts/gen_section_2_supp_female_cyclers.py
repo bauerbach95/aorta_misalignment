@@ -1,10 +1,13 @@
 """
 Supplementary figure: Female-specific circadian cyclers in mouse aortic cell types.
 
+Analogous to Figure 2 but for female-only cyclers (not shared M/F).
+
 Subplots:
   a) Bar chart: number of female cyclers per major cell type
-  b) Rose plots: KEGG pathway acrophase enrichment (cell types with sufficient cyclers)
-  c) Rose plots: TF acrophase enrichment (cell types with sufficient cyclers)
+  b) Rose plots: Reactome pathway acrophase enrichment (SMC, Fibroblast)
+  c) Rose plots: TF acrophase enrichment (SMC, Fibroblast)
+  d) SMC phenotypic switching acrophase histograms + permutation test
 
 Output:
   figures/section_2_supp_female_cyclers.pdf
@@ -22,8 +25,9 @@ from circadian_utils import (
     apply_style, CLUSTER_CELL_TYPE, ALIGNED_CONDITIONS, CELL_TYPE_COLORS,
     FIGURES_DIR,
     load_metrics, filter_cyclers, acrophase_rad_to_hours,
-    load_kegg_dict, load_tf_dict, run_enrichment,
+    load_reactome_dict, clean_reactome_name, load_tf_dict, run_enrichment,
     make_rose_plot, export_enrichment_tables,
+    load_smc_switching_genes,
 )
 
 apply_style()
@@ -31,9 +35,9 @@ apply_style()
 SEX = "female"
 FIGURE_NAME = "section_2_supp_female_cyclers"
 SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, f"{FIGURE_NAME}_source_data")
-MIN_CYCLERS_FOR_ROSE = 15
+ROSE_PLOT_CELL_TYPES = ["SMC", "Fibroblast"]
 
-# ── Step 1: Identify male cyclers ────────────────────────────────────────────
+# ── Step 1: Identify female cyclers ──────────────────────────────────────────
 
 print(f"Step 1: Identifying {SEX} cyclers...")
 
@@ -64,22 +68,19 @@ for cluster, cell_type in CLUSTER_CELL_TYPE.items():
     cycler_details[cell_type] = pd.DataFrame(details_rows)
     print(f"  {cell_type}: {len(cyc)} cyclers")
 
-rose_cell_types = [ct for ct in CLUSTER_CELL_TYPE.values() if len(cyclers[ct]) >= MIN_CYCLERS_FOR_ROSE]
-print(f"  Rose plots for: {rose_cell_types}")
+# ── Step 2: Reactome pathway acrophase enrichment ────────────────────────────
 
-# ── Step 2: KEGG pathway acrophase enrichment ────────────────────────────────
+print("\nStep 2: Reactome pathway acrophase enrichment...")
+reactome_dict = load_reactome_dict()
 
-print("\nStep 2: KEGG pathway acrophase enrichment...")
-kegg_dict = load_kegg_dict()
-
-kegg_enrichments = {}
-kegg_enrichments_full = {}
+reactome_enrichments = {}
+reactome_enrichments_full = {}
 for cell_type in CLUSTER_CELL_TYPE.values():
     full_df, top_df, lrt_df = run_enrichment(
-        cycler_acrophases[cell_type], kegg_dict, cell_type
+        cycler_acrophases[cell_type], reactome_dict, cell_type
     )
-    kegg_enrichments_full[cell_type] = (full_df, lrt_df)
-    kegg_enrichments[cell_type] = (top_df, lrt_df)
+    reactome_enrichments_full[cell_type] = (full_df, lrt_df)
+    reactome_enrichments[cell_type] = (top_df, lrt_df)
 
 # ── Step 3: TF acrophase enrichment ──────────────────────────────────────────
 
@@ -94,6 +95,56 @@ for cell_type in CLUSTER_CELL_TYPE.values():
     )
     tf_enrichments_full[cell_type] = (full_df, lrt_df)
     tf_enrichments[cell_type] = (top_df, lrt_df)
+
+# ── Step 3b: SMC phenotypic switching acrophase analysis ─────────────────────
+
+print("\nStep 3b: SMC phenotypic switching acrophase analysis...")
+switching_genes = load_smc_switching_genes()
+
+smc_acro = cycler_acrophases["SMC"]
+smc_cycler_list = list(smc_acro.keys())
+
+switch_up_acro = {g: smc_acro[g] for g in switching_genes["up"] if g in smc_acro}
+switch_down_acro = {g: smc_acro[g] for g in switching_genes["down"] if g in smc_acro}
+print(f"  {SEX} SMC cyclers: {len(smc_cycler_list)}")
+print(f"  Switching UP among {SEX} cyclers: {len(switch_up_acro)}/{len(switching_genes['up'])}")
+print(f"  Switching DOWN among {SEX} cyclers: {len(switch_down_acro)}/{len(switching_genes['down'])}")
+
+NUM_PERMUTATIONS = 5000
+acro_series = pd.Series(smc_acro)
+
+DUSK_LO, DUSK_HI = 2.0, 4.0
+DAWN_LO, DAWN_HI = (20 / 12) * np.pi, (4 / 12) * np.pi
+
+
+def count_in_window(acrophases, lo, hi, wraps=False):
+    a = np.asarray(acrophases)
+    if wraps:
+        return int(np.sum((a >= lo) | (a <= hi)))
+    return int(np.sum((a >= lo) & (a <= hi)))
+
+
+def window_permutation_pvalue(observed_acro, all_cyclers, acro_series,
+                              lo, hi, wraps, n_perm):
+    obs = count_in_window(list(observed_acro.values()), lo, hi, wraps)
+    n = len(observed_acro)
+    count_ge = 0
+    for _ in range(n_perm):
+        perm = np.random.choice(all_cyclers, size=n, replace=True)
+        perm_stat = count_in_window(acro_series.loc[perm].values, lo, hi, wraps)
+        if perm_stat >= obs:
+            count_ge += 1
+    return (count_ge + 1) / (n_perm + 1), obs
+
+
+switch_up_pval, switch_up_count = window_permutation_pvalue(
+    switch_up_acro, smc_cycler_list, acro_series,
+    DUSK_LO, DUSK_HI, wraps=False, n_perm=NUM_PERMUTATIONS)
+switch_down_pval, switch_down_count = window_permutation_pvalue(
+    switch_down_acro, smc_cycler_list, acro_series,
+    DAWN_LO, DAWN_HI, wraps=True, n_perm=NUM_PERMUTATIONS)
+print(f"  Dusk: {switch_up_count}/{len(switch_up_acro)} UP genes, p={switch_up_pval:.4f}")
+print(f"  Dawn: {switch_down_count}/{len(switch_down_acro)} DOWN genes, p={switch_down_pval:.4f}")
 
 # ── Step 4: Export source data ───────────────────────────────────────────────
 
@@ -112,8 +163,19 @@ for ct in CLUSTER_CELL_TYPE.values():
             os.path.join(SOURCE_DATA_DIR, f"cyclers_{ct}.csv"), index=False
         )
 
-export_enrichment_tables(SOURCE_DATA_DIR, "panel_b_kegg", kegg_enrichments_full, "pathway")
+export_enrichment_tables(SOURCE_DATA_DIR, "panel_b_reactome", reactome_enrichments_full, "pathway")
 export_enrichment_tables(SOURCE_DATA_DIR, "panel_c_tf", tf_enrichments_full, "tf_motif")
+
+for direction, acro_dict, pval in [
+    ("up", switch_up_acro, switch_up_pval),
+    ("down", switch_down_acro, switch_down_pval),
+]:
+    rows = [{"gene": g, "acrophase_rad": float(a),
+             "acrophase_hour": round(acrophase_rad_to_hours(a), 2)}
+            for g, a in sorted(acro_dict.items())]
+    df = pd.DataFrame(rows)
+    df.to_csv(os.path.join(SOURCE_DATA_DIR, f"panel_d_switching_{direction}.csv"), index=False)
+
 print(f"  Source data written to {SOURCE_DATA_DIR}/")
 
 # ── Step 5: Generate figure ──────────────────────────────────────────────────
@@ -121,15 +183,15 @@ print(f"  Source data written to {SOURCE_DATA_DIR}/")
 print("\nStep 5: Generating figure...")
 
 all_cell_types = list(CLUSTER_CELL_TYPE.values())
-n_rose = len(rose_cell_types)
+n_rose = len(ROSE_PLOT_CELL_TYPES)
 
-fig = plt.figure(figsize=(8.5, 11), dpi=300)
+fig = plt.figure(figsize=(8.5, 13), dpi=300)
 fig.patch.set_facecolor("white")
 
 gs = GridSpec(
-    3, max(n_rose, 1), figure=fig, hspace=0.75, wspace=0.65,
-    height_ratios=[0.5, 1.2, 1.2],
-    left=0.08, right=0.92, top=0.95, bottom=0.04,
+    4, n_rose, figure=fig, hspace=0.70, wspace=0.65,
+    height_ratios=[0.4, 1.0, 1.0, 0.45],
+    left=0.08, right=0.92, top=0.96, bottom=0.03,
 )
 
 # Row a: Bar chart
@@ -159,20 +221,27 @@ for bar in bars:
 ax_bar.text(-0.06, 1.08, "a", transform=ax_bar.transAxes,
             fontsize=11, fontweight="bold", va="top")
 
-# Row b: KEGG rose plots
-for i, ct in enumerate(rose_cell_types):
+# Row b: Reactome rose plots
+for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
     ax = fig.add_subplot(gs[1, i], projection="polar")
-    enrich_df, lrt_df = kegg_enrichments[ct]
-    make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=False)
+    enrich_df, lrt_df = reactome_enrichments[ct]
+    if not enrich_df.empty:
+        cleaned_df = enrich_df.copy()
+        cleaned_df.index = [clean_reactome_name(n) for n in cleaned_df.index]
+        cleaned_lrt = lrt_df.loc[enrich_df.index].copy()
+        cleaned_lrt.index = cleaned_df.index
+    else:
+        cleaned_df, cleaned_lrt = enrich_df, lrt_df
+    make_rose_plot(ax, cleaned_df, cleaned_lrt, ct, is_tf=False)
     if i == 0:
         ax.text(-0.25, 1.22, "b", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
-fig.text(0.02, 0.62, "KEGG Pathways", rotation=90, fontsize=8,
+fig.text(0.02, 0.69, "Reactome\nPathways", rotation=90, fontsize=8,
          fontweight="semibold", va="center", color="0.3")
 
 # Row c: TF rose plots
-for i, ct in enumerate(rose_cell_types):
+for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
     ax = fig.add_subplot(gs[2, i], projection="polar")
     enrich_df, lrt_df = tf_enrichments[ct]
     make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=True)
@@ -180,7 +249,35 @@ for i, ct in enumerate(rose_cell_types):
         ax.text(-0.25, 1.22, "c", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
-fig.text(0.02, 0.24, "TF Motifs", rotation=90, fontsize=8,
+fig.text(0.02, 0.38, "TF Motifs", rotation=90, fontsize=8,
+         fontweight="semibold", va="center", color="0.3")
+
+# Row d: SMC phenotypic switching histograms
+num_bins_hist = 12
+bin_edges_h = np.linspace(0, 24, num_bins_hist + 1)
+
+for i, (direction, acro_dict, pval, title) in enumerate([
+    ("up", switch_up_acro, switch_up_pval, "Increasing with\nphenotypic switching"),
+    ("down", switch_down_acro, switch_down_pval, "Decreasing with\nphenotypic switching"),
+]):
+    ax = fig.add_subplot(gs[3, i])
+    hours = [acrophase_rad_to_hours(a) for a in acro_dict.values()]
+    ax.hist(hours, bins=bin_edges_h, color=CELL_TYPE_COLORS["SMC"],
+            edgecolor="white", linewidth=0.5, alpha=0.85)
+    ax.set_xlim(0, 24)
+    ax.set_xticks([0, 6, 12, 18, 24])
+    ax.set_xticklabels(["ZT0", "ZT6", "ZT12", "ZT18", "ZT24"], fontsize=5.5)
+    ax.set_xlabel("Acrophase (hours)", fontsize=6.5)
+    ax.set_ylabel("Number of genes" if i == 0 else "", fontsize=6.5)
+    ax.set_title(title, fontsize=7, fontweight="medium", color="0.2")
+    ax.text(0.97, 0.95, f"n={len(acro_dict)}\np={pval:.3f}",
+            transform=ax.transAxes, fontsize=5, ha="right", va="top", color="0.35")
+    sns.despine(ax=ax)
+    if i == 0:
+        ax.text(-0.15, 1.15, "d", transform=ax.transAxes,
+                fontsize=11, fontweight="bold", va="top")
+
+fig.text(0.02, 0.10, "SMC Switching", rotation=90, fontsize=8,
          fontweight="semibold", va="center", color="0.3")
 
 # Save

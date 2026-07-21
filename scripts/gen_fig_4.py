@@ -322,7 +322,7 @@ print(f"  Source data written to {SOURCE_DATA_DIR}/")
 
 print("\nStep 8: Generating figure...")
 
-fig = plt.figure(figsize=(8.5, 13), dpi=300)
+fig = plt.figure(figsize=(8.5, 10.5), dpi=300)
 fig.patch.set_facecolor("white")
 
 gs_main = GridSpec(5, 1, figure=fig, hspace=0.50,

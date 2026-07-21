@@ -41,9 +41,9 @@ SMC_SWITCHING_DIR = os.path.join(
     "subject_RPS001-RPS002-RPS003-RPS004-RPS007-RPS008-RPS011-RPS012_"
     "dims_128_resolution_0.35_tol_0.005_run_0",
     "pseudotime_X_velocity_results",
-    "nichenet_pseudotime-pseudotime_2_numbins-11_"
-    "binsubset-[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]_"
-    "startdebins-[0]_enddebins-[4]",
+    "pseudotime-col_pseudotime_2_batch-subset_['RPS007']_"
+    "num-bins_4_bin-subset_[0, 1, 2, 3]_p-val_thresh_0.05",
+    "gene_patterns",
 )
 
 # ── Cell types & conditions ──────────────────────────────────────────────────
@@ -607,7 +607,7 @@ def filter_cyclers_downsampled(metric_df, bf_threshold=WAVEFORM_BF_MIN):
 
 
 def load_smc_switching_genes():
-    """Load original SMC phenotypic switching gene sets (139 up, 133 down).
+    """Load SMC phenotypic switching gene sets (154 up, 233 down).
 
     Returns:
         dict with keys 'up' and 'down', values are lists of gene names.
@@ -617,7 +617,7 @@ def load_smc_switching_genes():
         with open(path) as f:
             genes = [line.strip() for line in f if line.strip()]
         return [g[0].upper() + g[1:] if g else g for g in genes]
-    return {"up": _read("up_genes.txt"), "down": _read("down_genes.txt")}
+    return {"up": _read("up_up.txt"), "down": _read("down_down.txt")}
 
 
 # ── Posterior waveform plotting ───────────────────────────────────────────

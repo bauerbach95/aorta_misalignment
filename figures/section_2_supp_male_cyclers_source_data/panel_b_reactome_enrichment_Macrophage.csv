@@ -1,0 +1,2 @@
+pathway,num_genes,member_genes,max_lrt,peak_bin,circ_mean_hour,circ_std_hour,peak_hour
+REACTOME_SIGNALING_BY_INTERLEUKINS,6,Psmc1;Mmp9;Ccnd1;Hsp90b1;Bcl2l1;Socs3,4.0,8,17.67153986027436,4.377308563897272,17.0
