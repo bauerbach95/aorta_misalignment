@@ -473,7 +473,7 @@ def format_label(s, max_len=48, is_tf=False):
     return s[: max_len - 1] + "\u2026"
 
 
-def make_rose_plot(ax, enrich_df, lrt_df, title, is_tf=False):
+def make_rose_plot(ax, enrich_df, lrt_df, title, is_tf=False, legend_right=False):
     """Rose plot with subdivided wedge bars for pathways/TFs."""
     num_bins = NUM_ACROPHASE_BINS
     zt_ticks = np.linspace(0, 2 * np.pi, num_bins, endpoint=False)
@@ -531,11 +531,18 @@ def make_rose_plot(ax, enrich_df, lrt_df, title, is_tf=False):
                        label=labels[i])
         for i in range(n_pw)
     ]
-    leg = ax.legend(
-        handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.12),
-        fontsize=4.5, frameon=False, handlelength=0.7, handleheight=0.7,
-        labelspacing=0.25, ncol=2 if n_pw > 5 else 1, columnspacing=0.8,
-    )
+    if legend_right:
+        leg = ax.legend(
+            handles=handles, loc="center left", bbox_to_anchor=(1.15, 0.5),
+            fontsize=4.5, frameon=False, handlelength=0.7, handleheight=0.7,
+            labelspacing=0.25, ncol=1, columnspacing=0.8,
+        )
+    else:
+        leg = ax.legend(
+            handles=handles, loc="upper center", bbox_to_anchor=(0.5, -0.12),
+            fontsize=4.5, frameon=False, handlelength=0.7, handleheight=0.7,
+            labelspacing=0.25, ncol=2 if n_pw > 5 else 1, columnspacing=0.8,
+        )
     for text in leg.get_texts():
         text.set_color("0.2")
 

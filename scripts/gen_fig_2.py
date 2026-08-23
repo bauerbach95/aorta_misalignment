@@ -203,7 +203,7 @@ fig = plt.figure(figsize=(8.5, 10.5), dpi=300)
 fig.patch.set_facecolor("white")
 
 gs = GridSpec(
-    4, n_rose, figure=fig, hspace=0.75, wspace=0.65,
+    4, n_rose, figure=fig, hspace=0.65, wspace=0.65,
     height_ratios=[0.5, 1.2, 1.2, 0.55],
     left=0.08, right=0.92, top=0.96, bottom=0.03,
 )
@@ -247,7 +247,7 @@ for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
         cleaned_lrt.index = cleaned_df.index
     else:
         cleaned_df, cleaned_lrt = enrich_df, lrt_df
-    make_rose_plot(ax, cleaned_df, cleaned_lrt, ct, is_tf=False)
+    make_rose_plot(ax, cleaned_df, cleaned_lrt, ct, is_tf=False, legend_right=True)
     if i == 0:
         ax.text(-0.25, 1.22, "b", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
@@ -259,7 +259,7 @@ fig.text(0.02, 0.62, "Reactome\nPathways", rotation=90, fontsize=8,
 for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
     ax = fig.add_subplot(gs[2, i], projection="polar")
     enrich_df, lrt_df = tf_enrichments[ct]
-    make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=True)
+    make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=True, legend_right=True)
     if i == 0:
         ax.text(-0.25, 1.22, "c", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")

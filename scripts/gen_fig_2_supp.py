@@ -237,7 +237,7 @@ for sex in ["male", "female"]:
             cleaned_lrt.index = cleaned_df.index
         else:
             cleaned_df, cleaned_lrt = enrich_df, lrt_df
-        make_rose_plot(ax, cleaned_df, cleaned_lrt, ct, is_tf=False)
+        make_rose_plot(ax, cleaned_df, cleaned_lrt, ct, is_tf=False, legend_right=True)
         if i == 0:
             ax.text(-0.25, 1.22, "b", transform=ax.transAxes,
                     fontsize=11, fontweight="bold", va="top")
@@ -249,7 +249,7 @@ for sex in ["male", "female"]:
     for i, ct in enumerate(ROSE_PLOT_CELL_TYPES):
         ax = fig.add_subplot(gs[2, i], projection="polar")
         enrich_df, lrt_df = tf_enrichments[ct]
-        make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=True)
+        make_rose_plot(ax, enrich_df, lrt_df, ct, is_tf=True, legend_right=True)
         if i == 0:
             ax.text(-0.25, 1.22, "c", transform=ax.transAxes,
                     fontsize=11, fontweight="bold", va="top")
