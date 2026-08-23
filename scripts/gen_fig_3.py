@@ -316,8 +316,8 @@ for row_idx, gs_type in enumerate(GS_TYPES):
                         linewidth=1.0, label=label, zorder=3)
             ax.axhline(0, color="0.7", linewidth=0.4, linestyle="--", zorder=1)
             leg = ax.legend(
-                fontsize=3.5, frameon=False, loc="upper center",
-                bbox_to_anchor=(0.5, -0.2), ncol=2 if n_sets > 5 else 1,
+                fontsize=3.5, frameon=False, loc="center left",
+                bbox_to_anchor=(1.02, 0.5), ncol=1,
                 handlelength=1.2, columnspacing=0.6)
             for text in leg.get_texts():
                 text.set_color("0.25")
