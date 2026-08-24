@@ -537,64 +537,71 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
  [58]
+File: figures/fig_1_supp.pdf Graphic file (type pdf)
+<use figures/fig_1_supp.pdf>
+ [59
+
+]
+Overfull \vbox (11.52263pt too high) has occurred while \output is active []
+
+
+[60]
 File: figures/fig_2_supp_male.pdf Graphic file (type pdf)
 <use figures/fig_2_supp_male.pdf>
 File: figures/fig_2_supp_female.pdf Graphic file (type pdf)
 <use figures/fig_2_supp_female.pdf>
- [59
-
-]
+ [61]
 File: figures/fig_3_supp.pdf Graphic file (type pdf)
 <use figures/fig_3_supp.pdf>
- [60]
+ [62]
 File: old_figures/supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf Graphic
  file (type pdf)
 <use old_figures/supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf>
- [61]
+ [63]
 File: old_figures/supp_fig_8_bmal1_ko_western_blot.pdf Graphic file (type pdf)
 <use old_figures/supp_fig_8_bmal1_ko_western_blot.pdf>
- [62]
+ [64]
 File: old_figures/fig_7.pdf Graphic file (type pdf)
 <use old_figures/fig_7.pdf>
- [63]
+ [65]
 File: old_figures/fig_8.pdf Graphic file (type pdf)
 <use old_figures/fig_8.pdf>
- [64]
+ [66]
 File: old_figures/supp_fig_4_concordance_between_KO_effects.pdf Graphic file (t
 ype pdf)
 <use old_figures/supp_fig_4_concordance_between_KO_effects.pdf>
- [65]
+ [67]
 File: old_figures/fig_9.pdf Graphic file (type pdf)
 <use old_figures/fig_9.pdf>
- [66]
+ [68]
 File: old_figures/fig_10.pdf Graphic file (type pdf)
 <use old_figures/fig_10.pdf>
- [67]
+ [69]
 File: old_figures/fig_11.pdf Graphic file (type pdf)
 <use old_figures/fig_11.pdf>
- [68]
+ [70]
 File: old_figures/fig_16.pdf Graphic file (type pdf)
 <use old_figures/fig_16.pdf>
- [69]
+ [71]
 File: old_figures/supp_fig_6_female_aligned_vs_misaligned_rhythmicity.pdf Graph
 ic file (type pdf)
 <use old_figures/supp_fig_6_female_aligned_vs_misaligned_rhythmicity.pdf>
- [70]
+ [72]
 File: old_figures/supp_fig_7_sex_differences_in_entrainment_speed.pdf Graphic f
 ile (type pdf)
 <use old_figures/supp_fig_7_sex_differences_in_entrainment_speed.pdf>
- [71]
+ [73]
 File: old_figures/fig_17.pdf Graphic file (type pdf)
 <use old_figures/fig_17.pdf>
-
-[72]
+ [74]
 File: old_figures/fig_18.pdf Graphic file (type pdf)
 <use old_figures/fig_18.pdf>
- [73] [74] [75
 
-] [76] [77]
+[75] [76] [77
+
+] [78] [79]
 Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1771.
- [78]
+ [80]
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 1771.
  (manuscript.aux)
 Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1771.
@@ -608,4 +615,4 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1771.
  )
-Output written on manuscript.xdv (80 pages, 1169724 bytes).
+Output written on manuscript.xdv (82 pages, 1169776 bytes).
