@@ -246,13 +246,13 @@ phenotypic switching.
 
 \subsection*{Enhanced rhythmicity of female aortic cell types}
 
-The number of confident circadian cycling genes was roughly comparable between male and female cell
-types, with modestly more cyclers detected in females. Female circadian gene expression was
-primarily distinguished by higher amplitude rhythms (\highlight{Figure 3a}). Moreover, among cycling
+Among shared cycling genes between male and female cell types, female circadian gene expression was
+distinguished by higher amplitude rhythms (\highlight{Figure 3a}). Moreover, among cycling
 genes common to both sexes, acrophases tended to peak modestly earlier in females, consistent with
-previous observations~\cite{ref21}. To control for cell count and library size discrepancies, we
-downsampled male and female cells and pseudobulk UMI counts to match within each cell type before
-rerunning our Bayesian regression pipeline (Methods). After this adjustment, female SMCs retained
+previous observations~\cite{ref21}. To assess if female cell types have more cyclers, we controlled
+for cell count and library size discrepancies by downsampling male and female cells and pseudobulk
+UMI counts to match within each cell type before rerunning our Bayesian regression and hypothesis
+testing pipeline (Methods). After this adjustment, female SMCs retained
 nearly twice as many cycling genes as males across Bayes factor thresholds, while fibroblasts showed
 comparable numbers between sexes (\highlight{Figure 3b}). These results suggest sex-dependent
 rhythmicity is cell-type-specific. Macrophages additionally demonstrated stronger female
@@ -263,7 +263,11 @@ performed a two-group waveform enrichment analysis, computing the difference wav
 male) for each gene set and testing whether it deviates from zero at each time point (Methods). In
 SMCs, gene sets involved in antigen processing and presentation, spliceosome, protein processing in
 the endoplasmic reticulum, endocytosis, and estrogen signaling showed lower expression in females,
-particularly at ZT6 and ZT12 (\highlight{Figure 3c}). Among transcription factor networks, targets
+particularly at ZT6 and ZT12 (\highlight{Figure 3c}). Notably, the lower female expression of the
+KEGG estrogen signaling pathway reflects its gene composition: the pathway members detected in our
+data are predominantly heat shock protein chaperones (\textit{Hspa1a, Hspa1b, Hsp90aa1, Hspa8,
+Hsp90b1}), which are known to have higher expression in male SMCs rather than differences in estrogen
+receptor signaling itself. Among transcription factor networks, targets
 of SMAD3, Nkx2-5, and SMAD4 showed sex-differential temporal patterns, with lower female expression
 concentrated at ZT6 (\highlight{Figure 3c}). In fibroblasts, NF-$\kappa$B signaling, ECM-receptor
 interaction, and TNF signaling gene sets showed the largest amplitude sex differences
@@ -855,6 +859,40 @@ with $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right
 Bayesian evidence associated with the 24-hour component subtracted posterior. We refer to this Bayes
 factor as the circadian Bayes factor. Confident cycling genes were defined as those with a circadian
 Bayes factor greater than or equal to 100, unless otherwise stated.
+
+\subsection*{Gene set acrophase enrichment analysis}
+
+To identify gene sets whose members peak at coordinated times of day, we performed an acrophase
+enrichment analysis for Reactome pathways and transcription factor (TF) motif target sets. For each
+gene set with at least 5 members among the confident circadian cyclers, member acrophases were binned
+into 12 equal-width bins spanning the 24-hour cycle (each bin = 2 hours). A likelihood ratio
+statistic was computed as the ratio of the observed bin density to the expected uniform density
+($1/12$) at each bin, and the maximum across bins was retained as the enrichment score. Gene sets
+with a maximum likelihood ratio $\geq 2$ were considered enriched. Enriched sets were ranked by this
+score and the top sets visualized as rose plots. The circular mean and circular standard deviation of
+member acrophases were computed for each enriched set.
+
+\subsection*{Two-group waveform enrichment analysis}
+
+To identify gene sets with sex-differential temporal expression patterns, we developed a two-group
+waveform enrichment analysis. For each gene, the posterior waveform was sampled independently from
+the two conditions (300 samples each), and the difference waveform (e.g.\ female $-$ male) was
+computed sample-wise. For each gene set, the difference waveforms of member genes were averaged to
+obtain a gene-set-level difference waveform. To test whether the gene-set difference waveform
+deviates significantly from zero, we applied pointwise credible interval tests at each of the 4 time
+points (ZT0, ZT6, ZT12, ZT18), with Bonferroni correction for 4 comparisons. A gene set was
+considered significant if the 95\% Bonferroni-corrected credible interval excluded zero at any time
+point. Significant gene sets were ranked by maximum absolute amplitude of the mean difference
+waveform and visualized as heatmaps.
+
+\subsection*{Sex-controlled downsampling for cycler count comparison}
+
+To control for potential confounds when comparing the number of cycling genes between sexes, we
+downsampled male and female cells and pseudobulk UMI counts to match within each cell type.
+Specifically, for each cell type, the sex with more cells was randomly downsampled to match the cell
+count of the other sex at each time point. Pseudobulk UMI counts were then recomputed from the
+downsampled cells, and our Bayesian temporal regression and hypothesis testing pipeline was rerun
+independently for each sex and cell type combination.
 
 %-----------------------------------------------------------------------
 % SUPPLEMENTARY RESULTS
