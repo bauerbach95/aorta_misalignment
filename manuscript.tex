@@ -875,14 +875,24 @@ considered significant if the 95\% Bonferroni-corrected credible interval exclud
 point. Significant gene sets were ranked by maximum absolute amplitude of the mean difference
 waveform and visualized as heatmaps.
 
-\subsection*{Sex-controlled downsampling for cycler count comparison}
+\subsection*{Downsampling-controlled cycler count comparisons}
 
-To control for potential confounds when comparing the number of cycling genes between sexes, we
-downsampled male and female cells and pseudobulk UMI counts to match within each cell type.
-Specifically, for each cell type, the sex with more cells was randomly downsampled to match the cell
-count of the other sex at each time point. Pseudobulk UMI counts were then recomputed from the
-downsampled cells, and our Bayesian temporal regression and hypothesis testing pipeline was rerun
-independently for each sex and cell type combination.
+Comparisons of the number of cycling genes between conditions can be confounded by differences in
+cell counts and sequencing depth, both of which affect statistical power to detect rhythmicity. To
+ensure fair comparisons, we applied a uniform downsampling procedure across three types of contrasts:
+male versus female (Figure 3b), aligned versus misaligned (Supplementary Figures 5 and 8), and
+wild-type versus inducible \textit{Bmal1} knockout (Supplementary Figure 19).
+
+For each contrast, we identified the minimum number of cells at each time point across the conditions
+being compared within each cell type. Cells were then randomly sampled (with replacement) to this
+minimum at every condition-by-time-point combination, equalizing the number of cells contributing to
+each analysis. Next, we computed the pseudobulk UMI count (total transcripts) for each
+condition-by-time-point group and identified the global minimum across all groups. Total UMI counts
+within each group were then downsampled to this minimum via multinomial sampling, ensuring matched
+sequencing depth. Per-cell library sizes were recomputed from the downsampled counts. Our Bayesian
+non-parametric temporal regression and hypothesis testing pipeline was then rerun independently on
+each condition, and cycler counts were compared across a range of $\log_{10}$ circadian Bayes factor
+thresholds.
 
 %-----------------------------------------------------------------------
 % SUPPLEMENTARY RESULTS
@@ -895,7 +905,8 @@ As anticipated, male \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ m
 rhythmic circadian transcription compared to C57BL/6J mice. Whereas hundreds of genes show strong
 circadian cycling in male C57BL/6J aortic cell types, only tens of such cyclers were detected in
 \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice (Supplementary Figure
-13a). Genes cycling in either condition show substantially reduced amplitudes in
+13a). This reduction persisted after downsampling to matched cell counts and sequencing depth
+(Supplementary Figure 19). Genes cycling in either condition show substantially reduced amplitudes in
 \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice (Supplementary Figure
 13b). Moreover, as expected, core clock gene expression waveforms are nearly flat
 (Supplementary Figure 13c).
@@ -1006,8 +1017,9 @@ described~\cite{ref92}.
 
 KO effects in cell types are strongly concordant between male and female cell types
 (Supplementary Figure 15). In both sexes, the number of cell-type-specific confident
-circadian cyclers was decreased. However, females retained higher numbers of rhythmic gene sets
-(Supplementary Figure 16a).
+circadian cyclers was decreased, a finding that persisted after controlling for cell counts and
+sequencing depth (Supplementary Figure 19). However, females retained higher numbers of rhythmic
+gene sets (Supplementary Figure 16a).
 
 Among unique confident cyclers in female SMCs, dusk cyclers were enriched for TNF-$\alpha$ signaling
 and inhibition of MAPK signaling, while dawn cyclers were enriched for ECM organization and Pi3k-Akt
@@ -1525,7 +1537,7 @@ from M.L., R.L., and S.Y.T and G.A.F. B.J.A. and R.L wrote the paper with feedba
 %-----------------------------------------------------------------------
 \section*{Competing financial interests}
 
-G.A.F was a Senior Advisor to Calico Laboratories at the time of writing. The remaining authors declare no competing
+B.J.A. is currently an employee of Calico Life Sciences, but not at the time of writing. G.A.F was a Senior Advisor to Calico Laboratories at the time of writing. The remaining authors declare no competing
 financial interests. All authors declare no competing non-financial interests.
 
 %-----------------------------------------------------------------------
@@ -1653,6 +1665,12 @@ code GSEXXXX.
 \centering
 \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_11.pdf}
 \caption*{\textbf{Supplementary Figure 18}}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_19_supp.pdf}
+\caption*{\textbf{Supplementary Figure 19}}
 \end{figure}
 
 % SUPPLEMENTARY FIGURE LEGENDS
@@ -1819,5 +1837,16 @@ waveforms in SMCs of the ascending aorta/aortic arch and macrophages.}
 representative genes with sex-dependent Bmal1 knockout effects.
 \textbf{b)} Posterior circadian waveforms in macrophages for representative genes with sex-dependent
 Bmal1 knockout effects.
+
+\bigskip
+
+\textbf{Supplementary Figure 19: Bmal1 knockout cycling controlled for cell counts and library
+sizes.}
+Within each cell type and time point, cells and pseudobulk UMI counts were downsampled to match
+between aligned wild-type and aligned inducible \textit{Bmal1} knockout mice.
+\textbf{a)} Number of called cyclers across $\log_{10}$ circadian Bayes factor thresholds for SMCs
+(left) and fibroblasts (right) in males.
+\textbf{b)} Same as (a) for females. Blue: aligned wild-type; red: aligned inducible knockout;
+dashed purple: shared cyclers between conditions.
 
 \end{document}
