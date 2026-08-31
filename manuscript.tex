@@ -877,6 +877,23 @@ considered significant if the 95\% Bonferroni-corrected credible interval exclud
 point. Significant gene sets were ranked by maximum absolute amplitude of the mean difference
 waveform and visualized as heatmaps.
 
+\subsection*{Intracellular clock gene phase relationship analysis}
+
+To assess whether acute misalignment altered the internal timing relationships among clock genes
+within SMCs (Figure 4c), we computed the relative phase delay between target clock genes and
+\textit{Arntl} in aligned and misaligned conditions. For each condition, 30,000 posterior waveform
+samples were drawn for \textit{Arntl} and each candidate target gene. The acrophase of each sample
+was estimated by applying a Fast Fourier Transform and extracting the phase of the 24-hour
+component. The relative phase delay was computed as the circular difference (target acrophase
+$-$ \textit{Arntl} acrophase), modulo $2\pi$, yielding a posterior distribution of intracellular
+phase delays for each target gene in each condition.
+
+To ensure that phase estimates were sufficiently precise for meaningful comparison, we restricted the
+analysis to clock genes whose posterior acrophase 95\% interval was no wider than 2 hours in both
+aligned and misaligned conditions. The 95\% interval was defined as the smallest circular arc
+containing 95\% of the posterior acrophase samples. Changes in the relative phase delay between
+conditions indicate altered intracellular clock architecture beyond a simple uniform phase shift.
+
 \subsection*{Downsampling-controlled cycler count comparisons}
 
 Comparisons of the number of cycling genes between conditions can be confounded by differences in
