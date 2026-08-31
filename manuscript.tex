@@ -211,7 +211,9 @@ estimating their parameters.
 To identify genes with robust daily cycling shared between sexes, we intersected male and female
 cycling gene lists within each cell type, requiring acrophases to be within 3 hours. This yielded
 416 shared daily cyclers in SMCs, 117 in fibroblasts, 21 in ECs, and 5 in macrophages
-(Figure 2a).
+(Figure 2a). The vast majority of these cyclers appear to be regulated directly or indirectly by the
+molecular clock, as inducible \textit{Bmal1} deletion dramatically reduced the number of cycling
+genes in both SMCs and fibroblasts (Supplementary Figure 8a,b).
 
 To identify pathways enriched among daily cyclers, we performed Reactome pathway enrichment
 analysis, restricting to gene sets whose members peak at similar times (Methods). In SMCs, the most
@@ -251,7 +253,11 @@ testing pipeline (Methods). After this adjustment, female SMCs retained
 nearly twice as many cycling genes as males across Bayes factor thresholds, while fibroblasts showed
 comparable numbers between sexes (Figure 3b). These results suggest sex-dependent
 rhythmicity is cell-type-specific. Macrophages additionally demonstrated stronger female
-rhythmicity, though this result should be interpreted cautiously given the low cell count.
+rhythmicity, though this result should be interpreted cautiously given the low cell count. Notably,
+females retained more cycling genes than males even after inducible \textit{Bmal1} deletion
+(Supplementary Figure 8a,b). Moreover, among confident wild-type cyclers in SMCs, expression became
+more similar between sexes after knockout, suggesting that a substantial portion of sex-specific
+cycling expression is mediated through the circadian clock (Supplementary Figure 8c).
 
 To identify pathways and transcription factor networks with sex-differential temporal expression, we
 performed a two-group waveform enrichment analysis, computing the difference waveform (female $-$
