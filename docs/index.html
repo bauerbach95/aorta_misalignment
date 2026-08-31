@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aortic Circadian Atlas Gene Browser</title>
+<script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #1a1a2e;
+    --card-bg: #f8f9fa;
+    --border: #dee2e6;
+    --accent: #E64B35;
+    --muted: #6c757d;
+    --search-bg: #ffffff;
+    --shadow: rgba(0,0,0,0.08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1a1a2e;
+      --fg: #e8e8e8;
+      --card-bg: #16213e;
+      --border: #2a2a4a;
+      --accent: #E64B35;
+      --muted: #9a9ab0;
+      --search-bg: #16213e;
+      --shadow: rgba(0,0,0,0.3);
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--fg);
+    min-height: 100vh;
+  }
+  header {
+    text-align: center;
+    padding: 2rem 1rem 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  header h1 {
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+  }
+  header p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .search-container {
+    max-width: 500px;
+    margin: 1.5rem auto;
+    position: relative;
+  }
+  #gene-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    background: var(--search-bg);
+    color: var(--fg);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #gene-input:focus {
+    border-color: var(--accent);
+  }
+  #gene-input::placeholder {
+    color: var(--muted);
+  }
+  #suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--search-bg);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 250px;
+    overflow-y: auto;
+    z-index: 10;
+    display: none;
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+  #suggestions div {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  #suggestions div:hover, #suggestions div.active {
+    background: var(--accent);
+    color: #fff;
+  }
+  #status {
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+  #plots-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem 2rem;
+  }
+  #gene-title {
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 600;
+    padding: 1rem 0 0.5rem;
+    display: none;
+  }
+  .plot-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 0.8rem;
+  }
+  .plot-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .legend-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    padding: 0.8rem 1rem;
+    font-size: 0.82rem;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    white-space: nowrap;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: opacity 0.2s, border-color 0.2s;
+    user-select: none;
+  }
+  .legend-item:hover {
+    border-color: var(--border);
+  }
+  .legend-item.off {
+    opacity: 0.3;
+  }
+  .legend-swatch {
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+  }
+  footer {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    color: var(--muted);
+    font-size: 0.8rem;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Aortic Circadian Atlas Gene Browser</h1>
+  <p>Posterior waveform estimates for circadian gene expression in mouse aorta cell types.
+     Search for a gene to see its expression pattern across conditions.</p>
+</header>
+
+<div class="search-container">
+  <input type="text" id="gene-input" placeholder="Search for a gene (e.g. Arntl, Dbp, Hspa1a)" autocomplete="off" disabled>
+  <div id="suggestions"></div>
+</div>
+
+<div id="status">Loading gene index...</div>
+
+<div id="plots-container">
+  <div id="gene-title"></div>
+  <div id="legend-area"></div>
+  <div class="plot-grid" id="plot-grid"></div>
+</div>
+
+<footer>
+  Data: Bayesian temporal regression posterior estimates from mouse aorta scRNA-seq.
+  Four ZT timepoints (0, 6, 12, 18h). Ribbons show 90% credible intervals.
+</footer>
+
+<script>
+const CONDITION_COLORS = {
+  "male_aligned_WT":      "#2166ac",
+  "female_aligned_WT":    "#d6604d",
+  "male_aligned_KO":      "#92c5de",
+  "female_aligned_KO":    "#f4a582",
+  "male_misaligned_WT":   "#1b7837",
+  "female_misaligned_WT": "#762a83",
+};
+
+const CELL_TYPE_DISPLAY = {
+  "SMC": "SMC",
+  "Fibroblast": "Fibroblast",
+  "EC": "Endothelial",
+  "Macrophage": "Macrophage",
+  "SMC0": "SMC subtype 0",
+  "SMC1": "SMC subtype 1",
+  "SMC2": "SMC subtype 2",
+};
+
+let INDEX = null;
+let CHUNK_CACHE = {};
+let ACTIVE_CONDITIONS = new Set(["male_aligned_WT"]);
+let CURRENT_GENE = null;
+let CURRENT_GENE_DATA = null;
+
+async function loadIndex() {
+  const resp = await fetch("data/index.json");
+  INDEX = await resp.json();
+  document.getElementById("gene-input").disabled = false;
+  document.getElementById("status").textContent =
+    `${INDEX.genes.length.toLocaleString()} genes available. Start typing to search.`;
+}
+
+async function loadChunk(chunkName) {
+  if (CHUNK_CACHE[chunkName]) return CHUNK_CACHE[chunkName];
+  const resp = await fetch("data/" + chunkName);
+  const data = await resp.json();
+  CHUNK_CACHE[chunkName] = data;
+  return data;
+}
+
+function setupSearch() {
+  const input = document.getElementById("gene-input");
+  const suggestions = document.getElementById("suggestions");
+  let activeIdx = -1;
+  let matches = [];
+
+  input.addEventListener("input", () => {
+    const q = input.value.trim();
+    if (!q || !INDEX) { suggestions.style.display = "none"; return; }
+    const lower = q.toLowerCase();
+    matches = INDEX.genes.filter(g => g.toLowerCase().startsWith(lower)).slice(0, 20);
+    if (!matches.length && q.length >= 2) {
+      matches = INDEX.genes.filter(g => g.toLowerCase().includes(lower)).slice(0, 20);
+    }
+    if (!matches.length) { suggestions.style.display = "none"; return; }
+    activeIdx = -1;
+    renderSuggestions();
+  });
+
+  input.addEventListener("keydown", (e) => {
+    if (!matches.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      activeIdx = Math.min(activeIdx + 1, matches.length - 1);
+      renderSuggestions();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      activeIdx = Math.max(activeIdx - 1, 0);
+      renderSuggestions();
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      const gene = activeIdx >= 0 ? matches[activeIdx] : matches[0];
+      if (gene) selectGene(gene);
+    } else if (e.key === "Escape") {
+      suggestions.style.display = "none";
+    }
+  });
+
+  function renderSuggestions() {
+    suggestions.innerHTML = matches.map((g, i) =>
+      `<div class="${i === activeIdx ? 'active' : ''}" data-gene="${g}">${highlightMatch(g)}</div>`
+    ).join("");
+    suggestions.style.display = "block";
+    suggestions.querySelectorAll("div").forEach(div => {
+      div.addEventListener("click", () => selectGene(div.dataset.gene));
+    });
+  }
+
+  function highlightMatch(gene) {
+    const q = input.value.trim();
+    const idx = gene.toLowerCase().indexOf(q.toLowerCase());
+    if (idx < 0) return gene;
+    return gene.slice(0, idx) + "<strong>" + gene.slice(idx, idx + q.length) + "</strong>" + gene.slice(idx + q.length);
+  }
+
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".search-container")) suggestions.style.display = "none";
+  });
+}
+
+async function selectGene(gene) {
+  const input = document.getElementById("gene-input");
+  const suggestions = document.getElementById("suggestions");
+  input.value = gene;
+  suggestions.style.display = "none";
+
+  const chunkName = INDEX.gene_to_chunk[gene];
+  if (!chunkName) {
+    document.getElementById("status").textContent = `Gene "${gene}" not found.`;
+    return;
+  }
+
+  document.getElementById("status").textContent = "Loading waveforms...";
+
+  const chunk = await loadChunk(chunkName);
+  const geneData = chunk[gene];
+  if (!geneData) {
+    document.getElementById("status").textContent = `No data for "${gene}".`;
+    return;
+  }
+
+  document.getElementById("status").textContent = "";
+  CURRENT_GENE = gene;
+  CURRENT_GENE_DATA = geneData;
+  renderLegend();
+  renderPlots(gene, geneData);
+}
+
+function renderLegend() {
+  const legendArea = document.getElementById("legend-area");
+  legendArea.innerHTML = "";
+  const legendDiv = document.createElement("div");
+  legendDiv.className = "legend-container";
+  for (const [cond, color] of Object.entries(CONDITION_COLORS)) {
+    const label = INDEX.condition_labels[cond] || cond;
+    const isOn = ACTIVE_CONDITIONS.has(cond);
+    const item = document.createElement("span");
+    item.className = "legend-item" + (isOn ? "" : " off");
+    item.dataset.cond = cond;
+    item.innerHTML = `<span class="legend-swatch" style="background:${color}"></span>${label}`;
+    item.addEventListener("click", () => {
+      if (ACTIVE_CONDITIONS.has(cond)) {
+        if (ACTIVE_CONDITIONS.size === 1) return;
+        ACTIVE_CONDITIONS.delete(cond);
+      } else {
+        ACTIVE_CONDITIONS.add(cond);
+      }
+      item.classList.toggle("off");
+      if (CURRENT_GENE_DATA) renderPlots(CURRENT_GENE, CURRENT_GENE_DATA);
+    });
+    legendDiv.appendChild(item);
+  }
+  legendArea.appendChild(legendDiv);
+}
+
+function renderPlots(gene, geneData) {
+  const title = document.getElementById("gene-title");
+  title.textContent = gene;
+  title.style.display = "block";
+
+  const grid = document.getElementById("plot-grid");
+  grid.innerHTML = "";
+
+  const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const plotBg = isDark ? "#16213e" : "#f8f9fa";
+  const gridColor = isDark ? "#2a2a4a" : "#dee2e6";
+  const fontColor = isDark ? "#e8e8e8" : "#1a1a2e";
+
+  const ztHours = [0, 6, 12, 18];
+
+  for (const ct of INDEX.cell_types) {
+    const ctData = geneData[ct];
+    const card = document.createElement("div");
+    card.className = "plot-card";
+    const plotDiv = document.createElement("div");
+    card.appendChild(plotDiv);
+    grid.appendChild(card);
+
+    const traces = [];
+
+    if (!ctData) {
+      traces.push({
+        x: [9], y: [0],
+        mode: "text",
+        text: ["Gene not detected"],
+        textfont: { size: 14, color: isDark ? "#9a9ab0" : "#6c757d" },
+        showlegend: false,
+      });
+    } else {
+      for (const cond of INDEX.conditions) {
+        if (!ACTIVE_CONDITIONS.has(cond)) continue;
+        const condData = ctData[cond];
+        if (!condData) continue;
+
+        const color = CONDITION_COLORS[cond];
+        const LN10 = Math.LN10;
+        const p05 = condData.map(d => d[0] / LN10);
+        const med = condData.map(d => d[1] / LN10);
+        const p95 = condData.map(d => d[2] / LN10);
+
+        const rgbMatch = hexToRgb(color);
+
+        traces.push({
+          x: [...ztHours, ...ztHours.slice().reverse()],
+          y: [...p95, ...p05.slice().reverse()],
+          fill: "toself",
+          fillcolor: `rgba(${rgbMatch},0.15)`,
+          line: { color: "transparent" },
+          showlegend: false,
+          hoverinfo: "skip",
+        });
+
+        traces.push({
+          x: ztHours,
+          y: med,
+          mode: "lines+markers",
+          line: { color: color, width: 2 },
+          marker: { size: 5, color: color },
+          name: INDEX.condition_labels[cond],
+          showlegend: false,
+          hovertemplate: `${INDEX.condition_labels[cond]}<br>ZT%{x}h: %{y:.2f}<extra></extra>`,
+        });
+      }
+    }
+
+    const layout = {
+      title: {
+        text: CELL_TYPE_DISPLAY[ct] || ct,
+        font: { size: 13, color: fontColor },
+        x: 0.5,
+        y: 0.95,
+      },
+      xaxis: {
+        title: { text: "ZT (hours)", font: { size: 10 } },
+        tickvals: [0, 6, 12, 18],
+        ticktext: ["0", "6", "12", "18"],
+        range: [-1, 19],
+        gridcolor: gridColor,
+        linecolor: gridColor,
+        tickfont: { size: 9, color: fontColor },
+      },
+      yaxis: {
+        title: { text: "Log₁₀ expression", font: { size: 10 } },
+        gridcolor: gridColor,
+        linecolor: gridColor,
+        tickfont: { size: 9, color: fontColor },
+      },
+      margin: { l: 50, r: 15, t: 35, b: 40 },
+      height: 260,
+      paper_bgcolor: plotBg,
+      plot_bgcolor: plotBg,
+      font: { color: fontColor },
+      hovermode: "closest",
+    };
+
+    Plotly.newPlot(plotDiv, traces, layout, { responsive: true, displayModeBar: false });
+  }
+}
+
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `${r},${g},${b}`;
+}
+
+loadIndex().then(setupSearch);
+</script>
+
+</body>
+</html>
