@@ -713,18 +713,18 @@ larger than 0.5.
 
 \subsection*{Bayesian temporal regression model}
 
-\subsubsection*{Likelihood model}
+\subsection*{Likelihood model}
 
 A Bayesian ANOVA regression model was fit to describe gene waveforms and detect genes with circadian
 rhythms. Our model was fit independently for each cluster and condition combination. As input, our
 model requires an $n \times p$ transcript count matrix $\mathbf{X}$, where $n$ is the number of
 cells and $p$ is the number of genes. For gene $j$ in cell $i$ with library size $L_{i}$ and cell
-phase $\Theta_{i}$ (where $\theta_{i} \in \{1,\ldots,q\}$ discrete time points), the unique
+phase $\Theta_{i}$ (where $\Theta_{i} \in \{1,\ldots,q\}$ discrete time points), the unique
 molecular identifier (UMI) count $X_{ij}$ was assumed to follow a Negative Binomial (NB)
 distribution:
 
 \begin{equation}
-X_{ij} \mid (\Theta_{i} = k) \sim \mathrm{NB}\!\left( L_{i}\lambda_{jk},\,\delta_{ij} \right)
+X_{ij} \mid (\Theta_{i} = k) \sim \mathrm{NB}\!\left( L_{i}\lambda_{jk},\,\delta_{jk} \right)
 \end{equation}
 
 Where $k$ is the discrete index of the time the cell was collected at,
@@ -748,7 +748,7 @@ function parameterized by $\boldsymbol{\zeta}$ (shared by all cells and genes) d
 relationship between transcript proportion $\lambda_{jk}$ and the dispersion $\delta_{jk}$. Details
 on the estimation of $\boldsymbol{\zeta}$ can be found in Supplementary Methods 1.
 
-\subsubsection*{Prior knowledge of gene parameters}
+\subsection*{Prior knowledge of gene parameters}
 
 Prior knowledge about $\lambda_{jk}$ is specified as a transformed Beta distribution:
 
@@ -758,8 +758,8 @@ P\!\left( \lambda_{jk} \right) = \mathrm{Beta}\!\left( \lambda_{jk}^{(\alpha)},\
 
 where $\lambda_{j}^{(\min)}$ and $\lambda_{j}^{(\max)}$ denote the minimum and maximum possible
 values for $\lambda_{jk}$. $\lambda_{j}^{(\min)}$ and $\lambda_{j}^{(\max)}$ are set as follows. For
-each gene we compute the pseudobulk relative proportion (i.e.\ $\frac{\sum_{i=1}^{p}
-X_{ij}}{\sum_{i=1}^{p} L_{i}}$). Assuming relatively balanced numbers of cells from each collection
+each gene we compute the pseudobulk relative proportion (i.e.\ $\frac{\sum_{i=1}^{n}
+X_{ij}}{\sum_{i=1}^{n} L_{i}}$). Assuming relatively balanced numbers of cells from each collection
 time point, the pseudobulk relative proportion is a reasonable estimate of each genes' mesor.
 Moreover, based on analysis of past scRNA-seq circadian datasets, the largest observed fold changes
 of cycling genes from mesor to peak are around 10-fold (i.e.\ 1 in $\log_{10}$ space), while most
@@ -778,13 +778,13 @@ $\log_{10}$ space):
 By default, Tempo sets $\lambda_{jk}^{(\alpha)} = \lambda_{jk}^{(\beta)} = 1$, which
 assumes a non-informative prior over the domain of possible $\lambda_{jk}$ values.
 
-\subsubsection*{Approximate posterior inference}
+\subsection*{Approximate posterior inference}
 
 Using our prior knowledge of the gene parameters and the observed data, we seek the following joint
 posterior distribution of our gene parameters:
 
 \begin{equation}
-P\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right) \sim P\!\left( \mathbf{X} \mid \boldsymbol{\lambda}, \boldsymbol{\theta} \right) P\!\left( \boldsymbol{\lambda} \mid \boldsymbol{\theta} \right)
+P\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right) \propto P\!\left( \mathbf{X} \mid \boldsymbol{\lambda}, \boldsymbol{\theta} \right) P\!\left( \boldsymbol{\lambda} \mid \boldsymbol{\theta} \right)
 \end{equation}
 
 where $\boldsymbol{\lambda}$ is a $p \times q$ dimensional matrix containing the transcript
@@ -797,11 +797,11 @@ P\!\left( \mathbf{X} \mid \boldsymbol{\lambda}, \boldsymbol{\theta} \right) = \p
 and
 
 \begin{equation}
-P\!\left( \boldsymbol{\lambda} \mid \boldsymbol{\theta} \right) = \prod_{j=1}^{p} \prod_{k=1}^{q} \lambda_{jk}
+P\!\left( \boldsymbol{\lambda} \mid \boldsymbol{\theta} \right) = \prod_{j=1}^{p} \prod_{k=1}^{q} P\!\left( \lambda_{jk} \right)
 \end{equation}
 
 No known analytic solution exists to $P\!\left( \boldsymbol{\lambda} \mid \mathbf{X},
-\boldsymbol{\theta} \right) \sim P\!\left( \mathbf{X} \mid \boldsymbol{\lambda}, \boldsymbol{\theta}
+\boldsymbol{\theta} \right) \propto P\!\left( \mathbf{X} \mid \boldsymbol{\lambda}, \boldsymbol{\theta}
 \right) P\!\left( \boldsymbol{\lambda} \mid \boldsymbol{\theta} \right)$. Moreover, asymptotically
 exact estimation approaches, such as Markov-chain Monte Carlo and full grid sampling, do not scale
 well to droplet-based scRNA-seq datasets that can contain thousands (and sometimes tens of
@@ -820,7 +820,7 @@ bound (ELBO) objective function. Additional details of the initialization, gener
 optimization procedure of $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta}
 \right)$ can be viewed in Supplementary Methods 2.
 
-\subsubsection*{Conversion of Bayesian ANOVA parameter posteriors to circadian cosinor parameter posteriors}
+\subsection*{Conversion of Bayesian ANOVA parameter posteriors to circadian cosinor parameter posteriors}
 
 Given our approximate posterior $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta}
 \right)$, for gene $j$ we can generate a sampled waveform $\lambda_{j}^{*} = \left(
@@ -835,7 +835,7 @@ mesor, amplitude, and acrophase, respectively. Sampling from $q\!\left( \boldsym
 \mathbf{X}, \boldsymbol{\theta} \right)$ repeatedly, we can generate samples of $\mu_{j}, A_{j},$
 and $\phi_{j}$ to approximate their posterior distributions.
 
-\subsubsection*{Identification of circadian cycling genes}
+\subsection*{Identification of circadian cycling genes}
 
 Circadian cyclers were identified using three steps. First, we computed the Bayes factor
 of each gene using $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right)$,
@@ -849,8 +849,18 @@ original domain using the Inverse Fast Fourier Transform, and then the Bayesian 
 computed. Third, we compute a Bayes factor for each gene equal to the Bayesian evidence associated
 with $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right)$ divided by the
 Bayesian evidence associated with the 24-hour component subtracted posterior. We refer to this Bayes
-factor as the circadian Bayes factor. Cycling genes were defined as those with a circadian
-Bayes factor greater than or equal to 100, unless otherwise stated.
+factor as the circadian Bayes factor.
+
+To further ensure that the 24-hour circadian component was the dominant frequency component, we drew
+100 additional posterior waveform samples per gene, applied the Fast Fourier Transform to each, and
+computed the amplitude of the 24-hour component relative to other frequency components. Genes for
+which the 24-hour component had the largest amplitude in at least 60\% of samples were retained.
+
+Cycling genes were defined as those satisfying all of the following criteria, unless otherwise stated:
+(i) circadian Bayes factor $\geq 100$ ($\log_{10} \geq 2$);
+(ii) 24-hour component dominant in $\geq 60\%$ of posterior samples;
+(iii) detected in $> 1\%$ of cells and in $> 50$ cells;
+(iv) expected mesor $\geq 10^{-6}$ UMI per total library (i.e.\ $\log_{e}(\text{mesor}) \geq -13.8$).
 
 \subsection*{Gene set acrophase enrichment analysis}
 
@@ -871,7 +881,7 @@ computed for each enriched set.
 
 To identify gene sets with sex-differential temporal expression patterns, we developed a two-group
 waveform enrichment analysis. For each gene, the posterior waveform was sampled independently from
-the two conditions (300 samples each), and the difference waveform (e.g.\ female $-$ male) was
+the two conditions (100 samples each), and the difference waveform (e.g.\ female $-$ male) was
 computed sample-wise. For each gene set, the difference waveforms of member genes were averaged to
 obtain a gene-set-level difference waveform. To test whether the gene-set difference waveform
 deviates significantly from zero, we applied pointwise credible interval tests at each of the 4 time
@@ -965,7 +975,7 @@ described by a polynomial function $g_{\boldsymbol{\zeta}}\!\left( \lambda_{ij} 
 parameterized by $\boldsymbol{\zeta}$. The coefficients of this polynomial, $\boldsymbol{\zeta}$,
 are estimated as follows:
 
-\subsubsection*{Step 1: Estimate gene-specific proportions and dispersions}
+\subsection*{Step 1: Estimate gene-specific proportions and dispersions}
 
 We presume gene counts are distributed according to:
 
@@ -988,7 +998,7 @@ estimate $\boldsymbol{\zeta}$) gene-specific transcript proportion and dispersio
 respectively. Under this likelihood model, for each gene we estimate the maximum likelihood
 transcript proportion $\widetilde{\lambda_{j}}$ and dispersion $\widetilde{\delta_{j}}$.
 
-\subsubsection*{Step 2: Fit polynomial model describing the transcript proportion -- dispersion relationship across all genes}
+\subsection*{Step 2: Fit polynomial model describing the transcript proportion -- dispersion relationship across all genes}
 
 Assume $g$ is a polynomial function whose coefficients $\boldsymbol{\zeta}$ defines the transcript
 $\log$ proportion -- $\log$ dispersion relationship shared across all genes:
@@ -1006,7 +1016,7 @@ Using OLS, we estimate the coefficients $\boldsymbol{\zeta}$ under the following
 where $p$ is the number of genes, and $\widetilde{\lambda_{j}}$ and $\widetilde{\delta_{j}}$ are the
 temporary gene-specific transcript proportion and dispersion for gene $j$ estimated in Step 1.
 
-\subsubsection*{Note}
+\subsection*{Note}
 
 We note that dispersion estimates may be upwardly biased as a subset of genes cycling over the
 circadian cycle will be fit under a mean model that assumes flat expression over the circadian
