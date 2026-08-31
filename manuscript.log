@@ -539,9 +539,8 @@ File: figures/fig_2_supp_female.pdf Graphic file (type pdf)
 File: figures/fig_3_supp.pdf Graphic file (type pdf)
 <use figures/fig_3_supp.pdf>
  [59]
-File: old_figures/supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf Graphic
- file (type pdf)
-<use old_figures/supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf>
+File: figures/fig_5_supp.pdf Graphic file (type pdf)
+<use figures/fig_5_supp.pdf>
  [60]
 File: figures/fig_6_supp.pdf Graphic file (type pdf)
 <use figures/fig_6_supp.pdf>
@@ -554,12 +553,12 @@ File: figures/fig_8_supp.pdf Graphic file (type pdf)
  [63] [64] [65
 
 ] [66]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1482.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1484.
  [67]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1482.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1484.
  (manuscript.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1482.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1482.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1484.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1484.
 
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
@@ -567,6 +566,6 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1482.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1484.
  )
-Output written on manuscript.xdv (69 pages, 1002628 bytes).
+Output written on manuscript.xdv (69 pages, 1002756 bytes).
