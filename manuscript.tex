@@ -95,7 +95,7 @@ the vasculature remains poorly understood. To address this, we performed single-
 from whole mouse aorta at ZT0, ZT6, ZT12, and ZT18 under aligned and acutely misaligned (6-hour
 phase advance) light-dark cycles in both male and female mice. Leveraging Bayesian variational
 inference, we estimated posterior waveforms for 141,752 cells across four major cell types and
-identified hundreds of confidently cycling genes in vascular smooth muscle cells (SMCs) and
+identified hundreds of cycling genes in vascular smooth muscle cells (SMCs) and
 fibroblasts. Pathway and transcription factor enrichment analyses revealed coordinated circadian
 activity in cholesterol biosynthesis, muscle contraction, and extracellular matrix organization.
 Notably, SMC genes implicated in phenotypic switching showed coordinated temporal patterns, with
@@ -255,7 +255,7 @@ comparable numbers between sexes (Figure 3b). These results suggest sex-dependen
 rhythmicity is cell-type-specific. Macrophages additionally demonstrated stronger female
 rhythmicity, though this result should be interpreted cautiously given the low cell count. Notably,
 females retained more cycling genes than males even after inducible \textit{Bmal1} deletion
-(Supplementary Figure 8a,b). Moreover, among confident wild-type cyclers in SMCs, expression became
+(Supplementary Figure 8a,b). Moreover, among wild-type cyclers in SMCs, expression became
 more similar between sexes after knockout, suggesting that a substantial portion of sex-specific
 cycling expression is mediated through the circadian clock (Supplementary Figure 8c).
 
@@ -277,7 +277,7 @@ shown in Supplementary Figure 4.
 
 \subsection*{Circadian misalignment disrupts proteostasis and cell-type entrainment in the aorta}
 
-We first examined the effects of acute misalignment in male mice. After a 6-hour phase advance, the number of confident
+We first examined the effects of acute misalignment in male mice. After a 6-hour phase advance, the number of
 cycling genes decreased across all cell types, even after controlling for cell count and library
 size differences (Supplementary Figure 5). Among cycling genes common to both conditions,
 amplitudes were generally decreased (Figure 4a) and acrophases were
@@ -347,7 +347,7 @@ consequences of acute circadian misalignment.
 We then assessed vascular function \textit{in vivo} to determine whether a 6-h phase advance produced functional impairment 5 days after the shift.
 
 Our atlas reveals that the extent of circadian transcription varies markedly across vascular cell
-types. SMCs and fibroblasts harbor hundreds of confidently cycling genes, while ECs and macrophages
+types. SMCs and fibroblasts harbor hundreds of cycling genes, while ECs and macrophages
 show far fewer --- likely reflecting both biological differences in clock output and lower
 statistical power from smaller cell populations. Pathway enrichment among SMC cyclers highlighted
 coordinated rhythms in cholesterol biosynthesis, muscle contraction, extracellular matrix
@@ -423,7 +423,7 @@ reinforcing the importance of considering sex as a biological variable in studie
 cardiovascular risk~\cite{ref138,ref139}.
 
 Our study has several limitations. While we collected many SMCs, allowing high-confidence circadian
-parameter estimation, we captured relatively few ECs and macrophages. The number of confident
+parameter estimation, we captured relatively few ECs and macrophages. The number of
 cyclers in these populations is likely an underestimate, and macrophage-specific findings ---
 including the intercellular timing observations --- should be interpreted cautiously given the low
 cell counts and shallow sequencing depth. Additionally, our scRNA-seq data capture transcript-level
@@ -678,7 +678,7 @@ expressed and highly specific markers for each major cell type. We selected \tex
 \textit{Acta2} for SMCs; \textit{Serpinf1} and \textit{Serping1} for fibroblasts; \textit{Vcam1} and
 \textit{Pecam1} for endothelial cells; \textit{Cd68, Cd14, Cd16,} and \textit{Cd64} for macrophages;
 and \textit{Cd4, Cd8, Cd3g,} and \textit{Cd3d} for T cells. For each major cell type, we then
-identified confident cells belonging to that cell type based on the transformed expression of their
+identified cells belonging to that cell type based on the transformed expression of their
 corresponding prior knowledge marker genes. Expression was transformed as follows:
 
 \begin{equation}
@@ -835,9 +835,9 @@ mesor, amplitude, and acrophase, respectively. Sampling from $q\!\left( \boldsym
 \mathbf{X}, \boldsymbol{\theta} \right)$ repeatedly, we can generate samples of $\mu_{j}, A_{j},$
 and $\phi_{j}$ to approximate their posterior distributions.
 
-\subsubsection*{Identification of confident circadian cycling genes}
+\subsubsection*{Identification of circadian cycling genes}
 
-Confident circadian cyclers were identified using three steps. First, we computed the Bayes factor
+Circadian cyclers were identified using three steps. First, we computed the Bayes factor
 of each gene using $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right)$,
 where 5 $\lambda_{j}^{*}$ samples were drawn for each gene at each time point. Second, we computed
 the Bayesian evidence of each gene using an altered version of $q\!\left( \boldsymbol{\lambda} \mid
@@ -849,7 +849,7 @@ original domain using the Inverse Fast Fourier Transform, and then the Bayesian 
 computed. Third, we compute a Bayes factor for each gene equal to the Bayesian evidence associated
 with $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right)$ divided by the
 Bayesian evidence associated with the 24-hour component subtracted posterior. We refer to this Bayes
-factor as the circadian Bayes factor. Confident cycling genes were defined as those with a circadian
+factor as the circadian Bayes factor. Cycling genes were defined as those with a circadian
 Bayes factor greater than or equal to 100, unless otherwise stated.
 
 \subsection*{Gene set acrophase enrichment analysis}
@@ -859,7 +859,7 @@ enrichment analysis using two gene set databases: Reactome pathways obtained fro
 Signatures Database (MSigDB) and transcription factor motif target sets from the TRANSFAC and JASPAR
 PWM databases. Reactome pathways were filtered to exclude cancer-, disease-, and infection-related
 terms and restricted to sets with at most 500 member genes. For each gene set with at least 6
-members among the confident circadian cyclers, member acrophases were binned into 12 equal-width bins
+members among the circadian cyclers, member acrophases were binned into 12 equal-width bins
 spanning the 24-hour cycle (each bin = 2 hours). A likelihood ratio statistic was computed as the
 ratio of the observed bin density to the expected uniform density ($1/12$) at each bin, and the
 maximum across bins was retained as the enrichment score. Gene sets with a maximum likelihood ratio
@@ -1410,9 +1410,9 @@ code GSEXXXX.
 \section*{Supplementary Figure Legends}
 
 \textbf{Supplementary Figure 1: Validation of circadian cycling detection.}
-\textbf{a)} Comparison of expected acrophases of confident SMC circadian cyclers to their peak
+\textbf{a)} Comparison of expected acrophases of SMC circadian cyclers to their peak
 times in bulk aorta from Zhang et al.
-\textbf{b)} Histogram of expected acrophases for confidently cycling genes in major aortic cell
+\textbf{b)} Histogram of expected acrophases for cycling genes in major aortic cell
 types.
 \textbf{c)} Posterior waveforms of core clock genes in major aortic cell types.
 \textbf{d)} Posterior waveforms of core clock genes in SMC subtypes.
@@ -1479,6 +1479,6 @@ between aligned wild-type and aligned inducible \textit{Bmal1} knockout mice.
 (left) and fibroblasts (right) in males.
 \textbf{b)} Same as (a) for females. Blue: aligned wild-type; red: aligned inducible knockout;
 dashed purple: shared cyclers between conditions.
-\textbf{c)} Cross-sex log-likelihood scatter for all detected SMC genes. For each gene, the similarity between female and male expression was computed in wild-type (x-axis) and knockout (y-axis) conditions by sampling from posterior waveforms and normalizing by the male knockout effect confidence interval. Points above $y = x$ indicate more similar expression between sexes after knockout. Genes are colored by whether they are confident WT cyclers (red, log$_{10}$ BF $\geq$ 10) or non-cyclers (grey), with separate best-fit lines for each group.
+\textbf{c)} Cross-sex log-likelihood scatter for all detected SMC genes. For each gene, the similarity between female and male expression was computed in wild-type (x-axis) and knockout (y-axis) conditions by sampling from posterior waveforms and normalizing by the male knockout effect confidence interval. Points above $y = x$ indicate more similar expression between sexes after knockout. Genes are colored by whether they are WT cyclers (red, log$_{10}$ BF $\geq$ 10) or non-cyclers (grey), with separate best-fit lines for each group.
 
 \end{document}
