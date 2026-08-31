@@ -746,7 +746,7 @@ and
 and where $g_{\boldsymbol{\zeta}}\!\left( \lambda_{jk} \right)$ is a deterministic polynomial
 function parameterized by $\boldsymbol{\zeta}$ (shared by all cells and genes) describing the
 relationship between transcript proportion $\lambda_{jk}$ and the dispersion $\delta_{jk}$. Details
-on the estimation of $\boldsymbol{\zeta}$ can be found in Supplementary Methods 1.
+on the estimation of $\boldsymbol{\zeta}$ can be found in the ``Estimating the transcript proportion -- dispersion relationship'' section below.
 
 \subsection*{Prior knowledge of gene parameters}
 
@@ -816,9 +816,7 @@ In brief, we initialize an approximate posterior distribution $q\!\left( \boldsy
 differentiable parameters describing its shape. $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X},
 \boldsymbol{\theta} \right)$ is then optimized to minimize its KL divergence with $P\!\left(
 \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta} \right)$ by minimizing the evidence lower
-bound (ELBO) objective function. Additional details of the initialization, generative process, and
-optimization procedure of $q\!\left( \boldsymbol{\lambda} \mid \mathbf{X}, \boldsymbol{\theta}
-\right)$ can be viewed in Supplementary Methods 2.
+bound (ELBO) objective function. 
 
 \subsection*{Conversion of Bayesian ANOVA parameter posteriors to circadian cosinor parameter posteriors}
 
@@ -959,10 +957,7 @@ male or female wild-type) or non-cyclers, and linear regression best-fit lines w
 separately for each group. Genes detected in fewer than 20\% of cells in any condition, as well as
 hemoglobin genes, were excluded from the analysis.
 
-%-----------------------------------------------------------------------
-% SUPPLEMENTARY METHODS 1
-%-----------------------------------------------------------------------
-\section*{Supplementary Methods 1: Estimating the transcript proportion -- dispersion relationship}
+\subsection*{Estimating the transcript proportion -- dispersion relationship}
 
 We model UMI counts as coming from a Negative Binomial (NB) data likelihood model, as it can account
 for the overdispersion observed in real count data. While many existing applications of NB to
