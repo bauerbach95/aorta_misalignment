@@ -562,13 +562,13 @@ File: figures/fig_11_supp.pdf Graphic file (type pdf)
  [66] [67] [68
 
 ] [69]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1541.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1543.
  [70]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1541.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1543.
 
 (manuscript.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1541.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1541.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1543.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1543.
 
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
@@ -576,6 +576,6 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1541.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1543.
  )
-Output written on manuscript.xdv (72 pages, 1033360 bytes).
+Output written on manuscript.xdv (72 pages, 1035584 bytes).
