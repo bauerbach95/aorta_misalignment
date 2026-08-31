@@ -167,8 +167,7 @@ First, to assess the contributions of sex and cell type on circadian expression 
 with the light-dark (LD) cycle, whole aorta samples were collected from 12-week-old male and female
 C57BL/6 mice entrained to a 12:12 LD cycle for 2 weeks. Mice were sacrificed at Zeitgeber time (ZT)
 0, 6, 12, or 18 hours, and whole aorta samples were harvested (Figure 1b). We
-additionally collected data from inducible \textit{Bmal1} global deletion models (Methods); these
-results are presented in the Supplementary Results. To assess the response to circadian
+additionally collected data from inducible \textit{Bmal1} global deletion models (Methods). To assess the response to circadian
 misalignment, 12-week-old male and female C57BL/6 mice were entrained to a 12:12 LD cycle for 2
 weeks, after which the start of the LD cycle was advanced 6 hours (Figure 1c). Mice were
 sacrificed 5 days after the phase advance at ZT 0, 6, 12, or 18 hours. For all conditions, cells
@@ -203,8 +202,8 @@ acrophases of SMC cycling genes aligned well with their peak times from bulk aor
 circadian clock genes demonstrated strong rhythms across all major cell types
 (Supplementary Figure 1c) and SMC subtypes (Supplementary Figure 1d). The
 acrophase distribution of cycling genes appeared bimodal, with peaks at dawn and dusk
-(Supplementary Figure 1b). Data from \textit{Bmal1} deletion mice revealed virtually no
-cycling genes beyond those driven by the core clock, suggesting the vast majority of detected
+(Supplementary Figure 1b). Data from \textit{Bmal1} deletion mice (Supplementary Figure 7) revealed virtually no
+cycling genes beyond those driven by the core clock (Supplementary Figure 8), suggesting the vast majority of detected
 cycling in wild-type mice reflects clock-controlled transcription. Altogether, these analyses
 provided confidence in both our data quality and our approach to calling cycling genes and
 estimating their parameters.
@@ -274,8 +273,7 @@ shown in Supplementary Figure 4.
 
 \subsection*{Circadian misalignment disrupts proteostasis and cell-type entrainment in the aorta}
 
-We first examined the effects of acute misalignment in male mice; female-specific effects are
-presented in the Supplementary Results. After a 6-hour phase advance, the number of confident
+We first examined the effects of acute misalignment in male mice. After a 6-hour phase advance, the number of confident
 cycling genes decreased across all cell types, even after controlling for cell count and library
 size differences (Supplementary Figure 5). Among cycling genes common to both conditions,
 amplitudes were generally decreased (Figure 4a) and acrophases were
@@ -586,7 +584,7 @@ shown.
 At 8 weeks of age, \textit{Bmal1} was inducibly deleted in
 \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice by administering tamoxifen via oral
 gavage (100 mg/kg of body weight) for 5 days. Confirmation of \textit{Bmal1} protein expression loss
-was confirmed via Western blot (Supplementary Figure 12).
+was confirmed via Western blot (Supplementary Figure 7).
 
 \subsection*{Aligned and acute misalignment conditions in C57BL/6J mice}
 
@@ -880,8 +878,8 @@ waveform and visualized as heatmaps.
 Comparisons of the number of cycling genes between conditions can be confounded by differences in
 cell counts and sequencing depth, both of which affect statistical power to detect rhythmicity. To
 ensure fair comparisons, we applied a uniform downsampling procedure across three types of contrasts:
-male versus female (Figure 3b), aligned versus misaligned (Supplementary Figures 5 and 8), and
-wild-type versus inducible \textit{Bmal1} knockout (Supplementary Figure 19).
+male versus female (Figure 3b), aligned versus misaligned (Supplementary Figure 5), and
+wild-type versus inducible \textit{Bmal1} knockout (Supplementary Figure 8).
 
 For each contrast, we identified the minimum number of cells at each time point across the conditions
 being compared within each cell type. Cells were then randomly sampled (with replacement) to this
@@ -894,261 +892,6 @@ non-parametric temporal regression and hypothesis testing pipeline was then reru
 each condition, and cycler counts were compared across a range of $\log_{10}$ circadian Bayes factor
 thresholds.
 
-%-----------------------------------------------------------------------
-% SUPPLEMENTARY RESULTS
-%-----------------------------------------------------------------------
-\section*{Supplementary Results}
-
-\subsection*{\textit{Bmal1} knockout effects on the male aorta circadian transcriptome}
-
-As anticipated, male \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice showed decreased
-rhythmic circadian transcription compared to C57BL/6J mice. Whereas hundreds of genes show strong
-circadian cycling in male C57BL/6J aortic cell types, only tens of such cyclers were detected in
-\textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice (Supplementary Figure
-13a). This reduction persisted after downsampling to matched cell counts and sequencing depth
-(Supplementary Figure 19). Genes cycling in either condition show substantially reduced amplitudes in
-\textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice (Supplementary Figure
-13b). Moreover, as expected, core clock gene expression waveforms are nearly flat
-(Supplementary Figure 13c).
-
-Several aspects suggested inducible \textit{Bmal1} KO affected genes implicated in synthetic
-phenotypes in SMCs. The master contractile regulator \textit{Myocd} was downregulated at ZT6, while
-contractile genes \textit{Myh11, Tpm1}, and \textit{Smtn} were downregulated at all time points
-(Supplementary Figure 14a). This was echoed by an enrichment for genes involved in smooth
-muscle cell contraction among genes with decreased circadian mesors. \textit{Klf4}, whose activity
-has been documented to promote SMC phenotypic switching and repress myocardin-dependent contractile
-expression~\cite{ref39}, was upregulated at all time points but ZT6, the effects of which were more
-modest in the descending thoracic aorta. Genes involved in apoptosis, p53 signaling, and
-proteoglycans in cancer were enriched for increased mesor. Several factors in the TGF-$\beta$
-pathway activation were perturbed, with \textit{Tgfbr1} downregulated at all time points,
-\textit{Tgfbr2} downregulated at ZT12 (Supplementary Figure 14b), and genes with Smad4
-promoter motifs enriched for downregulated genes, particularly at ZT12. However, effects on
-TGF-$\beta$ activation were nuanced, as inhibitors of TGF-$\beta$ signaling \textit{Smad6, Smad7,
-Smad9,} and \textit{Lefty1} were all downregulated at ZT12. Moreover, TGF-$\beta$ regulators
-\textit{Bmp4} and \textit{Bmp6} were downregulated at ZT0, while \textit{Bmp3} was down at all time
-points and lost cycling. Loss of \textit{Bmp} has previously been observed in phenotypic
-switching~\cite{ref77}. Functional assessments of alterations in TGF-$\beta$ signaling activation
-are warranted. Genes involved in focal adhesion, adherens junctions, and tight junctions were
-notably enriched among genes with downregulated mesors, suggesting SMCs may lose sources of
-mechanical stimuli (from both extracellular matrix and adjacent cells) essential for maintaining the
-contractile state~\cite{ref78,ref79}. \textit{Hk2} lost cycling and its mesor was decreased,
-indicating decreased glycolytic metabolism. Moreover, genes involved in choline metabolism were
-enriched for downregulation at ZT12, which has previously been implicated in inhibiting SMC
-phenotypic switching~\cite{ref80}.
-
-In addition to alterations in contractile, TGF-$\beta$, mechanical sensing, and metabolic
-expression, proliferation increases are common to synthetic SMC phenotypes. However, our data
-suggest inducible global \textit{Bmal1} KO may repress SMC proliferation. \textit{Wee1}, a
-clock-controlled inhibitor of the cell cycle G2 to M transition, oscillates in all cell types and
-peaks around ZT12 in Bmal1$^{+/+}$ mice. In
-\textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ male mice, \textit{Wee1} expression losses
-oscillation and is constitutively lowly expressed (Supplementary Figure 14c). In
-contrast, \textit{Cdkn1a}, a clock-controlled regulator of the cell cycle G1 arrest in response to
-DNA damage~\cite{ref81}, oscillates in all cell types and peaks around ZT0 in Bmal1$^{+/+}$ mice. In
-\textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice, \textit{Cdkn1a} expression loses
-oscillation and is constitutively highly expressed (Supplementary Figure 14c). Existing
-literature~\cite{ref82} suggests \textit{Cdkn1a} activation can inhibit S-phase DNA damage induced
-by \textit{Wee1} inhibition. As such, \textit{Cdkn1a} expression may increase in response to
-\textit{Wee1} expression loss in \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice to
-preserve DNA integrity. However, while \textit{Cdkn1a} activity is presumed to inhibit cell cycle
-progression, its effects may be context dependent. Previous groups demonstrate \textit{Cdkn1a}
-overexpression stimulates increased proliferation in SMCs and apoptosis inhibition~\cite{ref83}.
-Altogether, while \textit{Wee1} and \textit{Cdkn1a} effects suggest altered SMC proliferation after
-\textit{Bmal1} KO, the directionality is unclear and should be the subject of future investigation.
-
-Beyond effects on genes relevant to SMC phenotypic switching, inducible \textit{Bmal1} KO has a
-profound effect on sex hormone dependent gene expression. In particular, we observed several
-similarities between male \textit{Bmal1} KO SMCs and SMCs of female WT mice. Similar to female
-\textit{Bmal1} WT SMCs, \textit{Bmal1} KO SMCs downregulate \textit{Hspa1a} and \textit{Hspa1b},
-particularly at ZT0 and ZT6 (Supplementary Figure 14d). \textit{Atf3, Nr4a1,} and
-\textit{Nr4a3} were all downregulated at ZT6 and cycled strongly in male KO SMCs relative to WT.
-Previous observations made in mouse liver suggest conventional global \textit{Bmal1} KO leads to
-``feminized'' expression and increased estrogen receptor activity~\cite{ref84}. Our data also
-reflect this finding. While moderately expressed in the descending aorta and lowly expressed in the
-ascending aorta with flat expression in WT mice, \textit{Esr1} is highly upregulated at all time
-points after inducible \textit{Bmal1} KO (though notably more highly expressed in the descending
-aorta). This suggests clock mechanisms may repress its expression and may mediate the
-cardioprotective effects observed by \textit{Yang et al.}~\cite{ref85}.
-
-We observed large alterations in the expression of matrix metalloproteases and metalloprotease
-inhibitors in SMCs. \textit{Mmp14} was increased at ZT12/18 in the ascending aorta/arch, while
-\textit{Mmp2} was increased at all time points in all regions of the aorta. While this may suggest
-increased rates of extracellular matrix degradation, \textit{Timp4}, an inhibitor of metalloprotease
-activity, was strongly upregulated at all time points, particularly in the ascending aorta/arch.
-
-Several effects were common to multiple cell types. In particular, decreases in focal adhesion were
-common to SMCs, fibroblasts, and ECs, suggesting clock function in the endogenous vascular cell
-types may be essential for proper mechanical sensing of extracellular matrix. Aldosterone synthesis
-was downregulated in SMCs and fibroblasts. Complement activation was upregulated in SMCs and
-fibroblasts, which has been suggested to be atherogenic~\cite{ref87,ref88}. \textit{C3, C1s1,} and
-\textit{C4b} were upregulated at all time points in fibroblasts (Supplementary Figure
-14e), while \textit{C1s1} and \textit{C4b} were upregulated at all time points in SMCs. \textit{C3}
-notably gained cycling, with increased expression at ZT6 and decreased expression at ZT18, relative
-to WT SMCs. This gain of SMC \textit{C3} cycling may be due to gain of cycling in \textit{Atf3},
-which has been previously described to inhibit \textit{C3} transcription and cycles in antiphase in
-KO SMCs~\cite{ref59}.
-
-Our results suggest \textit{Bmal1} KO may affect macrophage recruitment. While myeloid cells are
-rhythmically recruited to the vasculature via \textit{Ccl2-Ccr2} signaling~\cite{ref4}, with
-\textit{Ccr2} macrophage expression peaking at ZT0 in C57BL/6J mice, rhythmic expression of
-\textit{Ccr2} was delayed nearly 12 hours and its mesor was modestly increased in
-\textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ macrophages (Supplementary
-Figure 8f). Moreover, rhythmic signaling via the \textit{Cx3cl1-Cx3cr1}
-axis~\cite{ref89,ref90,ref91} appeared disrupted. \textit{Cx3cl1} and \textit{Cx3cr1} expression
-cycled and peaked around ZT0 in WT ECs and macrophages, respectively (Supplementary
-Figures 8f and 8g). After \textit{Bmal1} KO, both genes were flat and constitutively highly
-expressed. Altogether, this suggests loss of \textit{Bmal1} expression may drive chronic macrophage
-recruitment to the aorta.
-
-\textit{Bmal1} KO may promote a more proinflammatory environment. In ECs, expression of the
-anti-inflammatory signaling gene \textit{Cxcl12} was greatly decreased at ZT0, and expression of
-pro-inflammatory signaling gene \textit{Cd74} was increased at ZT12. In macrophages, expression of
-pro-inflammatory genes \textit{Cd72} and \textit{Il1b} were greatly increased at ZT18, while
-expression of anti-inflammatory genes \textit{Cd200} and \textit{Ccl24} was greatly decreased. While
-\textit{Mmp9} cycles strongly in WT male macrophages, peaking at ZT6, it is constitutively highly
-expressed after \textit{Bmal1} KO, suggesting KO macrophages degrade extracellular matrix and
-promote angiogenesis. This is likely due to the loss of \textit{Nr1d1} expression~\cite{ref92}.
-Genes increasing in mesor in macrophages were further enriched for positive regulation of
-NF$\kappa$b activity. Altogether, these results suggest that the \textit{Bmal1} KO in male mice may
-bias macrophages to express genes associated with a proinflammatory state, as has been previously
-described~\cite{ref92}.
-
-\subsection*{Effect of sex on \textit{Bmal1} knockout effect}
-
-KO effects in cell types are strongly concordant between male and female cell types
-(Supplementary Figure 15). In both sexes, the number of cell-type-specific confident
-circadian cyclers was decreased, a finding that persisted after controlling for cell counts and
-sequencing depth (Supplementary Figure 19). However, females retained higher numbers of rhythmic
-gene sets (Supplementary Figure 16a).
-
-Among unique confident cyclers in female SMCs, dusk cyclers were enriched for TNF-$\alpha$ signaling
-and inhibition of MAPK signaling, while dawn cyclers were enriched for ECM organization and Pi3k-Akt
-signaling. Moreover, estrogen signaling genes were enriched at dusk, particularly in SMCs of the
-ascending aorta/aortic arch. Similar to its expression in male SMCs, \textit{Esr1}'s mesor greatly
-increases in female SMCs after \textit{Bmal1} KO. Unlike in males, \textit{Esr1} cycles strongly in
-female SMCs, peaking at ZT15 (Supplementary Figure 17a). Several other components of the
-estrogen signaling pathway uniquely cycled in female KOs, such as \textit{Hsp90aa1, Fkbp5, Hbegf,
-Atf4}, peaking at dusk. Among estrogen signaling cycling genes induced by KO were \textit{Jun} and
-\textit{Fos}, which gained expression at ZT12, specifically in the ascending aorta/aortic arch of
-female SMCs. This suggests increased \textit{Ap1} transcription factor activity at ZT12, which has
-been implicated in SMC proliferation and neointimal formation~\cite{ref93,ref94,ref95}.
-Interestingly, \textit{Bmal1} KO in female SMCs induces an acrophase shift of \textit{Atf3} to ZT12.
-As \textit{Atf3} may antagonize \textit{Ap1} activity~\cite{ref96}, this may reflect a compensatory
-effect to buffer against changes in \textit{Ap1} activity after KO.
-
-One of the most striking sex differences in \textit{Bmal1} WT SMCs was in the expression of
-\textit{Hspa1a} and \textit{Hspa1b} (Supplementary Figure 17a). Both were among the
-strongest cyclers in female SMCs, peaking around ZT21, with considerably lower expression in females
-at ZT12. However, after \textit{Bmal1} KO, \textit{Hspa1a} and \textit{Hspa1b} appeared similar
-between the sexes, cycling in both sexes with an acrophase around ZT15 and modestly lower expression
-in females during the light phase. Previous reports suggest \textit{Bmal1} KO leads to ``feminized''
-circadian expression liver, and that these effects are likely due to loss of central
-oscillators~\cite{ref84}. Our data suggest expression of WT confident cyclers in SMCs becomes more
-similar between sexes after KO (Supplementary Figures 17b and 17c). This suggests that
-sex-specific expression may be mediated, in large part, through expression of circadian cycling
-genes.
-
-Several aspects suggest female SMCs may proliferate less than male SMCs after \textit{Bmal1} KO.
-\textit{Mcm6}, a mini-chromosome maintenance protein required for replication, cycles in female WT
-SMCs, with an acrophase around ZT15. In female SMCs, \textit{Mcm6} expression is downregulated at
-all time points, an effect not observed in males (Supplementary Figure 17a).
-\textit{Plat}, a plasminogen activator that has previously been shown to be a mitogen for
-SMCs~\cite{ref97}, loses expression uniquely in females at ZT12 and ZT18 (Supplementary
-Figure 11a). This effect is more pronounced in SMCs of the ascending aorta/aortic arch. Similarly,
-\textit{Apoe,} which can inhibit SMC proliferation by activating inducible nitric oxide
-synthase~\cite{ref98}, gains expression more strongly in females at ZT12 and ZT18 than in males
-(Supplementary Figure 17a), which is particularly pronounced in the ascending
-aorta/aortic arch. This same trend was observed for \textit{Errfi1}, which inhibits neointimal
-formation~\cite{ref99}. Nonetheless, \textit{Rgs5}, which inhibits SMC
-proliferation~\cite{ref31,ref100,ref101} by antagonizing G-coupled protein receptor signaling,
-demonstrates decreased expression at ZT6 in the ascending aorta/aortic arch and at all time points
-in the descending thoracic aorta. In the absence of G-coupled protein receptor signaling, the net
-effect may still be an inhibition of SMC proliferation in female KO SMCs. Nonetheless, understanding
-how these effects on key proliferation genes ultimately affects proliferation will require
-experimental follow up.
-
-Female SMCs may also be less likely to migrate after \textit{Bmal1} KO. \textit{Serpine1} (a.k.a.\
-\textit{Pai1}), which can stimulate SMC migration and neointimal formation~\cite{ref102}, is
-downregulated at ZT0 in the ascending aorta/aortic arch of females relative to their male KO
-counterparts (Supplementary Figure 18a); \textit{Ace}, an angiotensin converting enzyme
-promoting SMC migration~\cite{ref103}, is only downregulated in female SMCs of the aortic
-arch/ascending aorta at ZT12/18 (Supplementary Figure 18a). Female SMCs may also be more
-predisposed to oxidative stress after KO. \textit{Nupr1}, a key gene in antioxidant
-activity~\cite{ref104}, is specifically downregulated in female SMCs of the aortic arch/ascending
-aorta at ZT12/18.
-
-While globally upregulated in male SMCs after \textit{Bmal1} KO, \textit{Cdkn1a} expression was not
-altered by \textit{Bmal1} KO in male macrophages. However, macrophage \textit{Cdkn1a} expression was
-strongly downregulated at ZT6 in female macrophages, suggesting an increased likelihood to progress
-through the cell cycle at these time points (Supplementary Figure 18b). Several KO
-effects observed in male macrophages, were shared by females, such as an increased mesor for
-\textit{Cd72} and \textit{Il1b}. However, both genes displayed acrophase shifts. Similarly,
-\textit{Ccr2} peaked around ZT15 in male macrophages after \textit{Bmal1} KO, while \textit{Ccr2}
-peaks around ZT20 in female macrophages, suggesting sex dependent differences in myeloid recruitment
-after clock KO (Supplementary Figure 18b). Genes with mesor decreases in female KO
-relative male KO macrophages were enriched for lipopolysaccharide response genes and cellular
-response to cytokine stimulus, such as \textit{Zfp36, Ccl3, Tnfaip3, Ccl2, Cd14, Tnf}, and
-\textit{Ccl4}, with lower expression in females KO macrophages around ZT6--ZT12. Moreover, genes
-downregulated at ZT6 in female KO macrophages relative to male KO macrophages were enriched for
-NF-$\kappa$B signaling. Altogether, these results support that \textit{Bmal1} KO biases female
-macrophages toward an anti-inflammatory phenotype.
-
-\subsection*{Sex effects on misalignment}
-
-Similar to the observations made in the aligned mice, after acute misalignment, females had more
-confident cycling genes (Supplementary Figure 7a). This finding held after adjusting
-for discrepancies in cell counts and library sizes (Supplementary Figures 5 and 8).
-Confident cycling genes common to both males and females demonstrate larger amplitudes
-(Supplementary Figure 7b). We next evaluated whether female C57BL/6J cell types more
-quickly entrain to their new LD cycle. To inspect this, we restricted our analysis to confident
-cycling genes common to the male aligned, male misaligned, female aligned, and female misaligned
-conditions within SMC subtypes and fibroblasts. For each gene in each sex and cell type, we computed
-the posterior distribution of the absolute value of the difference between the misaligned and
-aligned peak times (i.e.\ acrophase difference distributions). Smaller values indicate better
-entrainment (i.e.\ after misalignment, gene exhibits more similar peak time to the aligned peak
-time). We then asked if we sampled from both the male and female acrophase difference distributions,
-what fraction of the time would the samples be smaller in females. Females demonstrated a
-consistent, albeit modest, improvement in cell type entrainment (Supplementary Figure
-9) for the SMC subtypes and fibroblasts.
-
-After acute misalignment with the LD cycle, female SMCs demonstrate transcriptomic changes similar
-to male SMCs, regardless of expression differences in the aligned condition. For example,
-\textit{Uba52} and \textit{Mcm6} cycle in aligned female SMCs and weak cycling in male SMCs, with
-downregulated expression in aligned female SMCs at ZT6 relative to male SMCs. However, after
-misalignment, \textit{Uba52} and \textit{Mcm6} lose cycling and gain mesor, with expression at
-similar levels in male and female SMCs.
-
-Several factors implicated in SMC phenotypic switching are altered specifically in female SMCs after
-acute misalignment. \textit{Id1} and \textit{Id3} expression is lost at ZT12 in all aortic regions
-in female SMCs, with minimal expression changes in male SMCs (Supplementary Figure 10a).
-In SMCs, \textit{Id1} and \textit{Id3} are induced by mitogens, regulate SMC proliferation, and may
-inhibit differentiation~\cite{ref118,ref119,ref120}, suggesting their female-specific perturbation
-after misalignment may affect synthetic aspects of SMC function. In alignment \textit{Ccn2} -- which
-upregulates \textit{Tgfbr2}~\cite{ref121}, regulates adhesion, and mediates heparin
-signaling~\cite{ref122}, which inhibits SMC proliferation~\cite{ref53} -- cycles strongly, peaking
-around ZT21 in male and female SMCs. After misalignment, \textit{Ccn2} loses cycling more strongly
-in female SMCs, with considerably less expression in misaligned female SMCs relative to aligned
-female SMCs at ZT18, particularly in the ascending aorta/aortic arch (Supplementary
-Figure 16b).
-
-Several aspects of our data suggest endothelial barrier function is decreased in males, but not
-females, after acute misalignment with the LD cycle. \textit{Egr3}, which is induced after VEGF
-signaling~\cite{ref123,ref124}, is downregulated at ZT0/18 in female misaligned ECs relative to male
-misaligned ECs (Supplementary Figure 11a). \textit{Nrarp}, which is implicated in
-angiogenesis~\cite{ref125}, was down at ZT6 in misaligned females relative to misaligned males
-(Supplementary Figure 11a). \textit{Fabp4}, inhibition of which decreases \textit{VEGF}
-signaling and angiogenesis~\cite{ref126,ref127}, was downregulated at ZT0 in misaligned females
-relative to misaligned males (Supplementary Figure 11a). Altogether, this suggests males
-may have decreased endothelial barrier after acute misalignment.
-
-After misalignment, female macrophages lose \textit{Dusp2} expression at ZT6/12, a downstream target
-of NF-$\kappa$b~\cite{ref128} and the loss of which has been shown to reduce macrophage secretion of
-proinflammatory mediators~\cite{ref129}. After misalignment, \textit{Hbegf} expression is lost only
-in female macrophages. \textit{Hbegf} activity has previously been implicated in promoting
-macrophage-driven angiogenesis~\cite{ref130,ref131} and macrophage-driven SMC
-proliferation~\cite{ref132}. Moreover, after misalignment, \textit{S100a6} expression is only gained
-in female macrophages at ZT0. Previous observations suggest \textit{S100a6} activates RAGE
-signaling~\cite{ref133}, which may drive an increase in female macrophage apoptosis at ZT0.
 
 %-----------------------------------------------------------------------
 % SUPPLEMENTARY METHODS 1
@@ -1597,80 +1340,14 @@ code GSEXXXX.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_16.pdf}
+\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_12_supp.pdf}
 \caption*{\textbf{Supplementary Figure 7}}
 \end{figure}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{supp_fig_6_female_aligned_vs_misaligned_rhythmicity.pdf}
-\caption*{\textbf{Supplementary Figure 8}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{supp_fig_7_sex_differences_in_entrainment_speed.pdf}
-\caption*{\textbf{Supplementary Figure 9}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_17.pdf}
-\caption*{\textbf{Supplementary Figure 10}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_18.pdf}
-\caption*{\textbf{Supplementary Figure 11}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.8\textwidth,height=0.9\textheight,keepaspectratio]{supp_fig_8_bmal1_ko_western_blot.pdf}
-\caption*{\textbf{Supplementary Figure 12}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_7.pdf}
-\caption*{\textbf{Supplementary Figure 13}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_8.pdf}
-\caption*{\textbf{Supplementary Figure 14}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{supp_fig_4_concordance_between_KO_effects.pdf}
-\caption*{\textbf{Supplementary Figure 15}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_9.pdf}
-\caption*{\textbf{Supplementary Figure 16}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_10.pdf}
-\caption*{\textbf{Supplementary Figure 17}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_11.pdf}
-\caption*{\textbf{Supplementary Figure 18}}
-\end{figure}
-
-\begin{figure}[H]
-\centering
 \includegraphics[width=\textwidth,height=0.9\textheight,keepaspectratio]{fig_19_supp.pdf}
-\caption*{\textbf{Supplementary Figure 19}}
+\caption*{\textbf{Supplementary Figure 8}}
 \end{figure}
 
 % SUPPLEMENTARY FIGURE LEGENDS
@@ -1733,114 +1410,13 @@ a significantly enriched gene set.
 
 \bigskip
 
-\textbf{Supplementary Figure 7: General characteristics of the sex and misalignment effect on
-cycling expression.}
-\textbf{a)} Number of confident circadian cycling genes in major cell types of aorta from male and
-female misaligned mice.
-\textbf{b)} Distribution of the gene fraction of posterior amplitude samples being larger in female
-misaligned cell types relative to male misaligned cell types, considering the union of confident
-cycling genes.
+\textbf{Supplementary Figure 7: Validation of inducible \textit{Bmal1} deletion.}
+\textbf{a)} Western blots of Bmal1 protein product from aorta across all conditions collected in the study.
+\textbf{b)} Posterior $\log_{10}$ proportion estimates for core circadian clock genes (Arntl, Nfil3, Dbp, Nr1d2) at each sampled time point and in each major cell type of the male \textit{Bmal1} knockout mice, showing loss of rhythmic expression.
 
 \bigskip
 
-\textbf{Supplementary Figure 8: Comparison of female aligned vs.\ female misaligned cell type
-rhythmicity.} Within each cell type and time point, the number of cells and pseudobulk UMIs were
-downsampled to match between female aligned and misaligned mice. The number of called cyclers across
-$\log_{10}$ circadian Bayes factor thresholds for major cell types and SMC subtypes.
-
-\bigskip
-
-\textbf{Supplementary Figure 9: Male vs.\ female entrainment speed of major aortic cell types
-after acute misalignment.} For each cell type, posterior distributions of the acrophase delay after
-misalignment were computed for the male and female genes. The distribution of the fraction of
-posterior samples that were smaller in females was visualized for \textbf{a)} SMCs and fibroblasts,
-and \textbf{b)} SMC subtypes.
-
-\bigskip
-
-\textbf{Supplementary Figure 10: Acute misalignment and sex effects on SMC phenotypic switching
-genes.}
-\textbf{a)} Posterior circadian waveforms of \textit{Id1} and \textit{Id3} in male and female SMCs,
-comparing aligned and misaligned conditions.
-\textbf{b)} Posterior circadian waveforms of \textit{Ccn2} in male and female SMCs, comparing
-aligned and misaligned conditions.
-
-\bigskip
-
-\textbf{Supplementary Figure 11: Acute misalignment and sex effects on endothelial and macrophage
-gene expression.}
-\textbf{a)} Posterior circadian waveforms of key EC genes (\textit{Egr3}, \textit{Nrarp},
-\textit{Fabp4}) in male and female ECs, comparing aligned and misaligned conditions.
-\textbf{b)} Posterior circadian waveforms of key macrophage genes (\textit{Hbegf}, \textit{Dusp2},
-\textit{S100a6}) in male and female macrophages, comparing aligned and misaligned conditions.
-
-\bigskip
-
-\textbf{Supplementary Figure 12: Western blots of Bmal1 protein.} Western blots of Bmal1 protein
-product from aorta across all conditions collected in the study.
-
-\bigskip
-
-\textbf{Supplementary Figure 13: General characteristics of the effect of inducible Bmal1 deletion
-on cycling expression in males.}
-\textbf{a)} Number of confident circadian cycling genes in major cell types of aorta from male
-Bmal1 wild type and knockout mice.
-\textbf{b)} Distribution of the gene fraction of posterior amplitude samples being larger in male
-Bmal1 knockout cell types relative to wild type, considering the union of confident cycling genes.
-\textbf{c)} Posterior $\log_{10}$ proportion estimates for core circadian clock genes at each sampled
-time point and in each major cell type of the Bmal1 knockout mice.
-
-\bigskip
-
-\textbf{Supplementary Figure 14: Bmal1 knockout effects on individual gene expression waveforms in
-male mice.} Posterior circadian waveforms in SMCs for \textbf{a)} genes involved in contractile
-expression, \textbf{b)} TGF-$\beta$ signaling, \textbf{c)} cell cycle entry, and \textbf{d)} stress
-response. \textbf{e)} Posterior circadian waveforms in fibroblasts for complement system genes.
-\textbf{f)} Posterior circadian waveforms in macrophages for receptors involved in vascular
-recruitment. \textbf{g)} Posterior circadian waveforms in ECs for ligands involved in vascular
-recruitment.
-
-\bigskip
-
-\textbf{Supplementary Figure 15: Concordance of Bmal1 knockout effect in males and females.} Left:
-the posterior Bmal1 KO effect on each gene at each time point in males vs.\ females. Center: the
-posterior Bmal1 KO effect on each gene's mesor in males vs.\ females. Right: the expected cosine
-similarity between the male and female effects at each time point.
-
-\bigskip
-
-\textbf{Supplementary Figure 16: General characteristics of the sex and inducible Bmal1 deletion
-effect on cycling expression.}
-\textbf{a)} Number of confident circadian cycling genes in major cell types of aorta from male and
-female Bmal1 knockout mice.
-\textbf{b)} Distribution of the gene fraction of posterior amplitude samples being larger in female
-Bmal1 knockout cell types relative to male.
-\textbf{c)} Comparison of $\log_{10}$ circadian Bayes factors between male and female major cell
-types after Bmal1 knockout.
-
-\bigskip
-
-\textbf{Supplementary Figure 17: Sex and Bmal1 knockout effects on individual gene expression
-waveforms in SMCs.}
-\textbf{a)} Posterior circadian waveforms in SMCs for representative genes with sex-dependent Bmal1
-knockout effects.
-\textbf{b)} Assessing similarity between confident cycling gene expression in males and females, in
-the Bmal1 WT and KO SMCs.
-\textbf{c)} The fraction of confident cycling genes with more similar likelihood between the sexes in
-the KO conditions over the WT conditions, at various $\log_{10}$ Bayes factor thresholds.
-
-\bigskip
-
-\textbf{Supplementary Figure 18: Sex and Bmal1 knockout effects on individual gene expression
-waveforms in SMCs of the ascending aorta/aortic arch and macrophages.}
-\textbf{a)} Posterior circadian waveforms in SMCs of the ascending aorta/aortic arch for
-representative genes with sex-dependent Bmal1 knockout effects.
-\textbf{b)} Posterior circadian waveforms in macrophages for representative genes with sex-dependent
-Bmal1 knockout effects.
-
-\bigskip
-
-\textbf{Supplementary Figure 19: Bmal1 knockout cycling controlled for cell counts and library
+\textbf{Supplementary Figure 8: \textit{Bmal1} knockout cycling controlled for cell counts and library
 sizes.}
 Within each cell type and time point, cells and pseudobulk UMI counts were downsampled to match
 between aligned wild-type and aligned inducible \textit{Bmal1} knockout mice.
@@ -1848,5 +1424,6 @@ between aligned wild-type and aligned inducible \textit{Bmal1} knockout mice.
 (left) and fibroblasts (right) in males.
 \textbf{b)} Same as (a) for females. Blue: aligned wild-type; red: aligned inducible knockout;
 dashed purple: shared cyclers between conditions.
+\textbf{c)} Cross-sex log-likelihood scatter for all detected SMC genes. For each gene, the similarity between female and male expression was computed in wild-type (x-axis) and knockout (y-axis) conditions by sampling from posterior waveforms and normalizing by the male knockout effect confidence interval. Points above $y = x$ indicate more similar expression between sexes after knockout. Genes are colored by whether they are confident WT cyclers (red, log$_{10}$ BF $\geq$ 10) or non-cyclers (grey), with separate best-fit lines for each group.
 
 \end{document}
