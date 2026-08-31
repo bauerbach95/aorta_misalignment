@@ -97,7 +97,7 @@ phase advance) light-dark cycles in both male and female mice. Leveraging Bayesi
 inference, we estimated posterior waveforms for 141,752 cells across four major cell types and
 identified hundreds of cycling genes in vascular smooth muscle cells (SMCs) and
 fibroblasts. Pathway and transcription factor enrichment analyses revealed coordinated circadian
-activity in cholesterol biosynthesis, muscle contraction, and extracellular matrix organization.
+activity in cholesterol biosynthesis, smooth muscle contraction, and extracellular matrix organization.
 Notably, SMC genes implicated in phenotypic switching showed coordinated temporal patterns, with
 genes promoting switching peaking at dusk and genes restraining switching peaking at dawn. Comparing
 males and females, we found that female SMCs are broadly more rhythmic, with higher amplitudes and
@@ -109,7 +109,9 @@ timeframe, these observations suggest internal misalignment between central and 
 Moreover, altered relative timing of core clock genes within cells indicates that misalignment is
 created at the intracellular level as well. In SMCs, gene expression patterns were consistent with
 proteostatic stress, including broad downregulation of protein chaperones and stress-response genes,
-which cells appear to cope with by upregulating protein degradation pathways. This atlas provides a
+which cells appear to cope with by upregulating protein degradation pathways. 
+In parallel, \textit{in vivo} vascular phenotyping showed increased vascular permeability in both sexes, reduced urinary nitrate in males, and increased microvascular thrombus formation in males following acute misalignment.
+This atlas provides a
 resource for understanding how circadian misalignment disrupts vascular homeostasis and may
 contribute to cardiovascular disease risk.
 
@@ -174,7 +176,7 @@ were dissociated into single-cell suspensions and profiled using the 10X Genomic
 In total, we generated 152,473 cells. After quality control for library size (minimum 1000 UMIs),
 mitochondrial UMI fraction (maximum 0.2), and doublet removal using Scrublet~\cite{ref25}, 141,752
 high-quality cells remained. To obtain a low-dimensional embedding, 1150 highly variable genes were
-detected (Methods) and used as input to scVI~\cite{ref26}, with library size, \textit{Bmal1}
+detected (Methods) and used as input to scVI~\cite{ref26}, with library size, \textit{1}
 knockout status, misalignment status, batch, sex, and time as covariates. Cells were clustered using
 the Leiden algorithm~\cite{ref27} with resolution 0.05, yielding 5 main clusters: 115,460 vascular
 smooth muscle cells (SMCs), 19,759 fibroblasts, 3,935 endothelial cells (ECs), 2,917 macrophages,
@@ -200,7 +202,7 @@ acrophases of SMC cycling genes aligned well with their peak times from bulk aor
 circadian clock genes demonstrated strong rhythms across all major cell types
 (Supplementary Figure 1c) and SMC subtypes (Supplementary Figure 1d). The
 acrophase distribution of cycling genes appeared bimodal, with peaks at dawn and dusk
-(Supplementary Figure 1b). Data from \textit{Bmal1} deletion mice (Supplementary Figure 7) revealed virtually no
+(Supplementary Figure 1b). Data from \textit{1} deletion mice (Supplementary Figure 7) revealed virtually no
 cycling genes beyond those driven by the core clock (Supplementary Figure 8), suggesting the vast majority of detected
 cycling in wild-type mice reflects clock-controlled transcription. Altogether, these analyses
 provided confidence in both our data quality and our approach to calling cycling genes and
@@ -212,7 +214,7 @@ To identify genes with robust daily cycling shared between sexes, we intersected
 cycling gene lists within each cell type, requiring acrophases to be within 3 hours. This yielded
 416 shared daily cyclers in SMCs, 117 in fibroblasts, 21 in ECs, and 5 in macrophages
 (Figure 2a). The vast majority of these cyclers appear to be regulated directly or indirectly by the
-molecular clock, as inducible \textit{Bmal1} deletion dramatically reduced the number of cycling
+molecular clock, as inducible \textit{1} deletion dramatically reduced the number of cycling
 genes in both SMCs and fibroblasts (Supplementary Figure 8a,b).
 
 To identify pathways enriched among daily cyclers, we performed Reactome pathway enrichment
@@ -254,7 +256,7 @@ nearly twice as many cycling genes as males across Bayes factor thresholds, whil
 comparable numbers between sexes (Figure 3b). These results suggest sex-dependent
 rhythmicity is cell-type-specific. Macrophages additionally demonstrated stronger female
 rhythmicity, though this result should be interpreted cautiously given the low cell count. Notably,
-females retained more cycling genes than males even after inducible \textit{Bmal1} deletion
+females retained more cycling genes than males even after inducible \textit{1} deletion
 (Supplementary Figure 8a,b). Moreover, among wild-type cyclers in SMCs, expression became
 more similar between sexes after knockout, suggesting that a substantial portion of sex-specific
 cycling expression is mediated through the circadian clock (Supplementary Figure 8c).
