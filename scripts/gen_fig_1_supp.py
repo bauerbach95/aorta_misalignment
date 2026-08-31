@@ -13,6 +13,7 @@ Output:
 """
 
 import os
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -149,7 +150,7 @@ fig.patch.set_facecolor("white")
 # Row 3: panel c (SMC subtype violins)
 gs_outer = GridSpec(
     3, 1, figure=fig, hspace=0.28,
-    height_ratios=[1.0, n_major, n_smc],
+    height_ratios=[1.0, n_major * 0.8, n_smc * 0.8],
     left=0.10, right=0.96, top=0.97, bottom=0.03,
 )
 
@@ -178,7 +179,7 @@ ax_scatter.text(0.05, 0.95, f"n = {len(inter_genes)}", transform=ax_scatter.tran
 ax_scatter.tick_params(labelsize=6)
 sns.despine(ax=ax_scatter)
 ax_scatter.set_aspect("equal")
-ax_scatter.text(-0.30, 1.10, "a", transform=ax_scatter.transAxes,
+ax_scatter.text(-0.30, 1.40, "a", transform=ax_scatter.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
 # Panel d: acrophase histograms (on same row as scatter)
@@ -203,7 +204,7 @@ for i, cell_type in enumerate(cell_types_for_hist):
     sns.despine(ax=ax)
     ax.tick_params(axis="y", labelsize=6)
     if i == 0:
-        ax.text(-0.25, 1.10, "b", transform=ax.transAxes,
+        ax.text(-0.25, 1.22, "b", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
 # ── Helper: draw violin grid ─────────────────────────────────────────────
