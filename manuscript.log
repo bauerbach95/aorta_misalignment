@@ -449,12 +449,12 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 
 ) [1
 
-] [2] [1] [2]
+] [2]
 
 LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 153.
+(Font)              using `TU/ptm/m/n' instead on input line 113.
 
-[3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15]
+[1] [2] [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15]
 File: figures/fig_1.pdf Graphic file (type pdf)
 <use figures/fig_1.pdf>
 File: figures/fig_2.pdf Graphic file (type pdf)
@@ -467,11 +467,11 @@ File: figures/fig_3.pdf Graphic file (type pdf)
  [17]
 File: figures/fig_4.pdf Graphic file (type pdf)
 <use figures/fig_4.pdf>
- [18]
+
+[18]
 File: figures/fig_5.pdf Graphic file (type pdf)
 <use figures/fig_5.pdf>
-
-[19] [20] [21
+ [19] [20] [21
 
 ] [22]
 
@@ -568,4 +568,4 @@ LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1488.
  )
-Output written on manuscript.xdv (69 pages, 1006132 bytes).
+Output written on manuscript.xdv (69 pages, 1008248 bytes).

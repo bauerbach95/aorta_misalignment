@@ -142,8 +142,8 @@ poorly understood.
 In humans, biomarkers of cardiovascular risk differ between males and females. These include
 arterial stiffness~\cite{ref14}, lipid profiles~\cite{ref15,ref16}, blood pressure~\cite{ref17}, 
 and immune phenotypes~\cite{ref18}. The presentation of vascular disease also differs between 
-sexes,such as differences in atherosclerotic plaque size, composition, 
-and stability~\cite{ref19,ref20}.Existing literature suggests females may exhibit 
+sexes, such as differences in atherosclerotic plaque size, composition, 
+and stability~\cite{ref19,ref20}. Existing literature suggests females may exhibit 
 more robust circadian characteristics than males and their clocks appear more resilient 
 to disruption~\cite{ref21}. Considering this, and given the clock's influence over key 
 vascular disease risk factors~\cite{ref22,ref23,ref24}, characterizing how the sexes differ 
@@ -165,7 +165,7 @@ First, to assess the contributions of sex and cell type on circadian expression 
 with the light-dark (LD) cycle, whole aorta samples were collected from 12-week-old male and female
 C57BL/6 mice entrained to a 12:12 LD cycle for 2 weeks. Mice were sacrificed at Zeitgeber time (ZT)
 0, 6, 12, or 18 hours, and whole aorta samples were harvested (Figure 1b). We
-additionally collected data from inducible \textit{Bmal1} global deletion models (Methods). To assess the response to circadian
+additionally collected data from inducible \textit{Bmal1} global deletion models (Methods). To assess the response to acute circadian
 misalignment, 12-week-old male and female C57BL/6 mice were entrained to a 12:12 LD cycle for 2
 weeks, after which the start of the LD cycle was advanced 6 hours (Figure 1c). Mice were
 sacrificed 5 days after the phase advance at ZT 0, 6, 12, or 18 hours. For all conditions, cells
@@ -174,7 +174,7 @@ were dissociated into single-cell suspensions and profiled using the 10X Genomic
 In total, we generated 152,473 cells. After quality control for library size (minimum 1000 UMIs),
 mitochondrial UMI fraction (maximum 0.2), and doublet removal using Scrublet~\cite{ref25}, 141,752
 high-quality cells remained. To obtain a low-dimensional embedding, 1150 highly variable genes were
-detected (Methods) and used as input to scVI~\cite{ref26}, with library size, \textit{1}
+detected (Methods) and used as input to scVI~\cite{ref26}, with library size, \textit{Bmal1}
 knockout status, misalignment status, batch, sex, and time as covariates. Cells were clustered using
 the Leiden algorithm~\cite{ref27} with resolution 0.05, yielding 5 main clusters: 115,460 vascular
 smooth muscle cells (SMCs), 19,759 fibroblasts, 3,935 endothelial cells (ECs), 2,917 macrophages,
@@ -200,9 +200,9 @@ acrophases of SMC cycling genes aligned well with their peak times from bulk aor
 circadian clock genes demonstrated strong rhythms across all major cell types
 (Supplementary Figure 1c) and SMC subtypes (Supplementary Figure 1d). The
 acrophase distribution of cycling genes appeared bimodal, with peaks at dawn and dusk
-(Supplementary Figure 1b). Data from \textit{1} deletion mice (Supplementary Figure 7) revealed virtually no
-cycling genes beyond those driven by the core clock (Supplementary Figure 8), suggesting the vast majority of detected
-cycling in wild-type mice reflects clock-controlled transcription. Altogether, these analyses
+(Supplementary Figure 1b). Data from inducible \textit{Bmal1} deletion mice (Supplementary Figure 7) revealed very few
+cycling genes (Supplementary Figure 8), suggesting the vast majority of detected
+cycling in wild-type mice reflects regulation by the clock, either directly or indirectly. Altogether, these analyses
 provided confidence in both our data quality and our approach to calling cycling genes and
 estimating their parameters.
 
@@ -212,7 +212,7 @@ To identify genes with robust daily cycling shared between sexes, we intersected
 cycling gene lists within each cell type, requiring acrophases to be within 3 hours. This yielded
 416 shared daily cyclers in SMCs, 117 in fibroblasts, 21 in ECs, and 5 in macrophages
 (Figure 2a). The vast majority of these cyclers appear to be regulated directly or indirectly by the
-molecular clock, as inducible \textit{1} deletion dramatically reduced the number of cycling
+molecular clock, as inducible \textit{Bmal1} deletion dramatically reduced the number of cycling
 genes in both SMCs and fibroblasts (Supplementary Figure 8a,b).
 
 To identify pathways enriched among daily cyclers, we performed Reactome pathway enrichment
@@ -254,7 +254,7 @@ nearly twice as many cycling genes as males across Bayes factor thresholds, whil
 comparable numbers between sexes (Figure 3b). These results suggest sex-dependent
 rhythmicity is cell-type-specific. Macrophages additionally demonstrated stronger female
 rhythmicity, though this result should be interpreted cautiously given the low cell count. Notably,
-females retained more cycling genes than males even after inducible \textit{1} deletion
+females retained more cycling genes than males even after inducible \textit{Bmal1} deletion
 (Supplementary Figure 8a,b). Moreover, among wild-type cyclers in SMCs, expression became
 more similar between sexes after knockout, suggesting that a substantial portion of sex-specific
 cycling expression is mediated through the circadian clock (Supplementary Figure 8c).
