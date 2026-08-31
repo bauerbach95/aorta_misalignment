@@ -270,7 +270,7 @@ for idx, gene in enumerate(found_supp):
     ax.tick_params(axis="y", labelsize=4.5)
     if c == 0:
         ax.set_ylabel("Log10 rate", fontsize=5.5)
-    if idx < 2:
+    if idx == 0:
         ax.legend(fontsize=4, frameon=False)
     sns.despine(ax=ax)
     if idx == 0:

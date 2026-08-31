@@ -1,5 +1,5 @@
 """
-Generate Supplementary Figure 3: Reactome and GO:BP waveform enrichment (F vs M).
+Generate Supplementary Figure 4: Reactome and GO:BP waveform enrichment (F vs M).
 
 Extends Figure 3c (KEGG/TF) with additional gene set databases for the
 two-group waveform enrichment analysis (female - male) in SMC and Fibroblast.
