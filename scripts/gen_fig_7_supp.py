@@ -1,12 +1,12 @@
 """
-Generate Supplementary Figure 12: iKO validation.
+Generate Supplementary Figure 7: iKO validation.
 
 Panel a: Western blot of Bmal1 protein (from supp_fig_8_bmal1_ko_western_blot.pdf)
 Panel b: Core clock gene waveforms in male Bmal1 KO mice across 4 major cell types
 
 Output:
-  figures/fig_12_supp.pdf
-  figures/fig_12_supp_source_data/
+  figures/fig_7_supp.pdf
+  figures/fig_7_supp_source_data/
 """
 
 import os
@@ -30,7 +30,7 @@ from circadian_utils import (
 
 apply_style()
 
-SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, "fig_12_supp_source_data")
+SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, "fig_7_supp_source_data")
 os.makedirs(SOURCE_DATA_DIR, exist_ok=True)
 
 NUM_WAVEFORM_SAMPLES = 300
@@ -167,6 +167,6 @@ for row_i, cell_type in enumerate(cell_types_list):
         else:
             ax.set_yticklabels([])
 
-outpath = os.path.join(FIGURES_DIR, "fig_12_supp.pdf")
+outpath = os.path.join(FIGURES_DIR, "fig_7_supp.pdf")
 fig.savefig(outpath, bbox_inches="tight", dpi=300, facecolor="white")
 print(f"Figure saved to {outpath}")

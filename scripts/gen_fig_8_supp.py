@@ -1,5 +1,5 @@
 """
-Generate Supplementary Figure 19: Bmal1 KO cycling controlled for sequencing depth,
+Generate Supplementary Figure 8: Bmal1 KO cycling controlled for sequencing depth,
 plus sex specificity mediation by the clock.
 
 Panel a: Male WT vs iKO cycler counts across BF thresholds (SMC, Fibroblast)
@@ -9,8 +9,8 @@ Panel c: Cross-sex log-likelihood scatter — all detected genes, cyclers highli
 Uses downsampled data (matched cell counts and library sizes across all 4 conditions).
 
 Output:
-  figures/fig_19_supp.pdf
-  figures/fig_19_source_data/
+  figures/fig_8_supp.pdf
+  figures/fig_8_supp_source_data/
 """
 
 import os
@@ -53,7 +53,7 @@ CONDITIONS = {
     },
 }
 
-SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, "fig_19_source_data")
+SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, "fig_8_supp_source_data")
 os.makedirs(SOURCE_DATA_DIR, exist_ok=True)
 
 # ── Panel c parameters ──────────────────────────────────────────────────
@@ -283,6 +283,6 @@ sns.despine(ax=ax_c)
 ax_c.text(-0.18, 1.12, "c", transform=ax_c.transAxes,
           fontsize=11, fontweight="bold", va="top")
 
-outpath = os.path.join(FIGURES_DIR, "fig_19_supp.pdf")
+outpath = os.path.join(FIGURES_DIR, "fig_8_supp.pdf")
 fig.savefig(outpath, bbox_inches="tight", dpi=300, facecolor="white")
 print(f"\nFigure saved to {outpath}")
