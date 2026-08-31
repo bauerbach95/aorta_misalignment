@@ -855,14 +855,17 @@ Bayes factor greater than or equal to 100, unless otherwise stated.
 \subsection*{Gene set acrophase enrichment analysis}
 
 To identify gene sets whose members peak at coordinated times of day, we performed an acrophase
-enrichment analysis for Reactome pathways and transcription factor (TF) motif target sets. For each
-gene set with at least 5 members among the confident circadian cyclers, member acrophases were binned
-into 12 equal-width bins spanning the 24-hour cycle (each bin = 2 hours). A likelihood ratio
-statistic was computed as the ratio of the observed bin density to the expected uniform density
-($1/12$) at each bin, and the maximum across bins was retained as the enrichment score. Gene sets
-with a maximum likelihood ratio $\geq 2$ were considered enriched. Enriched sets were ranked by this
-score and the top sets visualized as rose plots. The circular mean and circular standard deviation of
-member acrophases were computed for each enriched set.
+enrichment analysis using two gene set databases: Reactome pathways obtained from the GSEA Molecular
+Signatures Database (MSigDB) and transcription factor motif target sets from the TRANSFAC and JASPAR
+PWM databases. Reactome pathways were filtered to exclude cancer-, disease-, and infection-related
+terms and restricted to sets with at most 500 member genes. For each gene set with at least 6
+members among the confident circadian cyclers, member acrophases were binned into 12 equal-width bins
+spanning the 24-hour cycle (each bin = 2 hours). A likelihood ratio statistic was computed as the
+ratio of the observed bin density to the expected uniform density ($1/12$) at each bin, and the
+maximum across bins was retained as the enrichment score. Gene sets with a maximum likelihood ratio
+$\geq 2$ were considered enriched. Enriched sets were ranked by this score and the top sets
+visualized as rose plots. The circular mean and circular standard deviation of member acrophases were
+computed for each enriched set.
 
 \subsection*{Two-group waveform enrichment analysis}
 
