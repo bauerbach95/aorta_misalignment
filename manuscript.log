@@ -452,7 +452,7 @@ File: se-ascii-print.def 2019/11/29 v1.12 stringenc: Printable ASCII characters
 ] [2] [1] [2]
 
 LaTeX Font Warning: Font shape `TU/ptm/m/it' undefined
-(Font)              using `TU/ptm/m/n' instead on input line 155.
+(Font)              using `TU/ptm/m/n' instead on input line 153.
 
 [3] [4] [5] [6] [7] [8] [9] [10] [11] [12] [13] [14]
 File: figures/fig_1.pdf Graphic file (type pdf)
@@ -476,90 +476,90 @@ File: figures/fig_5.pdf Graphic file (type pdf)
 ] [21]
 
 LaTeX Font Warning: Font shape `TU/ptm/b/it' undefined
-(Font)              using `TU/ptm/b/n' instead on input line 582.
+(Font)              using `TU/ptm/b/n' instead on input line 580.
 
 [22] [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36]
-[37] [38]
-Underfull \hbox (badness 4492) in paragraph at lines 1034--1035
+[37] [38] [39]
+Underfull \hbox (badness 4492) in paragraph at lines 1062--1063
 []\TU/ptm/m/it/12 Pan, H. et al. Single-Cell Genomics Reveals a Novel Cell Stat
 e During
  []
 
 
-Underfull \hbox (badness 4995) in paragraph at lines 1034--1035
+Underfull \hbox (badness 4995) in paragraph at lines 1062--1063
 \TU/ptm/m/it/12 Smooth Muscle Cell Phenotypic Switching and Potential Therapeut
 ic Tar-
  []
 
 
-Underfull \hbox (badness 2126) in paragraph at lines 1034--1035
+Underfull \hbox (badness 2126) in paragraph at lines 1062--1063
 \TU/ptm/m/it/12 gets for Atherosclerosis in Mouse and Human. Circulation 2060–2
 075 (2020)
  []
 
-[39]
+[40]
 LaTeX Font Info:    Trying to load font information for TU+pcr on input line 10
-44.
-LaTeX Font Info:    No file TUpcr.fd. on input line 1044.
+72.
+LaTeX Font Info:    No file TUpcr.fd. on input line 1072.
 
 
 LaTeX Font Warning: Font shape `TU/pcr/m/n' undefined
-(Font)              using `TU/lmr/m/n' instead on input line 1044.
+(Font)              using `TU/lmr/m/n' instead on input line 1072.
 
 (mt-LatinModernRoman.cfg
 File: mt-LatinModernRoman.cfg 2013/03/13 v1.0 microtype config. file: Latin Mod
 ern Roman (RS)
-) [40] [41] [42] [43] [44] [45] [46] [47] [48] [49]
-[50]
-Overfull \hbox (7.87782pt too wide) in paragraph at lines 1264--1266
+) [41] [42] [43] [44] [45] [46] [47] [48] [49] [50]
+[51]
+Overfull \hbox (7.87782pt too wide) in paragraph at lines 1292--1294
 \TU/ptm/m/it/12 This work was supported by 2U54TR001878 (G.A.F), R01GM125301 (M
 .L.), 5TT32HL007953-
  []
 
-[51]
+[52]
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `pcr' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [52]
+ [53]
 File: figures/fig_1_supp.pdf Graphic file (type pdf)
 <use figures/fig_1_supp.pdf>
- [53
+ [54
 
 ]
 Overfull \vbox (11.52263pt too high) has occurred while \output is active []
 
 
-[54]
+[55]
 File: figures/fig_2_supp_male.pdf Graphic file (type pdf)
 <use figures/fig_2_supp_male.pdf>
 File: figures/fig_2_supp_female.pdf Graphic file (type pdf)
 <use figures/fig_2_supp_female.pdf>
- [55]
+ [56]
 File: figures/fig_3_supp.pdf Graphic file (type pdf)
 <use figures/fig_3_supp.pdf>
- [56]
+ [57]
 File: old_figures/supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf Graphic
  file (type pdf)
 <use old_figures/supp_fig_5_male_aligned_vs_misaligned_rhythmicity.pdf>
- [57]
+ [58]
 File: figures/fig_4_supp.pdf Graphic file (type pdf)
 <use figures/fig_4_supp.pdf>
- [58]
-File: figures/fig_12_supp.pdf Graphic file (type pdf)
-<use figures/fig_12_supp.pdf>
  [59]
-File: figures/fig_19_supp.pdf Graphic file (type pdf)
-<use figures/fig_19_supp.pdf>
- [60] [61] [62
+File: figures/fig_7_supp.pdf Graphic file (type pdf)
+<use figures/fig_7_supp.pdf>
+ [60]
+File: figures/fig_8_supp.pdf Graphic file (type pdf)
+<use figures/fig_8_supp.pdf>
+ [61] [62] [63
 
-] [63]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1429.
- [64]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 1429.
+] [64]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1457.
+ [65]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1457.
  (manuscript.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1429.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1429.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 1457.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1457.
 
 Package rerunfilecheck Info: File `manuscript.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E.
@@ -567,6 +567,6 @@ Package rerunfilecheck Info: File `manuscript.out' has not changed.
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1429.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1457.
  )
-Output written on manuscript.xdv (66 pages, 962260 bytes).
+Output written on manuscript.xdv (67 pages, 981896 bytes).
