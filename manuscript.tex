@@ -892,6 +892,38 @@ non-parametric temporal regression and hypothesis testing pipeline was then reru
 each condition, and cycler counts were compared across a range of $\log_{10}$ circadian Bayes factor
 thresholds.
 
+\subsection*{Cross-sex log-likelihood analysis}
+
+To assess whether \textit{Bmal1} knockout altered the similarity of gene expression between sexes
+(Supplementary Figure 8c), we computed a cross-sex log-likelihood metric for each gene
+using the downsampled data described above (wild-type and knockout conditions matched for cell
+counts and library sizes across all four sex-by-genotype groups).
+
+For each gene, 300 posterior waveform samples were drawn independently from the male wild-type,
+female wild-type, male knockout, and female knockout approximate posteriors. To establish a
+biologically meaningful scale, we first computed the male knockout effect as the difference between
+male knockout and male wild-type posterior waveform samples. The 95\% credible interval width of
+this effect at each time point served as a normalization factor, ensuring that cross-sex differences
+were expressed relative to the magnitude of the knockout perturbation.
+
+The cross-sex log-likelihood for each gene in the wild-type condition was computed as:
+\begin{equation}
+\text{LL}_{\text{WT}}^{(j)} = -\sum_{s=1}^{S} \sum_{t=1}^{T}
+\frac{\left| \hat{\lambda}_{j,t,s}^{(\text{F,WT})} - \hat{\lambda}_{j,t,s}^{(\text{M,WT})} \right|}
+{w_{j,t}}
+\end{equation}
+where $\hat{\lambda}_{j,t,s}$ denotes the $s$-th posterior waveform sample for gene $j$ at time
+point $t$, superscripts indicate sex and genotype, and $w_{j,t}$ is the 95\% credible interval
+width of the male knockout effect at time point $t$. The knockout cross-sex log-likelihood
+$\text{LL}_{\text{KO}}^{(j)}$ was computed analogously using female and male knockout samples.
+Higher (less negative) values indicate greater similarity between sexes. Genes above the $y = x$
+line have more similar expression between sexes after knockout than in wild-type, consistent with
+sex-specific expression being mediated through the circadian clock.
+
+Genes were classified as wild-type cyclers (log$_{10}$ circadian Bayes factor $\geq 10$ in either
+male or female wild-type) or non-cyclers, and linear regression best-fit lines were computed
+separately for each group. Genes detected in fewer than 20\% of cells in any condition, as well as
+hemoglobin genes, were excluded from the analysis.
 
 %-----------------------------------------------------------------------
 % SUPPLEMENTARY METHODS 1
