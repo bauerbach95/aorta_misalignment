@@ -1,22 +1,22 @@
 """
-Generate Supplementary Figure 4: Gene-set waveform enrichment (Misaligned vs Aligned, male).
+Generate Supplementary Figure 6: Gene-set waveform enrichment (Misaligned vs Aligned, male).
 
 Two-group waveform enrichment analysis showing which pathways/TFs are
-differentially expressed at each ZT timepoint under misalignment.
+differentially expressed at each ZT timepoint under misalignment,
+plus additional proteostasis gene waveforms.
 
-Subplots (4 rows × 2 columns, SMC / Fibroblast):
-  a) KEGG pathway waveform enrichment
-  b) TF waveform enrichment
-  c) Reactome pathway waveform enrichment
-  d) GO Biological Process waveform enrichment
+Subplots:
+  a) KEGG pathway waveform enrichment (SMC / Fibroblast)
+  b) TF waveform enrichment (SMC / Fibroblast)
+  c) Additional proteostasis gene waveforms
 
 Output:
-  figures/fig_4_supp.pdf
-  figures/fig_4_supp_source_data/
+  figures/fig_6_supp.pdf
+  figures/fig_6_supp_source_data/
 """
 
 import os
-import re
+os.environ['KMP_DUPLICATE_LIB_OK'] = 'True'
 import sys
 import numpy as np
 import pandas as pd
@@ -27,16 +27,15 @@ import seaborn as sns
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from circadian_utils import (
     apply_style, CLUSTER_CELL_TYPE, ALIGNED_CONDITIONS, MISALIGNED_CONDITIONS,
-    CELL_TYPE_COLORS, FIGURES_DIR, ZT_LABELS, GENE_SETS_DIR,
+    CELL_TYPE_COLORS, FIGURES_DIR, ZT_LABELS,
     load_metrics, load_waveform_params, sample_waveforms,
     get_non_flat_genes, compute_gene_set_waveform, test_nonzero,
-    load_kegg_dict, load_tf_dict, load_reactome_dict, clean_reactome_name,
-    parse_gsea_set_file, format_label,
+    load_kegg_dict, load_tf_dict, format_label,
 )
 
 apply_style()
 
-SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, "fig_4_supp_source_data")
+SOURCE_DATA_DIR = os.path.join(FIGURES_DIR, "fig_6_supp_source_data")
 ZT_HOURS = [0, 6, 12, 18]
 SEX = "male"
 
@@ -48,28 +47,6 @@ TOP_N_WAVEFORMS = 15
 
 COND_AL = ALIGNED_CONDITIONS[SEX]
 COND_MIS = MISALIGNED_CONDITIONS[SEX]
-
-# GO:BP filtering
-GO_EXCLUDE_PATTERNS = [
-    r"VIRUS", r"VIRAL", r"BACTERIUM", r"BACTERIAL", r"PARASITE", r"PARASIT",
-    r"SYMBIONT", r"SYMBIOSIS",
-    r"OLFACT", r"TASTE", r"PHEROMONE",
-    r"EMBRYONIC", r"EMBRYO_DEVELOPMENT",
-    r"SPERMAT", r"OOCYTE", r"OVULAT",
-    r"NEURON_MIGRATION", r"NEUROGENESIS",
-]
-
-
-def filter_gobp_dict(d, max_genes=300):
-    pattern = re.compile("|".join(GO_EXCLUDE_PATTERNS), re.IGNORECASE)
-    return {k: v for k, v in d.items() if not pattern.search(k) and len(v) <= max_genes}
-
-
-def clean_gobp_name(name):
-    """GOBP_SMOOTH_MUSCLE_CONTRACTION -> Smooth muscle contraction."""
-    name = re.sub(r"^GOBP_", "", name)
-    name = name.replace("_", " ")
-    return name[0].upper() + name[1:].lower() if name else name
 
 
 def clean_kegg_name(name):
@@ -86,23 +63,13 @@ print("Step 1: Loading gene set databases...")
 
 kegg_dict = load_kegg_dict()
 tf_dict = load_tf_dict()
-reactome_dict = load_reactome_dict()
-
-gobp_raw = parse_gsea_set_file(
-    os.path.join(GENE_SETS_DIR, "go_biological_process")
-)
-gobp_dict = filter_gobp_dict(gobp_raw)
 print(f"  KEGG: {len(kegg_dict)} sets")
 print(f"  TF: {len(tf_dict)} sets")
-print(f"  Reactome: {len(reactome_dict)} sets")
-print(f"  GO:BP: {len(gobp_raw)} total -> {len(gobp_dict)} after filtering")
 
-GS_TYPES = ["KEGG", "TF", "Reactome", "GO:BP"]
+GS_TYPES = ["KEGG", "TF"]
 gene_set_dicts = {
     "KEGG": kegg_dict,
     "TF": tf_dict,
-    "Reactome": reactome_dict,
-    "GO:BP": gobp_dict,
 }
 
 # ── Step 2: Two-group waveform enrichment (misaligned vs aligned, male) ──────
@@ -224,25 +191,23 @@ proteo_height = 0.3 * n_proteo_rows
 
 from matplotlib.gridspec import GridSpecFromSubplotSpec
 
-fig = plt.figure(figsize=(8.5, 18 + proteo_height * 4), dpi=300)
+fig = plt.figure(figsize=(11, 6 + proteo_height * 4), dpi=300)
 fig.patch.set_facecolor("white")
 
-gs_top = GridSpec(5, 1, figure=fig, hspace=0.55,
-                  height_ratios=[1, 1, 1, 1, proteo_height * n_proteo_rows],
-                  left=0.10, right=0.95, top=0.96, bottom=0.04)
+gs_top = GridSpec(3, 1, figure=fig, hspace=0.45,
+                  height_ratios=[1, 1, proteo_height * n_proteo_rows],
+                  left=0.08, right=0.55, top=0.97, bottom=0.04)
 
-gs_enrich = [GridSpecFromSubplotSpec(1, 2, subplot_spec=gs_top[i], wspace=0.35) for i in range(4)]
+gs_enrich = [GridSpecFromSubplotSpec(1, 2, subplot_spec=gs_top[i], wspace=0.85) for i in range(2)]
 
 enrich_cell_types = list(ENRICH_CLUSTERS.values())
 
 clean_fns = {
     "KEGG": clean_kegg_name,
     "TF": clean_tf_name,
-    "Reactome": clean_reactome_name,
-    "GO:BP": clean_gobp_name,
 }
 
-panel_labels = ["a", "b", "c", "d"]
+panel_labels = ["a", "b"]
 
 for row_idx, gs_type in enumerate(GS_TYPES):
     for col_idx, ct in enumerate(enrich_cell_types):
@@ -269,8 +234,8 @@ for row_idx, gs_type in enumerate(GS_TYPES):
                         linewidth=1.0, label=label, zorder=3)
             ax.axhline(0, color="0.7", linewidth=0.4, linestyle="--", zorder=1)
             leg = ax.legend(
-                fontsize=3.5, frameon=False, loc="upper center",
-                bbox_to_anchor=(0.5, -0.2), ncol=2 if n_sets > 5 else 1,
+                fontsize=3.5, frameon=False, loc="upper left",
+                bbox_to_anchor=(1.08, 1.0), ncol=1,
                 handlelength=1.2, columnspacing=0.6)
             for text in leg.get_texts():
                 text.set_color("0.25")
@@ -285,13 +250,13 @@ for row_idx, gs_type in enumerate(GS_TYPES):
         sns.despine(ax=ax)
 
         if col_idx == 0:
-            ax.text(-0.22, 1.15, panel_labels[row_idx], transform=ax.transAxes,
+            ax.text(-0.12, 1.15, panel_labels[row_idx], transform=ax.transAxes,
                     fontsize=11, fontweight="bold", va="top")
 
 # ── Row e: supplementary proteostasis gene waveforms ──────────────────────
 
 gs_proteo = GridSpecFromSubplotSpec(n_proteo_rows, n_proteo_cols,
-                                    subplot_spec=gs_top[4],
+                                    subplot_spec=gs_top[2],
                                     hspace=0.5, wspace=0.35)
 
 for idx, gene in enumerate(found_supp):
@@ -309,12 +274,12 @@ for idx, gene in enumerate(found_supp):
         ax.legend(fontsize=4, frameon=False)
     sns.despine(ax=ax)
     if idx == 0:
-        ax.text(-0.3, 1.2, "e", transform=ax.transAxes,
+        ax.text(-0.3, 1.2, "c", transform=ax.transAxes,
                 fontsize=11, fontweight="bold", va="top")
 
 # Save
 os.makedirs(FIGURES_DIR, exist_ok=True)
-outpath = os.path.join(FIGURES_DIR, "fig_4_supp.pdf")
+outpath = os.path.join(FIGURES_DIR, "fig_6_supp.pdf")
 fig.savefig(outpath, bbox_inches="tight", dpi=300, facecolor="white")
 print(f"\nFigure saved to {outpath}")
 plt.close(fig)
