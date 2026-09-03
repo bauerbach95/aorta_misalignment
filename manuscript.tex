@@ -682,7 +682,7 @@ identified cells belonging to that cell type based on the transformed expression
 corresponding prior knowledge marker genes. Expression was transformed as follows:
 
 \begin{equation}
-X_{ij}^{(\text{transformed})} = \log_{10}\!\left( \min\!\left( \frac{X_{ij}}{L_{i}},\, 10^{-7} \right) \right)
+X_{ij}^{(\text{transformed})} = \log_{10}\!\left( \max\!\left( \frac{X_{ij}}{L_{i}},\, 10^{-7} \right) \right)
 \end{equation}
 
 Where $X_{ij}$ is the UMI count of gene $j$ in cell $i$ and $L_{i}$ is the library size of cell $i$.
