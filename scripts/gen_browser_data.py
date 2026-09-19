@@ -1,9 +1,10 @@
-"""Pre-compute posterior waveform summary statistics for the static gene browser.
+"""Export posterior waveform parameters for the static gene browser.
 
-For each gene × cell_type × condition, computes the 5th, 50th, and 95th
-percentiles of the Beta posterior at each of the 4 ZT bins using the closed-form
-inverse CDF (no sampling needed). Output is a set of chunked JSON files (~100
-genes each) plus an index mapping gene names to chunk filenames.
+For each gene × cell_type × condition, stores the Beta posterior parameters as a
+flat list [log_min, log_max, log_alpha x4, log_beta x4] (ZT0, 6, 12, 18). The
+browser computes quantiles and violin densities from these in closed form.
+Output is a set of chunked JSON files (~100 genes each) plus an index mapping
+gene names to chunk filenames.
 """
 
 import os
@@ -11,7 +12,6 @@ import sys
 import json
 import numpy as np
 import pandas as pd
-from scipy.stats import beta as beta_dist
 from collections import defaultdict
 
 DATA_DIR = os.path.join(
@@ -42,32 +42,15 @@ CONDITION_LABELS = {
     "female_misaligned_WT": "Female Misaligned WT",
 }
 
-QUANTILES = [0.05, 0.50, 0.95]
 CHUNK_SIZE = 100
 
 
-def compute_quantiles(alpha_df, beta_df, minmax_df):
-    """Compute exact Beta quantiles for all genes (closed-form, no sampling).
-
-    Returns dict: {gene: [[p05, p50, p95] for each of 4 ZT bins]}
-    """
+def export_params(alpha_df, beta_df, minmax_df):
+    """Return {gene: [log_min, log_max, log_alpha x4, log_beta x4]}."""
     genes = list(alpha_df.index)
-    alpha = np.exp(alpha_df.values)   # [num_genes, 4]
-    beta_vals = np.exp(beta_df.values)  # [num_genes, 4]
-    log_min = minmax_df.loc[genes, "log_min"].values[:, np.newaxis]  # [num_genes, 1]
-    log_max = minmax_df.loc[genes, "log_max"].values[:, np.newaxis]
-
-    result = {}
-    for qi, q in enumerate(QUANTILES):
-        raw = beta_dist.ppf(q, alpha, beta_vals)  # [num_genes, 4] in [0,1]
-        scaled = raw * (log_max - log_min) + log_min
-        for i, gene in enumerate(genes):
-            if gene not in result:
-                result[gene] = [[] for _ in range(4)]
-            for zt in range(4):
-                result[gene][zt].append(round(float(scaled[i, zt]), 3))
-
-    return result
+    mm = minmax_df.loc[genes, ["log_min", "log_max"]].values
+    params = np.hstack([mm, alpha_df.values, beta_df.values]).round(3)
+    return {g: params[i].tolist() for i, g in enumerate(genes)}
 
 
 def main():
@@ -87,10 +70,10 @@ def main():
             beta_df = pd.read_csv(os.path.join(path, "gene_log_beta.tsv"), sep="\t", index_col="gene")
             mm = pd.read_csv(os.path.join(path, "log_min_max.tsv"), sep="\t", index_col="gene")
 
-            print(f"  Computing {ct}/{cond} ({len(alpha)} genes)...", flush=True)
-            quantiles = compute_quantiles(alpha, beta_df, mm)
+            print(f"  Exporting {ct}/{cond} ({len(alpha)} genes)...", flush=True)
+            params = export_params(alpha, beta_df, mm)
 
-            for gene, q in quantiles.items():
+            for gene, q in params.items():
                 all_data[gene][ct][cond] = q
                 all_genes.add(gene)
 

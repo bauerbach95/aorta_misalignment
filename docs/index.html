@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Aortic Circadian Atlas Gene Browser</title>
 <script src="https://cdn.plot.ly/plotly-2.35.0.min.js"></script>
+<script src="beta.js"></script>
 <style>
   :root {
     --bg: #ffffff;
@@ -153,9 +154,10 @@
     opacity: 0.3;
   }
   .legend-swatch {
-    width: 20px;
-    height: 3px;
-    border-radius: 2px;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    opacity: 0.7;
   }
   footer {
     text-align: center;
@@ -189,7 +191,8 @@
 
 <footer>
   Data: Bayesian temporal regression posterior estimates from mouse aorta scRNA-seq.
-  Four ZT timepoints (0, 6, 12, 18h). Ribbons show 90% credible intervals.
+  Violins show the posterior density at each ZT (0, 6, 12, 18h); thick bars mark the interquartile range,
+  thin lines the 90% credible interval, and white dots the median. Computed in closed form from the Beta posteriors.
 </footer>
 
 <script>
@@ -212,6 +215,7 @@ const CELL_TYPE_DISPLAY = {
   "SMC2": "SMC subtype 2",
 };
 
+const ZT_HOURS = [0, 6, 12, 18];
 let INDEX = null;
 let CHUNK_CACHE = {};
 let ACTIVE_CONDITIONS = new Set(["male_aligned_WT"]);
@@ -351,7 +355,7 @@ function renderLegend() {
 
 function renderPlots(gene, geneData) {
   const title = document.getElementById("gene-title");
-  title.textContent = gene;
+  title.innerHTML = `<em>${gene}</em>`;
   title.style.display = "block";
 
   const grid = document.getElementById("plot-grid");
@@ -361,8 +365,6 @@ function renderPlots(gene, geneData) {
   const plotBg = isDark ? "#16213e" : "#f8f9fa";
   const gridColor = isDark ? "#2a2a4a" : "#dee2e6";
   const fontColor = isDark ? "#e8e8e8" : "#1a1a2e";
-
-  const ztHours = [0, 6, 12, 18];
 
   for (const ct of INDEX.cell_types) {
     const ctData = geneData[ct];
@@ -374,7 +376,8 @@ function renderPlots(gene, geneData) {
 
     const traces = [];
 
-    if (!ctData) {
+    const active = ctData ? INDEX.conditions.filter(c => ACTIVE_CONDITIONS.has(c) && ctData[c]) : [];
+    if (!active.length) {
       traces.push({
         x: [9], y: [0],
         mode: "text",
@@ -383,40 +386,13 @@ function renderPlots(gene, geneData) {
         showlegend: false,
       });
     } else {
-      for (const cond of INDEX.conditions) {
-        if (!ACTIVE_CONDITIONS.has(cond)) continue;
-        const condData = ctData[cond];
-        if (!condData) continue;
-
-        const color = CONDITION_COLORS[cond];
-        const LN10 = Math.LN10;
-        const p05 = condData.map(d => d[0] / LN10);
-        const med = condData.map(d => d[1] / LN10);
-        const p95 = condData.map(d => d[2] / LN10);
-
-        const rgbMatch = hexToRgb(color);
-
-        traces.push({
-          x: [...ztHours, ...ztHours.slice().reverse()],
-          y: [...p95, ...p05.slice().reverse()],
-          fill: "toself",
-          fillcolor: `rgba(${rgbMatch},0.15)`,
-          line: { color: "transparent" },
-          showlegend: false,
-          hoverinfo: "skip",
-        });
-
-        traces.push({
-          x: ztHours,
-          y: med,
-          mode: "lines+markers",
-          line: { color: color, width: 2 },
-          marker: { size: 5, color: color },
-          name: INDEX.condition_labels[cond],
-          showlegend: false,
-          hovertemplate: `${INDEX.condition_labels[cond]}<br>ZT%{x}h: %{y:.2f}<extra></extra>`,
-        });
-      }
+      const n = active.length;
+      const slot = Math.min(1.1, 4.8 / n);
+      const halfW = slot * 0.82;
+      active.forEach((cond, k) => {
+        const offset = (k - (n - 1) / 2) * slot;
+        traces.push(...violinTraces(ctData[cond], cond, offset, halfW));
+      });
     }
 
     const layout = {
@@ -427,17 +403,19 @@ function renderPlots(gene, geneData) {
         y: 0.95,
       },
       xaxis: {
-        title: { text: "ZT (hours)", font: { size: 10 } },
+        title: { text: "Zeitgeber Time (ZT)", font: { size: 10 } },
         tickvals: [0, 6, 12, 18],
-        ticktext: ["0", "6", "12", "18"],
-        range: [-1, 19],
-        gridcolor: gridColor,
+        ticktext: ["ZT0", "ZT6", "ZT12", "ZT18"],
+        range: [-3, 21],
+        showgrid: false,
+        zeroline: false,
         linecolor: gridColor,
         tickfont: { size: 9, color: fontColor },
       },
       yaxis: {
         title: { text: "Log₁₀ expression", font: { size: 10 } },
         gridcolor: gridColor,
+        zeroline: false,
         linecolor: gridColor,
         tickfont: { size: 9, color: fontColor },
       },
@@ -451,6 +429,56 @@ function renderPlots(gene, geneData) {
 
     Plotly.newPlot(plotDiv, traces, layout, { responsive: true, displayModeBar: false });
   }
+}
+
+const QUANTS = [0.05, 0.25, 0.5, 0.75, 0.95];
+const N_GRID = 80;
+
+function violinTraces(params, cond, cx0, halfW) {
+  const [lmin, lmax] = params;
+  const toLog10 = p => (lmin + p * (lmax - lmin)) / Math.LN10;
+  const rgb = hexToRgb(CONDITION_COLORS[cond]);
+  const label = INDEX.condition_labels[cond];
+  const vx = [], vy = [], wx = [], wy = [], ix = [], iy = [], mx = [], my = [], md = [];
+
+  ZT_HOURS.forEach((zt, i) => {
+    const a = Math.exp(params[2 + i]);
+    const b = Math.exp(params[6 + i]);
+    const cx = zt + cx0;
+    const [q05, q25, q50, q75, q95] = QUANTS.map(q => toLog10(betaPpf(q, a, b)));
+
+    const pLo = Math.max(betaPpf(0.001, a, b), 1e-12);
+    const pHi = Math.min(betaPpf(0.999, a, b), 1 - 1e-12);
+    const grid = [], logd = [];
+    for (let j = 0; j < N_GRID; j++) {
+      const p = pLo + (pHi - pLo) * j / (N_GRID - 1);
+      grid.push(p);
+      logd.push(betaLogPdf(p, a, b));
+    }
+    const maxLog = Math.max(...logd);
+    const w = logd.map(l => Math.exp(l - maxLog) * halfW);
+    const ys = grid.map(toLog10);
+    for (let j = 0; j < N_GRID; j++) { vx.push(cx - w[j]); vy.push(ys[j]); }
+    for (let j = N_GRID - 1; j >= 0; j--) { vx.push(cx + w[j]); vy.push(ys[j]); }
+    vx.push(null); vy.push(null);
+
+    wx.push(cx, cx, null); wy.push(q05, q95, null);
+    ix.push(cx, cx, null); iy.push(q25, q75, null);
+    mx.push(cx); my.push(q50); md.push([zt, q05, q95]);
+  });
+
+  return [
+    { x: vx, y: vy, mode: "lines", fill: "toself", fillcolor: `rgba(${rgb},0.3)`,
+      line: { color: `rgba(${rgb},0.75)`, width: 0.7 }, hoverinfo: "skip", showlegend: false },
+    { x: wx, y: wy, mode: "lines", line: { color: `rgba(${rgb},0.8)`, width: 1.2 },
+      hoverinfo: "skip", showlegend: false },
+    { x: ix, y: iy, mode: "lines", line: { color: `rgba(${rgb},0.8)`, width: 4.5 },
+      hoverinfo: "skip", showlegend: false },
+    { x: mx, y: my, mode: "markers", customdata: md, showlegend: false,
+      marker: { size: 7, color: "#ffffff", line: { color: `rgb(${rgb})`, width: 1.5 } },
+      hovertemplate: `${label}<br>ZT%{customdata[0]}: median %{y:.2f}` +
+        `<br>90% CI [%{customdata[1]:.2f}, %{customdata[2]:.2f}]<extra></extra>` },
+  ];
 }
 
 function hexToRgb(hex) {
