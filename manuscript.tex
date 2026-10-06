@@ -7,7 +7,14 @@
 \usepackage{hyperref}
 \usepackage{setspace}
 \usepackage{microtype}
-\usepackage{times}
+\usepackage{iftex}
+\ifPDFTeX
+    \usepackage{times}
+\else
+    \usepackage{fontspec}
+    \setmainfont{Times New Roman}
+    \setmonofont{Courier New}
+\fi
 \usepackage{titlesec}
 \usepackage{parskip}
 \usepackage{xcolor}
@@ -585,7 +592,7 @@ shown.
 
 \subsection*{Inducible deletion of the \textit{Bmal1} gene in \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice}
 
-All research described in the manuscript adheres to relevant ethical regulations. For the aorta data generated, Animal Care Protocol #805035 was approved by the Institutional Animal Care and Use Committee of the University of Pennsylvania. At 8 weeks of age, \textit{Bmal1} was inducibly deleted in
+All research described in the manuscript adheres to relevant ethical regulations. For the aorta data generated, Animal Care Protocol \#805035 was approved by the Institutional Animal Care and Use Committee of the University of Pennsylvania. At 8 weeks of age, \textit{Bmal1} was inducibly deleted in
 \textit{Bmal1}$^{\text{fl/fl}}$:CAGG$^{\text{creERt2/+}}$ mice by administering tamoxifen via oral
 gavage (100 mg/kg of body weight) for 5 days. Protein expression loss of \textit{Bmal1} was confirmed via Western blot (Supplementary Figure 10).
 
